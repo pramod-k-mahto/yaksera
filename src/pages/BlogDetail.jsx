@@ -3,163 +3,181 @@ import { motion } from "framer-motion";
 
 function BlogDetail() {
   return (
-    <section className="bg-[#f5f5f5] px-4 py-16 md:px-8">
-      <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[1.4fr_0.8fr]">
+    <section
+      style={{
+        background: "var(--page-bg)",
+        fontFamily: "var(--font-primary)",
+      }}
+      className="px-6 md:px-12 lg:px-20 py-16"
+    >
+      <div className="mx-auto max-w-7xl grid gap-14 lg:grid-cols-[1.4fr_0.8fr]">
+
         {/* LEFT CONTENT */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
-          className="space-y-8"
+          className="space-y-12"
         >
-          {/* Heading */}
-          <div>
-            <p className="mb-2 text-sm font-semibold uppercase tracking-wider text-red-500">
-              Vue Js
-            </p>
 
-            <h1 className="max-w-4xl text-3xl font-bold leading-tight text-[#071c52] md:text-5xl">
-              How is Vuejs Development beneficial for businesses?
-            </h1>
+          {/* CATEGORY */}
+          <div className="flex items-center gap-3">
+            <svg width="50" height="14" viewBox="0 0 60 16">
+              <path
+                d="M0 8 Q10 2 20 8 Q30 14 40 8 Q50 2 60 8"
+                fill="none"
+                stroke="#0d1f4e"
+                strokeWidth="2"
+              />
+            </svg>
+
+            <span
+              style={{
+                fontSize: "12px",
+                fontWeight: 700,
+                letterSpacing: "0.25em",
+                color: "#0d1f4e",
+                textTransform: "uppercase",
+              }}
+            >
+              Vue.js Development
+            </span>
           </div>
 
-          {/* Banner */}
+          {/* TITLE (Hero Style) */}
+          <h1
+            style={{
+              fontSize: "52px",
+              fontWeight: 900,
+              lineHeight: 1.05,
+              color: "#0d1f4e",
+            }}
+          >
+            How Vue.js Development is{" "}
+            <span style={{ color: "#e8192c" }}>beneficial</span> for businesses?
+          </h1>
+
+          {/* IMAGE */}
           <motion.div
             whileHover={{ scale: 1.01 }}
-            transition={{ duration: 0.3 }}
-            className="overflow-hidden rounded-3xl shadow-2xl"
+            className="rounded-xl overflow-hidden"
+            style={{
+              boxShadow: "var(--shadow-md)",
+            }}
           >
             <img
               src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1400&auto=format&fit=crop"
-              alt="Vue Js Development"
-              className="h-full max-h-[420px] w-full object-cover"
+              className="w-full h-[420px] object-cover"
+              alt="Vue"
             />
           </motion.div>
 
-          {/* Paragraph */}
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2 }}
-            className="text-lg leading-9 text-gray-600"
-          >
-            In simple words, Vuejs is an open-source JavaScript framework.
-            Vuejs web application development mainly focuses upon single-page
-            applications and user interfaces. It is a progressive framework
-            that simplifies development through reusable components, reactive
-            architecture, and scalable frontend solutions.
-          </motion.p>
+          {/* INTRO */}
+          <p style={{ fontSize: "18px", color: "#4b5563", lineHeight: 1.8 }}>
+            Vue.js is a modern JavaScript framework that helps developers build
+            fast, scalable and interactive web applications with clean structure.
+          </p>
 
-          {/* Section */}
-          <div className="space-y-5">
-            <h2 className="text-3xl font-bold leading-tight text-[#071c52]">
-              Benefits Vuejs Development, the most promising framework in the
-              market
+          {/* SECTION 1 */}
+          <div className="space-y-4">
+            <h2 style={{ fontSize: "36px", fontWeight: 900, color: "#0d1f4e" }}>
+              Why businesses choose Vue.js
             </h2>
 
-            <p className="text-lg leading-9 text-gray-600">
-              Vue.js provides a modern ecosystem where developers can build
-              highly interactive and scalable applications. It offers smooth
-              integration, lightweight architecture, component-based
-              development, and excellent performance for enterprise-level
-              solutions.
+            <p style={{ fontSize: "18px", color: "#4b5563", lineHeight: 1.8 }}>
+              Vue.js reduces development complexity and allows faster delivery of
+              scalable applications using reusable components.
             </p>
 
-            <p className="text-lg leading-9 text-gray-600">
-              Businesses prefer Vue.js because of its flexibility, faster
-              development cycle, and clean coding structure. It enables teams to
-              create seamless user experiences while maintaining excellent
-              maintainability.
+            <p style={{ fontSize: "18px", color: "#4b5563", lineHeight: 1.8 }}>
+              It is widely used in startups and enterprise systems due to its
+              flexibility and performance.
             </p>
           </div>
 
-          {/* Section */}
-          <div className="space-y-5">
-            <h2 className="text-3xl font-bold leading-tight text-[#071c52]">
-              What is the use of Vuejs?
+          {/* SECTION 2 */}
+          <div className="space-y-4">
+            <h2 style={{ fontSize: "36px", fontWeight: 900, color: "#0d1f4e" }}>
+              Use cases of Vue.js
             </h2>
 
-            <p className="text-lg leading-9 text-gray-600">
-              Vue.js is widely used for developing dynamic user interfaces,
-              dashboards, SaaS applications, admin panels, and modern web
-              platforms. Developers can easily create reusable UI components
-              with HTML, CSS, and JavaScript.
+            <p style={{ fontSize: "18px", color: "#4b5563", lineHeight: 1.8 }}>
+              Used in dashboards, SaaS platforms, admin panels and enterprise
+              web systems.
             </p>
 
-            <p className="text-lg leading-9 text-gray-600">
-              It also supports rapid prototyping, smooth API integrations, and
-              efficient state management, making it ideal for both startups and
-              large-scale enterprise applications.
+            <p style={{ fontSize: "18px", color: "#4b5563", lineHeight: 1.8 }}>
+              Supports fast API integration and real-time application features.
             </p>
           </div>
 
-          {/* Conclusion */}
-          <div className="space-y-5">
-            <h2 className="text-3xl font-bold leading-tight text-[#071c52]">
+          {/* CONCLUSION */}
+          <div className="space-y-4">
+            <h2 style={{ fontSize: "36px", fontWeight: 900, color: "#0d1f4e" }}>
               Conclusion
             </h2>
 
-            <p className="text-lg leading-9 text-gray-600">
-              Vue.js development provides flexibility, scalability, and modern
-              frontend architecture for businesses looking to build high-quality
-              digital products. From clean UI experiences to optimized
-              performance, Vue.js remains one of the most powerful JavaScript
-              frameworks in the modern development ecosystem.
+            <p style={{ fontSize: "18px", color: "#4b5563", lineHeight: 1.8 }}>
+              Vue.js is one of the most powerful frameworks for building modern,
+              scalable and high-performance applications.
             </p>
           </div>
+
         </motion.div>
 
         {/* RIGHT SIDEBAR */}
         <motion.div
-          initial={{ opacity: 0, x: 40 }}
+          initial={{ opacity: 0, x: 60 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.7 }}
           className="sticky top-10 h-fit"
         >
-          <div className="rounded-3xl border border-gray-200 bg-white p-6 shadow-xl">
+          <div
+            style={{
+              background: "#fff",
+              borderRadius: "24px",
+              padding: "40px",
+              boxShadow: "var(--shadow-lg)",
+            }}
+          >
+
             <div className="space-y-5">
-              {/* Inputs */}
-              <div className="grid gap-4 md:grid-cols-2">
-                <input
-                  type="text"
-                  placeholder="Full Name"
-                  className="h-14 rounded-xl border border-gray-200 px-4 text-sm outline-none transition-all focus:border-red-500"
-                />
 
-                <input
-                  type="email"
-                  placeholder="Email"
-                  className="h-14 rounded-xl border border-gray-200 px-4 text-sm outline-none transition-all focus:border-red-500"
-                />
-              </div>
+              <input
+                placeholder="Full Name"
+                className="w-full h-14 px-4 rounded-xl border"
+              />
 
-              {/* Select */}
-              <select className="h-14 w-full rounded-xl border border-gray-200 px-4 text-sm text-gray-600 outline-none transition-all focus:border-red-500">
+              <input
+                placeholder="Email"
+                className="w-full h-14 px-4 rounded-xl border"
+              />
+
+              <select className="w-full h-14 px-4 rounded-xl border">
                 <option>Select Service</option>
                 <option>Web Development</option>
                 <option>Mobile App Development</option>
-                <option>Digital Marketing</option>
                 <option>UI/UX Design</option>
               </select>
 
-              {/* Textarea */}
               <textarea
                 rows={6}
-                placeholder="Tell us about your project."
-                className="w-full rounded-xl border border-gray-200 p-4 text-sm outline-none transition-all focus:border-red-500"
+                placeholder="Tell us about your project..."
+                className="w-full p-4 rounded-xl border"
               />
 
-              {/* Button */}
               <motion.button
                 whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className="flex h-14 w-full items-center justify-center rounded-xl bg-red-500 text-sm font-semibold text-white shadow-lg transition-all hover:bg-red-600"
+                className="w-full h-14 rounded-xl font-bold text-white"
+                style={{ background: "#e8192c" }}
               >
                 Send Inquiry
               </motion.button>
+
             </div>
           </div>
         </motion.div>
+
       </div>
     </section>
   );

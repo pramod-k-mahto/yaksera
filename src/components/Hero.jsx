@@ -1,22 +1,21 @@
 import { motion } from "motion/react";
 import OurPreciousClients from "./OurPreciousClients";
-import HeroImage from '../assets/HeroImage.png'
+import HeroImage from "../assets/HeroImage.png";
 
 function Hero() {
   return (
     <div>
 
-      {/* HERO SECTION */}
-      <section className=" relative z-20  max-w-7xl mx-auto px-6 md:px-12 lg:px-20 pt-16 pb-20">
+      <section className="relative z-20 max-w-7xl mx-auto px-6 md:px-12 lg:px-20 pt-16 pb-20">
 
         <div className="flex flex-col lg:flex-row items-center gap-14">
 
-          {/* LEFT SIDE */}
+          {/* LEFT */}
           <div className="flex-1 max-w-2xl">
 
-            {/* TOP LABEL */}
+            {/* LABEL */}
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
               className="flex items-center gap-3 mb-8"
@@ -25,73 +24,68 @@ function Hero() {
                 <path
                   d="M0 8 Q10 2 20 8 Q30 14 40 8 Q50 2 60 8"
                   fill="none"
-                  stroke="#0d1b3e"
+                  stroke="#0d1f4e"
                   strokeWidth="2"
                 />
               </svg>
 
-              <span className="text-xs font-bold tracking-[0.25em] text-[#0d1b3e] uppercase">
+              <span className="text-xs font-bold tracking-[0.25em] text-[#0d1f4e] uppercase">
                 Premium IT Outsourcing Partner
               </span>
             </motion.div>
 
-            {/* HEADING */}
+            {/* TITLE */}
             <motion.h1
-              initial={{ opacity: 0, y: 80 }}
+              initial={{ opacity: 0, y: 60 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.1 }}
-              className="text-4xl sm:text-5xl lg:text-5xl font-black leading-[1.05] text-[#0d1b3e] mb-6"
+              className="text-5xl font-black leading-[1.05] text-[#0d1f4e]"
             >
-              Build Scale
-              <br />
+              Build Scale <br />
 
-              <motion.span
-                initial={{ opacity: 0, y: 80 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-                className="text-red-600 inline-block"
-              >
+              <span className="text-[#e8192c] inline-block">
                 Innovate
-              </motion.span>{" "}
-              with
-              <br />
+              </span>{" "}
+              with <br />
               Expert Engineers.
             </motion.h1>
 
-            {/* PARAGRAPH */}
+            {/* DESCRIPTION */}
             <motion.p
-              initial={{ opacity: 0, y: 40 }}
+              initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
-              className="text-gray-600 text-base md:text-lg leading-7 mb-8 max-w-xl"
+              transition={{ duration: 0.7, delay: 0.25 }}
+              className="mt-6 text-gray-600 text-lg leading-8 max-w-xl"
             >
               Transform your vision into reality with{" "}
-              <span className="text-red-600 font-semibold">YAKSERA's</span>{" "}
+              <span className="text-[#e8192c] font-semibold">
+                YAKSERA
+              </span>{" "}
               world-class IT outsourcing solutions that help businesses grow faster and smarter.
             </motion.p>
 
             {/* BUTTONS */}
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              className="flex flex-wrap gap-4 mb-10"
+              transition={{ duration: 0.7, delay: 0.35 }}
+              className="flex flex-wrap gap-4 mt-8"
             >
-              <button className="bg-red-600 hover:bg-red-700 text-white font-semibold text-sm px-8 py-4 rounded-xl transition">
+              <button className="bg-[#e8192c] hover:bg-[#c8001e] text-white font-semibold text-sm px-8 py-4 rounded-xl transition shadow-md">
                 Discuss your ideas
               </button>
 
-              <button className="border-2 border-red-600 text-red-600 hover:bg-red-50 font-semibold text-sm px-8 py-4 rounded-xl transition">
+              <button className="border-2 border-[#e8192c] text-[#e8192c] hover:bg-red-50 font-semibold text-sm px-8 py-4 rounded-xl transition">
                 Case Studies
               </button>
             </motion.div>
 
             {/* STATS */}
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.5 }}
-              className="border-t border-gray-500 pt-8 flex flex-wrap gap-10"
+              transition={{ duration: 0.7, delay: 0.45 }}
+              className="border-t border-gray-300 mt-10 pt-8 flex flex-wrap gap-10"
             >
               {[
                 { num: "12+", label: "Years of Excellence" },
@@ -99,10 +93,10 @@ function Hero() {
                 { num: "40+", label: "Expert Engineers" },
               ].map((s) => (
                 <div key={s.label}>
-                  <div className="text-3xl font-black text-[#0d1b3e]">
+                  <div className="text-3xl font-black text-[#0d1f4e]">
                     {s.num}
                   </div>
-                  <div className="text-sm text-red-600 font-semibold mt-1">
+                  <div className="text-sm text-[#e8192c] font-semibold mt-1">
                     {s.label}
                   </div>
                 </div>
@@ -111,7 +105,7 @@ function Hero() {
 
           </div>
 
-          {/* RIGHT IMAGE (from right animation) */}
+          {/* RIGHT */}
           <div className="flex-1 flex justify-center lg:justify-end">
 
             <motion.div
@@ -123,7 +117,7 @@ function Hero() {
               <img
                 src={HeroImage}
                 alt="Team"
-                className=" w-full h-[370px] object-cover "
+                className="w-full h-[370px] object-cover rounded-xl"
               />
 
               {/* BADGE */}
@@ -134,7 +128,7 @@ function Hero() {
                   <div className="text-xs text-gray-400">
                     Currently Available
                   </div>
-                  <div className="text-sm font-bold text-[#0d1b3e]">
+                  <div className="text-sm font-bold text-[#0d1f4e]">
                     40+ Engineers Ready to Deploy
                   </div>
                 </div>
@@ -143,6 +137,7 @@ function Hero() {
             </motion.div>
 
           </div>
+
         </div>
       </section>
 

@@ -8,9 +8,11 @@ export default function Call() {
           <p className="text-white/60 text-sm font-medium mb-4 tracking-wide">
             Let's Build Something Great
           </p>
+
           <h2 className="text-white text-4xl sm:text-5xl font-bold leading-tight tracking-tight mb-8">
             Ready to start your<br className="hidden sm:block" /> next project?
           </h2>
+
           <button className="bg-[#d0271d] hover:bg-[#b01f17] active:scale-95 text-white text-sm font-semibold px-6 py-3 rounded-lg transition-all duration-200 shadow-lg">
             Contact Us
           </button>
@@ -18,6 +20,7 @@ export default function Call() {
 
         {/* Right Card */}
         <div className="w-full max-w-sm lg:max-w-[360px] bg-white rounded-2xl shadow-2xl p-6 sm:p-7">
+
           {/* Status */}
           <div className="flex items-center gap-2 mb-5">
             <span className="relative flex w-2.5 h-2.5">
@@ -46,6 +49,7 @@ export default function Call() {
           <h3 className="text-gray-900 text-[17px] font-bold mb-1">
             Quick 15-minute call
           </h3>
+
           <p className="text-gray-400 text-sm mb-6">
             Pick a time that works for you.
           </p>
@@ -54,6 +58,7 @@ export default function Call() {
           <button className="w-full bg-[#d0271d] hover:bg-[#b01f17] active:scale-[0.98] text-white font-bold text-sm py-3.5 rounded-xl transition-all duration-200 shadow-md shadow-red-200">
             Book a free call
           </button>
+
         </div>
 
       </div>

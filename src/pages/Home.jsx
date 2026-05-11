@@ -1,3 +1,7 @@
+// HOME.jsx
+
+import { Element } from "react-scroll";
+
 import FAQ from "./FAQ";
 import Call from "./Call";
 import TStack from "./TStack";
@@ -15,55 +19,84 @@ import WhyYaksera from "./WhyYaksera";
 function Home() {
   return (
     <div className="bg-white">
-      {/* HERO WRAPPER */}
+
+      {/* HERO */}
       <div className="relative isolate overflow-hidden">
-        {/* LEFT ROTATING */}
+
+        {/* LEFT */}
         <div
           className="
-            absolute
-            top-[-120px]
-            left-[-520px]
-            opacity-40
-            z-0
-            pointer-events-none
-            hidden lg:block
-
+            absolute top-[-120px] left-[-520px]
+            z-0 hidden opacity-40 pointer-events-none lg:block
           "
         >
           <RotateLeft />
         </div>
 
-        {/* RIGHT ROTATING */}
+        {/* RIGHT */}
         <div
           className="
-            absolute
-            top-[-120px]
-            right-[-520px]
-            opacity-40
-            z-0
-            pointer-events-none
-            hidden lg:block
+            absolute top-[-120px] right-[-520px]
+            z-0 hidden opacity-40 pointer-events-none lg:block
           "
         >
           <RotateLeft />
         </div>
 
-        {/* CONTENT */}
         <div className="relative z-20">
+          <Element>
+
           <Hero />
+          </Element>
           <WhyYaksera />
-          <Services />
+
+          {/* SERVICES */}
+          <Element
+            name="services"
+            className="scroll-mt-24"
+          >
+            <Services />
+          </Element>
         </div>
       </div>
 
-      <Portfolio />
-      <Blog />
-      <Testimonials />
+      {/* PORTFOLIO */}
+      <Element
+        name="portfolio"
+        className="scroll-mt-24"
+      >
+        <Portfolio />
+      </Element>
+
+      {/* BLOG */}
+      <Element
+        name="blog"
+        className="scroll-mt-24"
+      >
+        <Blog />
+      </Element>
+
+      {/* TESTIMONIALS */}
+      <Element
+        name="testimonials"
+        className="scroll-mt-24"
+      >
+        <Testimonials />
+      </Element>
+
       <TStack />
       <GlobalDelivery />
       <FAQ />
       <ExpertiseAreas />
-      <Process />
+
+      {/* PROCESS */}
+      <Element
+        name="process"
+        className="scroll-mt-24"
+      >
+        <Process />
+      </Element>
+
       <Call />
     </div>
   );

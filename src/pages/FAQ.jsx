@@ -39,24 +39,28 @@ export default function FAQ() {
   const toggle = (i) => setOpen(open === i ? null : i);
 
   return (
-    <section className="min-h-screen bg-[#f9f9f7] flex flex-col items-center justify-center px-4 py-16 sm:py-24">
+    <section className="min-h-screen bg-[#f9f9f7] flex flex-col items-center justify-center px-4 py-16 sm:py-24 font-sans">
+
       {/* Header */}
       <div className="text-center mb-10 sm:mb-14">
         <div className="flex items-center justify-center gap-2 mb-3">
           <span className="text-xs font-semibold tracking-[0.18em] uppercase text-gray-400">
             › GOT QUESTIONS ‹
           </span>
+
           <span className="font-serif italic text-[#d0271d] text-lg ml-2 relative top-1">
             Let's clear things up ↙
           </span>
         </div>
+
         <h2 className="font-serif text-4xl sm:text-5xl font-bold text-gray-900 tracking-tight">
-          We've got answers
+          We've  <span  className="text-[#e8192c]" >got</span>  answers
         </h2>
       </div>
 
       {/* FAQ Card */}
       <div className="w-full max-w-2xl bg-white rounded-2xl shadow-sm border border-gray-100 px-6 sm:px-8 py-2">
+
         {faqs.map((faq, i) => (
           <div
             key={i}
@@ -69,6 +73,7 @@ export default function FAQ() {
               <span className="text-base sm:text-[17px] font-semibold text-gray-800 leading-snug">
                 {faq.q}
               </span>
+
               <span
                 className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-white text-xl font-light mt-0.5 transition-all duration-300 ${
                   open === i
@@ -79,6 +84,7 @@ export default function FAQ() {
                 +
               </span>
             </button>
+
             <div
               className={`overflow-hidden transition-all duration-350 ease-in-out ${
                 open === i ? "max-h-48 pb-6" : "max-h-0"
@@ -90,10 +96,12 @@ export default function FAQ() {
             </div>
           </div>
         ))}
+
       </div>
 
       {/* Footer CTA */}
       <div className="mt-10 flex flex-col items-center gap-3">
+
         <div className="flex items-center">
           {avatars.map((src, i) => (
             <img
@@ -102,17 +110,23 @@ export default function FAQ() {
               alt="team"
               width={36}
               height={36}
-              className={`rounded-full border-2 border-white ${i !== 0 ? "-ml-2.5" : ""}`}
+              className={`rounded-full border-2 border-white ${
+                i !== 0 ? "-ml-2.5" : ""
+              }`}
             />
           ))}
         </div>
+
         <p className="text-gray-800 font-medium text-[15px]">
           Still have questions?
         </p>
+
         <button className="bg-[#d0271d] hover:bg-[#b01f17] active:scale-95 text-white text-sm font-semibold px-6 py-2.5 rounded-full transition-all duration-200 shadow-md shadow-red-200">
           Let's Talk
         </button>
+
       </div>
+
     </section>
   );
 }

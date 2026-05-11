@@ -29,9 +29,9 @@ function WhyYaksera() {
   return (
     <section
       ref={ref}
-      className="flex items-center justify-center px-4 sm:px-6 lg:px-8 py-14 sm:py-20 bg-white"
+      className="bg-white flex items-center justify-center px-6 md:px-12 lg:px-20 py-20"
     >
-      <div className="max-w-6xl w-full grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center">
+      <div className="max-w-6xl w-full grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
 
         {/* LEFT */}
         <motion.div
@@ -40,45 +40,58 @@ function WhyYaksera() {
           animate={inView ? "show" : "hidden"}
           className="space-y-6"
         >
+
+          {/* TITLE */}
           <motion.h2
             variants={fadeUp}
-            className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-gray-900 leading-tight"
+            className="text-3xl lg:text-4xl font-black text-[#0d1f4e] leading-tight"
           >
-            Why Choose <span className="text-red-600">YAKSERA?</span>
+            Why Choose{" "}
+            <span className="text-[#e8192c]">YAKSERA?</span>
           </motion.h2>
 
+          {/* DESCRIPTION */}
           <motion.p
             variants={fadeUp}
-            className="text-gray-500 text-sm sm:text-base leading-relaxed max-w-md"
+            className="text-gray-600 text-base leading-7 max-w-md"
           >
             We combine deep technical expertise with a{" "}
-            <span className="text-red-600 font-medium">transparent, collaborative</span>{" "}
+            <span className="text-[#e8192c] font-semibold">
+              transparent, collaborative
+            </span>{" "}
             approach to deliver{" "}
-            <span className="text-red-600 font-medium">software</span> that drives real business results.
+            <span className="text-[#e8192c] font-semibold">
+              scalable software
+            </span>{" "}
+            that drives real business results.
           </motion.p>
 
           {/* FEATURES */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 pt-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-2">
+
             {features.map((f) => (
               <motion.div
                 key={f.title}
                 variants={fadeUp}
                 className="flex gap-3 items-start"
               >
-                <div className="w-9 h-9 flex items-center justify-center rounded-lg bg-red-50 border text-sm shrink-0">
+                {/* ICON BOX */}
+                <div className="w-10 h-10 flex items-center justify-center rounded-lg bg-[#e8192c]/10 border border-[#e8192c]/20 text-sm shrink-0">
                   {f.icon}
                 </div>
 
+                {/* TEXT */}
                 <div>
-                  <p className="text-sm font-medium text-red-600">
+                  <p className="text-sm font-semibold text-[#e8192c]">
                     {f.title}
                   </p>
-                  <p className="text-xs sm:text-sm text-gray-400 leading-snug">
+                  <p className="text-sm text-gray-500 leading-snug">
                     {f.desc}
                   </p>
                 </div>
               </motion.div>
             ))}
+
           </div>
         </motion.div>
 
@@ -89,13 +102,14 @@ function WhyYaksera() {
           transition={{ duration: 0.7 }}
           className="relative w-full"
         >
-          <div className="rounded-2xl overflow-hidden relative">
+
+          <div className="rounded-2xl overflow-hidden relative shadow-lg">
 
             {/* IMAGE */}
             <img
               src={people}
               alt="Team collaboration"
-              className="w-full h-[260px] sm:h-[320px] lg:h-[420px] object-cover"
+              className="w-full h-[280px] sm:h-[340px] lg:h-[420px] object-cover"
             />
 
             {/* BADGE */}
@@ -103,12 +117,12 @@ function WhyYaksera() {
               initial={{ scale: 0.8, opacity: 0 }}
               animate={inView ? { scale: 1, opacity: 1 } : {}}
               transition={{ delay: 0.4 }}
-              className="absolute bottom-3 left-3 sm:bottom-5 sm:left-5 bg-red-600 text-white px-4 sm:px-5 py-2 sm:py-3 rounded-xl shadow-lg"
+              className="absolute bottom-5 left-5 bg-[#e8192c] text-white px-5 py-3 rounded-xl shadow-lg"
             >
-              <p className="text-xl sm:text-3xl font-bold leading-none">
+              <p className="text-2xl sm:text-3xl font-black leading-none">
                 98%
               </p>
-              <p className="text-[9px] sm:text-[10px] tracking-widest mt-1 opacity-90">
+              <p className="text-[10px] tracking-widest mt-1 opacity-90">
                 CLIENT RETENTION
               </p>
             </motion.div>

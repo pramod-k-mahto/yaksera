@@ -22,40 +22,43 @@ const clients = [
   { img: techwave, name: "TechWave" },
 ];
 
-function OurPreciousClients() {
+export default function OurPreciousClients() {
   const sliderRef = useRef(null);
 
-  const moveSlider = (direction) => {
-    const slider = sliderRef.current;
-    if (!slider) return;
+  const moveSlider = (dir) => {
+    const el = sliderRef.current;
+    if (!el) return;
 
-    const cardWidth = 220;
+    const step = 220;
 
-    slider.style.animation = "none";
+    // pause animation
+    el.style.animation = "none";
 
-    slider.scrollBy({
-      left: direction === "left" ? -cardWidth : cardWidth,
+    el.scrollBy({
+      left: dir === "left" ? -step : step,
       behavior: "smooth",
     });
 
     setTimeout(() => {
-      slider.style.animation = "scroll 25s linear infinite";
-    }, 1500);
+      el.style.animation = "scroll 25s linear infinite";
+    }, 1200);
   };
 
+  const loopedClients = [...clients, ...clients];
+
   return (
-    <section className="relative overflow-hidden py-20 ">
+    <section className="relative overflow-hidden py-20">
 
       {/* TITLE */}
       <div className="text-center mb-14">
-        <h1 className="text-3xl md:text-5xl font-extrabold text-[#0b2c6f]">
+        <h1 className="text-3xl md:text-4xl font-extrabold text-[#0b2c6f]">
           Our Precious <span className="text-red-500">Clients</span>
         </h1>
 
         <div className="flex justify-center items-center gap-3 mt-4">
-          <div className="w-14 h-1 bg-blue-900 rounded"></div>
-          <div className="w-3 h-3 bg-red-500 rounded-full"></div>
-          <div className="w-14 h-1 bg-red-500 rounded"></div>
+          <div className="w-14 h-1 bg-blue-900 rounded" />
+          <div className="w-3 h-3 bg-red-500 rounded-full" />
+          <div className="w-14 h-1 bg-red-500 rounded" />
         </div>
       </div>
 
@@ -63,41 +66,23 @@ function OurPreciousClients() {
       <div className="relative w-full overflow-hidden">
 
         {/* fade edges */}
-        <div className="absolute left-0 top-0 h-full w-20 bg-gradient-to-r from-white to-transparent z-10"></div>
-        <div className="absolute right-0 top-0 h-full w-20 bg-gradient-to-l from-white to-transparent z-10"></div>
+        <div className="absolute left-0 top-0 h-full w-20 bg-gradient-to-r from-white to-transparent z-10" />
+        <div className="absolute right-0 top-0 h-full w-20 bg-gradient-to-l from-white to-transparent z-10" />
 
         <div
           ref={sliderRef}
           className="flex gap-6 w-max animate-scroll hover:[animation-play-state:paused]"
         >
-          {[...clients, ...clients].map((client, index) => (
+          {loopedClients.map((client, i) => (
             <div
-              key={index}
-              className="
-                w-[180px]
-                h-[160px]
-                flex flex-col items-center justify-center
-                bg-white
-                rounded-2xl
-                border border-gray-100
-                hover:shadow-md
-                transition
-                hover:-translate-y-2
-              "
+              key={`${client.name}-${i}`}
+              className="w-[180px] h-[160px] flex flex-col items-center justify-center bg-white rounded-2xl border border-gray-100 hover:shadow-md transition hover:-translate-y-2"
             >
-              {/* LOGO BOX (IMPORTANT FIX) */}
               <div className="w-20 h-20 flex items-center justify-center">
                 <img
                   src={client.img}
                   alt={client.name}
-                  className="
-                    max-w-[70px]
-                    max-h-[50px]
-                    object-contain
-                    filter
-                    brightness-100
-                    contrast-125
-                  "
+                  className="max-w-[70px] max-h-[50px] object-contain brightness-100 contrast-125"
                 />
               </div>
 
@@ -117,6 +102,7 @@ function OurPreciousClients() {
         >
           ‹
         </button>
+
         <button
           onClick={() => moveSlider("right")}
           className="w-10 h-10 rounded-full bg-white shadow hover:bg-blue-900 hover:text-white transition"
@@ -140,5 +126,3 @@ function OurPreciousClients() {
     </section>
   );
 }
-
-export default OurPreciousClients;

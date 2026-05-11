@@ -45,7 +45,7 @@ const techs = [
   {
     name: "Next.js",
     icon: (
-      <div className="w-8 h-8 rounded-full bg-black flex items-center justify-center">
+      <div className="w-8 h-8 rounded-full bg-[#0d1f4e] flex items-center justify-center">
         <span className="text-white font-black text-xs">N</span>
       </div>
     ),
@@ -56,12 +56,12 @@ export default function TStack() {
   const loop = [...techs, ...techs];
 
   return (
-    <section className="w-full py-16 bg-white overflow-hidden">
-      
+    <section className="w-full py-16 bg-white overflow-hidden font-sans">
+
       {/* TITLE */}
       <div className="text-center mb-10">
-        <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">
-          Our Technology Stack
+        <h2 className="text-3xl sm:text-4xl font-black ">
+          Our   <span className="text-[#e8192c]" >Technology</span>   Stack
         </h2>
       </div>
 
@@ -88,7 +88,7 @@ export default function TStack() {
               {tech.name && (
                 <span
                   className="text-[15px] font-semibold whitespace-nowrap"
-                  style={{ color: tech.color || "#111827" }}
+                  style={{ color: tech.color || "#0d1f4e" }}
                 >
                   {tech.name}
                 </span>

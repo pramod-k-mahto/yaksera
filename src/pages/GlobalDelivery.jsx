@@ -8,7 +8,7 @@ export default function GlobalDelivery() {
   useEffect(() => setVisible(true), []);
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4">
+    <div className="min-h-screen flex items-center justify-center p-4 font-sans">
       <div className="w-full bg-[#111c3b] max-w-5xl rounded-2xl overflow-hidden relative">
 
         {/* Glow */}
@@ -28,18 +28,19 @@ export default function GlobalDelivery() {
               visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"
             }`}
           >
-            <h2 className="text-white text-3xl md:text-4xl font-extrabold leading-tight mb-4">
+            <h2 className="text-white text-3xl md:text-4xl font-black leading-tight mb-4">
               Global
               <br />
               Delivery
             </h2>
-            <p className="text-blue-200 text-sm md:text-base opacity-80 max-w-[280px]">
+
+            <p className="text-blue-200 text-sm md:text-base opacity-80 max-w-[280px] leading-relaxed">
               Serving clients across 8+ countries with distributed delivery
               teams and 24/7 support.
             </p>
           </div>
 
-          {/* RIGHT — map image only, no pins */}
+          {/* RIGHT — map image only */}
           <div
             className={`md:w-3/5 relative transition-all duration-700 delay-300 ${
               visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"
@@ -51,8 +52,8 @@ export default function GlobalDelivery() {
         </div>
 
         {/* Country name row — bottom right */}
-        <div className="relative  bg-[#121e3f] z-10 px-8 md:px-12 pb-5 flex justify-end">
-          <p className="text-[11px] tracking-widest text-blue-300/50">
+        <div className="relative bg-[#121e3f] z-10 px-8 md:px-12 pb-5 flex justify-end">
+          <p className="text-[11px] tracking-widest text-blue-300/50 font-medium">
             {countries.map((c, i) => (
               <span key={c}>
                 {c}

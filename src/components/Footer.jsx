@@ -1,7 +1,7 @@
 import React from "react";
-
 import logo from "../assets/logo.png";
 import { NavLink } from "react-router-dom";
+
 const LinkedInIcon = () => (
   <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
     <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
@@ -32,9 +32,8 @@ const TikTokIcon = () => (
   </svg>
 );
 
-// Bull/Yak SVG logo placeholder
 const YakseraLogo = () => (
-  <div className=" w-52 gap-2">
+  <div className="w-52 gap-2">
     <img src={logo} alt="" />
   </div>
 );
@@ -64,10 +63,9 @@ const quickLinks = [
 function Footer() {
   return (
     <footer className="bg-[#0d1f4e] text-white">
-      {/* Main Footer Content */}
       <div className="max-w-7xl mx-auto px-6 py-16">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
-          {/* Brand Column */}
+
           <div className="sm:col-span-2 lg:col-span-1">
             <YakseraLogo />
             <p className="mt-5 text-slate-300 text-sm leading-relaxed max-w-xs">
@@ -75,7 +73,6 @@ function Footer() {
             </p>
           </div>
 
-          {/* Services Column */}
           <div>
             <h3 className="text-red-500 font-semibold text-base mb-5 tracking-wide uppercase">
               Services
@@ -83,10 +80,7 @@ function Footer() {
             <ul className="space-y-3">
               {services.map((service) => (
                 <li key={service}>
-                  <a
-                    href="#"
-                    className="text-slate-300 text-sm hover:text-white hover:translate-x-1 transition-all duration-200 inline-block"
-                  >
+                  <a href="#" className="text-slate-300 text-sm hover:text-white hover:translate-x-1 transition-all duration-200 inline-block">
                     {service}
                   </a>
                 </li>
@@ -94,7 +88,6 @@ function Footer() {
             </ul>
           </div>
 
-          {/* Quick Links Column */}
           <div>
             <h3 className="text-red-500 font-semibold text-base mb-5 tracking-wide uppercase">
               Quick Links
@@ -106,11 +99,11 @@ function Footer() {
                     to={link.path}
                     className={({ isActive }) =>
                       `relative inline-flex items-center text-sm px-3 py-2 rounded-lg transition-all duration-200
-          ${
-            isActive
-              ? "text-white bg-red-600 shadow-lg shadow-red-500/20"
-              : "text-slate-300 hover:text-white hover:bg-white/5"
-          }`
+                      ${
+                        isActive
+                          ? "text-white bg-red-600 shadow-lg shadow-red-500/20"
+                          : "text-slate-300 hover:text-white hover:bg-white/5"
+                      }`
                     }
                   >
                     {link.name}
@@ -120,33 +113,27 @@ function Footer() {
             </ul>
           </div>
 
-          {/* Contact Column */}
           <div>
             <h3 className="text-red-500 font-semibold text-base mb-5 tracking-wide uppercase">
               Contact
             </h3>
+
             <div className="space-y-3 mb-6">
               <p className="text-slate-300 text-sm">
                 <span className="text-white font-medium">Email : </span>
-                <a
-                  href="mailto:contact@yaksera@gmail.com"
-                  className="hover:text-red-400 transition-colors duration-200"
-                >
+                <a href="mailto:contact@yaksera@gmail.com" className="hover:text-red-400 transition-colors duration-200">
                   contact@yaksera@gmail.com
                 </a>
               </p>
+
               <p className="text-slate-300 text-sm">
                 <span className="text-white font-medium">Phone: </span>
-                <a
-                  href="tel:97798412347890"
-                  className="hover:text-red-400 transition-colors duration-200"
-                >
+                <a href="tel:97798412347890" className="hover:text-red-400 transition-colors duration-200">
                   977-98412347890
                 </a>
               </p>
             </div>
 
-            {/* Social Icons */}
             <div className="flex items-center gap-3 flex-wrap">
               {socialLinks.map(({ icon: Icon, href, label }) => (
                 <a
@@ -160,13 +147,12 @@ function Footer() {
               ))}
             </div>
           </div>
+
         </div>
       </div>
 
-      {/* Divider */}
       <div className="border-t border-slate-700/60 mx-6" />
 
-      {/* Bottom Bar */}
       <div className="max-w-7xl mx-auto px-6 py-5">
         <p className="text-center text-slate-400 text-sm">
           © 2026 YAKSERA. All rights reserved.

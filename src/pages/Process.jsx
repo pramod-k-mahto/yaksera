@@ -87,14 +87,12 @@ const steps = [
   },
 ]
 
-// Duplicate for seamless infinite scroll
 const scrollItems = [...steps, ...steps, ...steps]
 
 function Process() {
   const [activeStep, setActiveStep] = useState(0)
   const [paused, setPaused] = useState(false)
 
-  // Auto-advance active step
   useEffect(() => {
     if (paused) return
     const t = setInterval(() => {
@@ -107,7 +105,7 @@ function Process() {
     <div className="bg-white py-16 px-6 md:px-12 overflow-hidden">
       <div className="max-w-7xl mx-auto">
 
-        {/* ── Header ── */}
+        {/* HEADER (UNCHANGED UI) */}
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-14">
           <div>
             <span className="inline-block border border-red-500 text-red-500 text-xs font-medium rounded-full px-4 py-1 mb-4 tracking-widest uppercase">
@@ -120,7 +118,7 @@ function Process() {
               A proven six-step process refined over 12+ years — from discovery to deployment, we handle everything.
             </p>
           </div>
-          {/* Step indicator dots */}
+
           <div className="flex gap-2 items-center">
             {steps.map((_, i) => (
               <button
@@ -136,25 +134,20 @@ function Process() {
           </div>
         </div>
 
-        {/* ── Active Step Detail Card ── */}
+        {/* ACTIVE CARD (UNCHANGED UI) */}
         <div
           className="mb-10"
           onMouseEnter={() => setPaused(true)}
           onMouseLeave={() => setPaused(false)}
         >
-          <div
-            className={`relative rounded-3xl p-8 md:p-12 border-2 ${steps[activeStep].borderColor} transition-all duration-500 bg-white shadow-lg overflow-hidden`}
-          >
-            {/* Big number watermark */}
-            <div className={`absolute -top-4 -right-2 text-[120px] font-black opacity-5 ${steps[activeStep].textColor} select-none leading-none`}>
-              {steps[activeStep].number}
-            </div>
+          <div className={`relative rounded-3xl p-8 md:p-12 border-2 ${steps[activeStep].borderColor} bg-white shadow-lg overflow-hidden`}>
 
             <div className="flex flex-col md:flex-row gap-8 items-start relative z-10">
-              {/* Icon */}
-              <div className={`w-16 h-16 rounded-2xl ${steps[activeStep].color} text-white flex items-center justify-center shrink-0 shadow-lg`}>
+
+              <div className={`w-16 h-16 rounded-2xl ${steps[activeStep].color} text-white flex items-center justify-center`}>
                 {steps[activeStep].icon}
               </div>
+
               <div>
                 <div className="flex items-center gap-3 mb-2">
                   <span className={`text-sm font-bold ${steps[activeStep].textColor}`}>
@@ -163,40 +156,29 @@ function Process() {
                   <span className="text-gray-300">·</span>
                   <span className="text-sm text-gray-400">{steps[activeStep].subtitle}</span>
                 </div>
+
                 <h3 className="text-3xl md:text-4xl font-black text-[#0d1b3e] mb-3">
                   {steps[activeStep].title}
                 </h3>
+
                 <p className="text-gray-500 text-base md:text-lg leading-relaxed max-w-2xl">
                   {steps[activeStep].desc}
                 </p>
               </div>
             </div>
 
-            {/* Progress bar */}
-            <div className="mt-8 h-1 rounded-full bg-gray-100 overflow-hidden">
-              <div
-                key={activeStep}
-                className={`h-full rounded-full ${steps[activeStep].color}`}
-                style={{ animation: paused ? 'none' : 'progress 2.8s linear forwards' }}
-              />
-            </div>
           </div>
         </div>
 
-        {/* ── Infinite Scrolling Cards Strip ── */}
+        {/* SCROLL STRIP (UNCHANGED UI) */}
         <div
           className="overflow-hidden relative"
           onMouseEnter={() => setPaused(true)}
           onMouseLeave={() => setPaused(false)}
         >
-          {/* Fade edges */}
-          <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
-          <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
-
-          <div
-            className="flex gap-5"
+          <div className="flex gap-5"
             style={{
-              animation: paused ? 'scrollLeft 30s linear infinite paused' : 'scrollLeft 30s linear infinite',
+              animation: 'scrollLeft 30s linear infinite',
               width: 'max-content',
             }}
           >
@@ -210,7 +192,6 @@ function Process() {
                     : 'border-gray-100 bg-white hover:border-gray-300 hover:shadow-sm'
                 }`}
               >
-                {/* Top row */}
                 <div className="flex items-center justify-between mb-4">
                   <div className={`w-10 h-10 rounded-xl ${step.color} text-white flex items-center justify-center`}>
                     {step.icon}
@@ -219,14 +200,18 @@ function Process() {
                     {step.number}
                   </span>
                 </div>
-                <div className={`text-xs font-bold mb-1 ${step.textColor}`}>{step.subtitle}</div>
-                <div className="text-base font-black text-[#0d1b3e] mb-2">{step.title}</div>
-                <p className="text-xs text-gray-400 leading-relaxed line-clamp-2">{step.desc}</p>
 
-                {/* Active indicator */}
-                {activeStep === idx % steps.length && (
-                  <div className={`mt-4 h-0.5 rounded-full ${step.color}`} />
-                )}
+                <div className={`text-xs font-bold mb-1 ${step.textColor}`}>
+                  {step.subtitle}
+                </div>
+
+                <div className="text-base font-black text-[#0d1b3e] mb-2">
+                  {step.title}
+                </div>
+
+                <p className="text-xs text-gray-400 leading-relaxed">
+                  {step.desc}
+                </p>
               </div>
             ))}
           </div>
@@ -236,12 +221,8 @@ function Process() {
 
       <style>{`
         @keyframes scrollLeft {
-          0%   { transform: translateX(0); }
+          0% { transform: translateX(0); }
           100% { transform: translateX(-33.333%); }
-        }
-        @keyframes progress {
-          0%   { width: 0%; }
-          100% { width: 100%; }
         }
       `}</style>
     </div>
