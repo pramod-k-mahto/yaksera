@@ -3,12 +3,12 @@ import React from "react";
 function Contact() {
   return (
     <main
-      style={{
-        background: "var(--page-bg)",
-        fontFamily: "var(--font-primary)",
-        color: "var(--text-primary-default)",
-      }}
       className="min-h-screen"
+      style={{
+        background: "#f9fafb",
+        fontFamily: "Inter, sans-serif",
+        color: "#111827",
+      }}
     >
 
       {/* HEADER */}
@@ -16,19 +16,17 @@ function Contact() {
 
         <h2
           style={{
-            color: "var(--text-brand-red-default)",
+            color: "#e8192c",
             fontSize: "18px",
             fontWeight: 800,
           }}
-
-          className="text-red-600"
         >
           Need Immediate Assistance?
         </h2>
 
         <p
           style={{
-            color: "var(--text-secondary-default)",
+            color: "#6b7280",
             fontSize: "14px",
             marginTop: "6px",
           }}
@@ -39,7 +37,7 @@ function Contact() {
       </section>
 
       {/* MAIN */}
-      <section className="relative max-w-7xl mx-auto px-6 lg:px-20 py-20">
+      <section className="relative max-w-7xl mx-auto px-6 lg:px-20 py-20 overflow-hidden">
 
         {/* BACKGROUND BLOBS */}
         <div className="absolute top-0 left-0 w-72 h-72 bg-red-200/30 blur-3xl rounded-full" />
@@ -67,14 +65,13 @@ function Contact() {
             <p
               style={{
                 marginTop: "20px",
-                color: "var(--text-secondary-default)",
+                color: "#6b7280",
                 fontSize: "18px",
                 lineHeight: 1.8,
                 maxWidth: "500px",
               }}
             >
-              We're here to help you achieve your business goals. Whether
-              it's collaboration, consulting, or project discussion — we’re ready.
+              We're here to help you achieve your business goals.
             </p>
 
             {/* CONTACT INFO */}
@@ -85,68 +82,11 @@ function Contact() {
                 "+977-98412345789",
                 "Kathmandu, Nepal",
               ].map((item) => (
-                <div
-                  key={item}
-                  className="flex items-center gap-3"
-                >
+                <div key={item} className="flex items-center gap-3">
                   <span style={{ color: "#e8192c" }}>●</span>
                   <span style={{ fontWeight: 600 }}>{item}</span>
                 </div>
               ))}
-
-            </div>
-
-            {/* PRESENCE CARD */}
-            <div
-              style={{
-                marginTop: "40px",
-                background: "var(--white)",
-                borderRadius: "24px",
-                padding: "24px",
-                boxShadow: "var(--shadow-md)",
-                maxWidth: "420px",
-              }}
-            >
-
-              <h3 style={{ fontSize: "20px", fontWeight: 800 }}>
-                Our Presence
-              </h3>
-
-              <div
-                style={{
-                  marginTop: "16px",
-                  height: "140px",
-                  background: "#0d1f4e",
-                  borderRadius: "16px",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <div
-                  style={{
-                    width: "10px",
-                    height: "10px",
-                    background: "#fff",
-                    borderRadius: "50%",
-                    position: "relative",
-                  }}
-                >
-                  <div className="absolute inset-0 animate-ping bg-white rounded-full opacity-60" />
-                </div>
-              </div>
-
-              <p
-                style={{
-                  marginTop: "16px",
-                  fontSize: "12px",
-                  color: "var(--text-secondary-default)",
-                  letterSpacing: "0.1em",
-                  textTransform: "uppercase",
-                }}
-              >
-                Nepal / India / UK / Canada / Australia
-              </p>
 
             </div>
 
@@ -155,10 +95,10 @@ function Contact() {
           {/* RIGHT FORM */}
           <div
             style={{
-              background: "var(--white)",
+              background: "#ffffff",
               borderRadius: "32px",
               padding: "40px",
-              boxShadow: "var(--shadow-lg)",
+              boxShadow: "0 10px 30px rgba(0,0,0,0.08)",
             }}
           >
 
@@ -166,7 +106,7 @@ function Contact() {
               Contact Form
             </h2>
 
-            <p style={{ color: "var(--text-secondary-default)", marginTop: "6px" }}>
+            <p style={{ color: "#6b7280", marginTop: "6px" }}>
               Fill out the form and we’ll respond soon.
             </p>
 
@@ -174,64 +114,28 @@ function Contact() {
 
               <input
                 placeholder="Full name"
-                style={{
-                  width: "100%",
-                  height: "56px",
-                  borderRadius: "12px",
-                  border: "1px solid #e5e7eb",
-                  padding: "0 16px",
-                }}
+                className="w-full h-[56px] px-4 border border-gray-300 rounded-xl"
               />
 
               <input
                 placeholder="Business email"
-                style={{
-                  width: "100%",
-                  height: "56px",
-                  borderRadius: "12px",
-                  border: "1px solid #e5e7eb",
-                  padding: "0 16px",
-                }}
+                className="w-full h-[56px] px-4 border border-gray-300 rounded-xl"
               />
 
               <textarea
                 rows={4}
                 placeholder="Project details"
-                style={{
-                  width: "100%",
-                  borderRadius: "12px",
-                  border: "1px solid #e5e7eb",
-                  padding: "16px",
-                }}
+                className="w-full p-4 border border-gray-300 rounded-xl"
               />
 
-              {/* BUTTON */}
               <button
-                style={{
-                  width: "100%",
-                  height: "56px",
-                  borderRadius: "999px",
-                  background: "#e8192c",
-                  color: "#fff",
-                  fontWeight: 700,
-                  border: "none",
-                  cursor: "pointer",
-                  boxShadow: "var(--shadow-md)",
-                }}
+                className="w-full h-[56px] rounded-full bg-[#e8192c] text-white font-bold"
               >
                 Send Message
               </button>
 
               <button
-                style={{
-                  width: "100%",
-                  height: "56px",
-                  borderRadius: "999px",
-                  border: "1px solid #e8192c",
-                  color: "#e8192c",
-                  background: "transparent",
-                  fontWeight: 700,
-                }}
+                className="w-full h-[56px] rounded-full border border-[#e8192c] text-[#e8192c] font-bold"
               >
                 Book a Call
               </button>
