@@ -1,8 +1,8 @@
 import { NavLink, Outlet } from "react-router-dom";
 import { useState } from "react";
+import { motion } from "framer-motion";
 
 import {
-  LayoutDashboard,
   FileText,
   Users,
   Briefcase,
@@ -15,191 +15,104 @@ import {
 } from "lucide-react";
 
 const navItems = [
-//   {
-//     section: "MAIN",
-//     items: [
-//       {
-//         label: "Dashboard",
-//         path: "/admin",
-//         icon: LayoutDashboard,
-//       },
-//     ],
-//   },
-
   {
     section: "CONTENT",
     items: [
-      {
-        label: "Blog Management",
-        path: "blogManagement",
-        icon: FileText,
-      },
-      {
-        label: "Portfolio",
-        path: "portfolioManagement",
-        icon: Briefcase,
-      },
-      {
-        label: "Projects",
-        path: "projectsManagement",
-        icon: FolderKanban,
-      },
-      {
-        label: "Case Studies",
-        path: "caseStudiesManagement",
-        icon: Briefcase,
-      },
+      { label: "Blog", path: "blogManagement", icon: FileText },
+      { label: "Portfolio", path: "portfolioManagement", icon: Briefcase },
+      { label: "Projects", path: "projectsManagement", icon: FolderKanban },
+      { label: "Case Studies", path: "caseStudiesManagement", icon: Briefcase },
     ],
   },
-
   {
     section: "USERS",
     items: [
-      {
-        label: "Clients",
-        path: "clientsManagement",
-        icon: Users,
-      },
-      {
-        label: "Staff",
-        path: "staffManagement",
-        icon: Users,
-      },
-      {
-        label: "Job Applied",
-        path: "jobApplied",
-        icon: BadgeCheck,
-      },
+      { label: "Clients", path: "clientsManagement", icon: Users },
+      { label: "Staff", path: "staffManagement", icon: Users },
+      { label: "Job Applied", path: "jobApplied", icon: BadgeCheck },
     ],
   },
-
   {
     section: "BUSINESS",
     items: [
-      {
-        label: "Services",
-        path: "serviceManagement",
-        icon: Settings,
-      },
-      {
-        label: "Vacancies",
-        path: "vacancyManagement",
-        icon: Briefcase,
-      },
-      {
-        label: "Testimonials",
-        path: "testimonialManagement",
-        icon: MessageSquare,
-      },
-      {
-        label: "Contact Forms",
-        path: "contactFormManagement",
-        icon: MessageSquare,
-      },
-      {
-        label: "Logos",
-        path: "logoManagement",
-        icon: BadgeCheck,
-      },
-      {
-        label: "Q&A Management",
-        path: "qAManagement",
-        icon: MessageSquare,
-      },
+      { label: "Services", path: "serviceManagement", icon: Settings },
+      { label: "Vacancies", path: "vacancyManagement", icon: Briefcase },
+      { label: "Testimonials", path: "testimonialManagement", icon: MessageSquare },
+      { label: "Contact", path: "contactFormManagement", icon: MessageSquare },
+      { label: "Logos", path: "logoManagement", icon: BadgeCheck },
+      { label: "Q&A", path: "qAManagement", icon: MessageSquare },
     ],
   },
 ];
 
 function Dashboard() {
   const [open, setOpen] = useState(false);
+  const [collapsed, setCollapsed] = useState(false);
+  const [width, setWidth] = useState(280);
+
+  const min = 80;
+  const max = 320;
+
+  const startDrag = (e) => {
+    const startX = e.clientX;
+    const startWidth = width;
+
+    const onMove = (moveEvent) => {
+      const newWidth = startWidth + (moveEvent.clientX - startX);
+      if (newWidth >= min && newWidth <= max) {
+        setWidth(newWidth);
+        if (newWidth < 120) setCollapsed(true);
+        else setCollapsed(false);
+      }
+    };
+
+    const onUp = () => {
+      document.removeEventListener("mousemove", onMove);
+      document.removeEventListener("mouseup", onUp);
+    };
+
+    document.addEventListener("mousemove", onMove);
+    document.addEventListener("mouseup", onUp);
+  };
 
   return (
-    <div className="flex min-h-screen bg-[#0b1220] text-white overflow-hidden">
-
-      {/* MOBILE OVERLAY */}
-      {open && (
-        <div
-          onClick={() => setOpen(false)}
-          className="
-            fixed inset-0 z-40
-            bg-black/50 backdrop-blur-sm
-            md:hidden
-          "
-        />
-      )}
+    <div className="flex h-screen bg-[#0b1220] text-white overflow-hidden">
 
       {/* SIDEBAR */}
-      <aside
-        className={`
-          fixed left-0 top-0 z-50
-          h-screen w-[280px]
-          border-r border-white/10
-          bg-[#0f172a]
-          transition-transform duration-300
-          md:translate-x-0
-          ${open ? "translate-x-0" : "-translate-x-full"}
-        `}
+      <motion.aside
+        animate={{ width: collapsed ? 80 : width }}
+        transition={{ type: "spring", stiffness: 300, damping: 30 }}
+        className="relative h-full bg-[#0f172a] border-r border-white/10 flex flex-col"
       >
-        {/* TOP */}
-        <div
-          className="
-            flex h-[72px] items-center justify-between
-            border-b border-white/10
-            px-6
-          "
-        >
-          <div>
-            <h1 className="text-lg font-semibold tracking-wide">
-              Yaksera Admin
-            </h1>
 
-            <p className="text-xs text-white/40 mt-0.5">
-              Management Panel
-            </p>
-          </div>
+        {/* HEADER */}
+        <div className="flex items-center justify-between h-[72px] px-4 border-b border-white/10">
+          {!collapsed && (
+            <div>
+              <h1 className="text-sm font-semibold">Admin</h1>
+              <p className="text-xs text-white/40">Panel</p>
+            </div>
+          )}
 
           <button
-            onClick={() => setOpen(false)}
-            className="
-              flex h-10 w-10 items-center justify-center
-              rounded-xl
-              text-white/60
-              transition-all duration-200
-              hover:bg-white/5
-              hover:text-white
-              md:hidden
-            "
+            onClick={() => setCollapsed(!collapsed)}
+            className="text-white/60 hover:text-white"
           >
-            <X size={20} />
+            {collapsed ? <Menu size={18} /> : <X size={18} />}
           </button>
         </div>
 
-        {/* NAVIGATION */}
-        <nav
-          className="
-            h-[calc(100vh-72px)]
-            overflow-y-auto
-            px-4 py-6
-            space-y-7
-          "
-        >
+        {/* NAV (NO SCROLL) */}
+        <div className="flex-1 overflow-hidden px-2 py-4 space-y-6">
+
           {navItems.map((group) => (
             <div key={group.section}>
+              {!collapsed && (
+                <p className="text-[10px] text-white/30 px-3 mb-2 tracking-widest">
+                  {group.section}
+                </p>
+              )}
 
-              {/* SECTION TITLE */}
-              <p
-                className="
-                  mb-2 px-4
-                  text-[11px]
-                  font-semibold
-                  tracking-[0.2em]
-                  text-white/30
-                "
-              >
-                {group.section}
-              </p>
-
-              {/* ITEMS */}
               <div className="space-y-1">
                 {group.items.map((item) => {
                   const Icon = item.icon;
@@ -208,148 +121,64 @@ function Dashboard() {
                     <NavLink
                       key={item.path}
                       to={item.path}
-                      end={item.path === "/admin"}
-                      onClick={() => setOpen(false)}
                       className={({ isActive }) =>
                         `
-                        group flex items-center gap-3
-                        rounded-2xl px-4 py-3
-                        transition-all duration-200
+                        flex items-center gap-3 px-3 py-3 rounded-xl
+                        transition
                         ${
                           isActive
-                            ? "bg-[#e8192c]/15 text-[#e8192c]"
-                            : "text-white/65 hover:bg-white/[0.04] hover:text-white"
+                            ? "text-[#e8192c]"
+                            : "text-white/60 hover:text-white"
                         }
                         `
                       }
                     >
-                      <Icon
-                        size={18}
-                        className="
-                          transition-all duration-200
-                          group-hover:scale-110
-                        "
-                      />
+                      <Icon size={18} />
 
-                      <span
-                        className="
-                          text-[14px]
-                          font-medium
-                          tracking-[0.01em]
-                        "
-                      >
-                        {item.label}
-                      </span>
+                      {!collapsed && (
+                        <span className="text-sm font-medium">
+                          {item.label}
+                        </span>
+                      )}
                     </NavLink>
                   );
                 })}
               </div>
             </div>
           ))}
-        </nav>
-      </aside>
+        </div>
 
-      {/* MAIN AREA */}
-      <div className="flex flex-1 flex-col md:ml-[280px]">
-
-        {/* HEADER */}
-        <header
-          className="
-            sticky top-0 z-30
-            flex h-[72px] items-center justify-between
-            border-b border-white/10
-            bg-[#0b1220]/95
-            px-5 md:px-8
-            backdrop-blur-xl
-          "
-        >
-          {/* LEFT */}
-          <div className="flex items-center gap-4">
-
-            {/* MOBILE MENU */}
-            <button
-              onClick={() => setOpen(true)}
-              className="
-                flex h-10 w-10 items-center justify-center
-                rounded-xl
-                text-white/70
-                transition-all duration-200
-                hover:bg-white/5
-                hover:text-white
-                md:hidden
-              "
-            >
-              <Menu size={20} />
-            </button>
-
-            <div>
-              <h2 className="text-[15px] font-semibold">
-                Dashboard
-              </h2>
-
-              <p className="text-xs text-white/40 mt-0.5">
-                Welcome back, Admin
-              </p>
-            </div>
-          </div>
-
-          {/* RIGHT */}
-          <div className="flex items-center gap-3">
-
-            {/* PROFILE */}
-            <div
-              className="
-                flex items-center gap-3
-                rounded-2xl
-                border border-white/10
-                bg-white/[0.03]
-                px-3 py-2
-              "
-            >
-              <div
-                className="
-                  flex h-10 w-10 items-center justify-center
-                  rounded-full
-                  bg-[#e8192c]
-                  text-sm font-bold
-                "
-              >
-                A
-              </div>
-
-              <div className="hidden sm:block">
-                <p className="text-sm font-medium">
-                  Admin
-                </p>
-
-                <p className="text-xs text-white/40">
-                  Super Admin
-                </p>
-              </div>
-            </div>
-          </div>
-        </header>
-
-        {/* PAGE CONTENT */}
-        <main
-          className="
-            flex-1
-            p-5 md:p-8 lg:p-10
-          "
-        >
+        {/* RESIZE HANDLE */}
+        {!collapsed && (
           <div
-            className="
-              rounded-3xl
-              border border-white/10
-              bg-[#0f172a]
-              p-6 md:p-8
-              min-h-[calc(100vh-140px)]
-            "
-          >
+            onMouseDown={startDrag}
+            className="absolute top-0 right-0 h-full w-1 cursor-ew-resize hover:bg-[#e8192c]/40"
+          />
+        )}
+      </motion.aside>
 
-            <Outlet />
-          </div>
-        </main>
+      {/* MAIN */}
+      <div className="flex-1 flex flex-col">
+
+        {/* TOP BAR */}
+        <div className="h-[72px] border-b border-white/10 flex items-center px-5 justify-between">
+          <button
+            className="text-white/60 md:hidden"
+            onClick={() => setOpen(true)}
+          >
+            <Menu />
+          </button>
+
+          <h2 className="text-sm text-white/60">Dashboard</h2>
+
+          <div className="text-xs text-white/40">Admin</div>
+        </div>
+
+        {/* CONTENT */}
+        <div className="p-6 overflow-hidden">
+          <Outlet />
+        </div>
+
       </div>
     </div>
   );
