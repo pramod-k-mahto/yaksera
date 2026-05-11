@@ -85,7 +85,6 @@ function Blog() {
   return (
     <div className="min-h-screen py-20 px-6 md:px-12 lg:px-20 bg-white font-sans">
 
-      <Demo />
 
       {/* HEADER (unchanged layout, only style consistency) */}
       <div className="flex items-center justify-center gap-4 mb-12">

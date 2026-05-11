@@ -151,7 +151,7 @@ function Portfolio() {
               </p>
 
               {/* CTA */}
-              <button className="mt-4 text-sm font-semibold text-[#e8192c] flex items-center gap-2 group">
+              <button className="   text-sm font-semibold text-black  flex items-center gap-2 group">
                 View Case Study
                 <span className="group-hover:translate-x-1 transition">
                   →
