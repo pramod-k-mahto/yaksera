@@ -1,6 +1,6 @@
 export default function Call() {
   return (
-    <section className="bg-[#0c1f6e] w-full">
+    <section className="bg-[#0d1f4e] w-full">
       <div className="max-w-6xl mx-auto px-6 sm:px-10 py-16 sm:py-20 flex flex-col lg:flex-row items-center justify-between gap-12">
 
         {/* Left */}
