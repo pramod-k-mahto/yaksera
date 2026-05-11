@@ -129,6 +129,8 @@ function Header() {
               </button>
             ))}
           </nav>
+                    <Link  to='/admin' >Admin</Link>
+
 
           {/* CTA */}
           <Link
