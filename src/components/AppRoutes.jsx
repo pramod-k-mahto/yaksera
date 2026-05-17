@@ -20,6 +20,8 @@ import StaffManagement from "../pages/admin/StaffManagement";
 import TestimonialManagement from "../pages/admin/TestimonialManagement";
 import VacancyManagement from "../pages/admin/VacancyManagement";
 import CaseStudiesManagement from "../pages/admin/CaseStudiesManagement";
+import Login from "../pages/Login";
+import ProtectedRoutes from "./ProtectedRoutes";
 
 function AppRoutes() {
   return (
@@ -33,10 +35,14 @@ function AppRoutes() {
       <Route path="/contact" element={<Contact />} />
       <Route path="/caseStudies" element={<CaseStudies />} />
       <Route path="/blogDetail" element={<BlogDetail />} />
+      <Route path="/login" element={<Login />} />
 
       {/* Admin */}
 
-      <Route path="/admin/" element={<Dashboard />}>
+      <Route
+        path="/admin/"
+        element={<ProtectedRoutes comp={<Dashboard />} />}
+      >
         <Route path="logoManagement" element={<LogoManagement />} />
         <Route index element={<LogoManagement />} />
 

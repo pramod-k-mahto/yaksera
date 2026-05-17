@@ -69,9 +69,9 @@ function Header() {
           </nav>
 
           {/* ADMIN */}
-          <Link to="/admin" className="text-white/70 hover:text-white">
+          {/* <Link to="/admin" className="text-white/70 hover:text-white">
             Admin
-          </Link>
+          </Link> */}
 
           {/* CTA */}
           <Link
