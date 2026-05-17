@@ -1,10 +1,10 @@
-const BASE_URL = import.meta.env.VITE_API_URL;
+const BASE_URL = import.meta.env.VITE_API_URL || "https://yaksera.onrender.com";
 
 
 export const apiClient = async (endpoint,{ method = "GET", body, headers = {} } = {}) => {
   try {
     // const token = localStorage.getItem("token");
-    console.log(BASE_URL,endpoint)
+    console.log(`${BASE_URL}${endpoint}`)
     const response = await fetch(`${BASE_URL}${endpoint}`, {
       method,
       headers: {
