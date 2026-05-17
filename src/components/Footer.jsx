@@ -51,10 +51,8 @@ function Footer() {
 
   return (
     <footer className="bg-[#0d1f4e] text-white">
-
       <div className="max-w-7xl mx-auto px-6 py-16">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
-
           {/* LOGO */}
           <div className="sm:col-span-2 lg:col-span-1">
             <img src={logo} alt="logo" className="w-44" />
@@ -89,7 +87,6 @@ function Footer() {
             <ul className="space-y-3">
               {quickLinks.map((link) => (
                 <li key={link.name}>
-
                   {/* 🔥 SCROLL ONLY FOR SERVICES */}
                   {link.section ? (
                     <button
@@ -106,7 +103,6 @@ function Footer() {
                       {link.name}
                     </NavLink>
                   )}
-
                 </li>
               ))}
             </ul>
@@ -119,12 +115,14 @@ function Footer() {
             </h3>
 
             <p className="text-slate-300 text-sm mb-2">
-              Email: contact@yaksera@gmail.com
+              Email: contact@yaksera.com
             </p>
 
-            <p className="text-slate-300 text-sm mb-4">
-              Phone: 977-98412347890
-            </p>
+            <div className="text-slate-300 text-sm mb-4 space-y-1">
+              <p>Phone: 9768534410</p>
+              <p>Phone: 9712082575</p>
+              <p>Phone: 9860267997</p>
+            </div>
 
             <div className="flex gap-3">
               <a href="#" className="p-2 border border-slate-600 rounded">
@@ -132,7 +130,6 @@ function Footer() {
               </a>
             </div>
           </div>
-
         </div>
       </div>
 
@@ -142,7 +139,6 @@ function Footer() {
           © 2026 YAKSERA SOLUTIONS PRIVATE LTD. All rights reserved.
         </div>
       </div>
-
     </footer>
   );
 }

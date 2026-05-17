@@ -432,9 +432,11 @@ function Contact() {
               custom={0.18}
             >
               {[
-                { icon: "✉", label: "yaksera@gmail.com" },
-                { icon: "📞", label: "+977-98412345789" },
-                { icon: "📍", label: "Kathmandu, Nepal" },
+                { icon: "✉", label: "yakserasolutions@gmail.com"},
+                { icon: "📞", label: "+977-9768534410" },
+                { icon: "📞", label: "+977-9712082575" },
+                { icon: "📞", label: "+977-9860267997" },
+                { icon: "📍", label: "Location : Madhyapur Thimi-5 Kathmandu, Nepal" },
               ].map(({ icon, label }) => (
                 <div key={label} className="flex items-center gap-3">
                   <span className="w-9 h-9 rounded-xl bg-red-50 flex items-center justify-center text-sm">
@@ -443,6 +445,8 @@ function Contact() {
                   <span className="font-semibold text-sm">{label}</span>
                 </div>
               ))}
+
+
             </motion.div>
           </div>
 
