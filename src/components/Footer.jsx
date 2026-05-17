@@ -27,6 +27,7 @@ const quickLinks = [
 function Footer() {
   const navigate = useNavigate();
   const location = useLocation();
+  
 
   // ✅ ONLY SCROLL FUNCTION (for services)
   const scrollToSection = (section) => {

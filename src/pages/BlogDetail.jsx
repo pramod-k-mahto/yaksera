@@ -130,7 +130,7 @@ function BlogDetail() {
           initial={{ opacity: 0, x: 60 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.7 }}
-          className="sticky top-10 h-fit"
+          className="sticky  text-black top-10 h-fit"
         >
           <div
             style={{

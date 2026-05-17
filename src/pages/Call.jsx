@@ -1,4 +1,8 @@
+import { useNavigate } from "react-router-dom";
+
 export default function Call() {
+    const navigate = useNavigate();
+
   return (
     <section className="bg-[#1d2b64] w-full">
       <div className="max-w-6xl mx-auto px-6 sm:px-10 py-16 sm:py-20 flex flex-col lg:flex-row items-center justify-between gap-12">
@@ -13,7 +17,13 @@ export default function Call() {
             Ready to start your<br className="hidden sm:block" /> next project?
           </h2>
 
-          <button className="bg-[#d0271d] hover:bg-[#b01f17] active:scale-95 text-white text-sm font-semibold px-6 py-3 rounded-lg transition-all duration-200 shadow-lg">
+          <button 
+
+          onClick={()=>{
+            navigate('/contact')
+          }}
+          
+          className="bg-[#d0271d] hover:bg-[#b01f17] active:scale-95 text-white text-sm font-semibold px-6 py-3 rounded-lg transition-all duration-200 shadow-lg">
             Contact Us
           </button>
         </div>
@@ -55,7 +65,16 @@ export default function Call() {
           </p>
 
           {/* CTA */}
-          <button className="w-full bg-[#d0271d] hover:bg-[#b01f17] active:scale-[0.98] text-white font-bold text-sm py-3.5 rounded-xl transition-all duration-200 shadow-md shadow-red-200">
+          <button
+
+          
+          onClick={()=>{
+            navigate('/contact')
+          }}
+          
+          
+          
+          className="w-full bg-[#d0271d] hover:bg-[#b01f17] active:scale-[0.98] text-white font-bold text-sm py-3.5 rounded-xl transition-all duration-200 shadow-md shadow-red-200">
             Book a free call
           </button>
 

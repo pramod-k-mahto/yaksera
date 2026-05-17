@@ -22,6 +22,7 @@ import VacancyManagement from "../pages/admin/VacancyManagement";
 import CaseStudiesManagement from "../pages/admin/CaseStudiesManagement";
 import Login from "../pages/Login";
 import ProtectedRoutes from "./ProtectedRoutes";
+import PortfolioDetail from "../pages/PortfolioDetail";
 
 function AppRoutes() {
   return (
@@ -35,6 +36,7 @@ function AppRoutes() {
       <Route path="/contact" element={<Contact />} />
       <Route path="/caseStudies" element={<CaseStudies />} />
       <Route path="/blogDetail" element={<BlogDetail />} />
+      <Route path="/portfolioDetail" element={<PortfolioDetail />} />
       <Route path="/login" element={<Login />} />
 
       {/* Admin */}

@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 /* ───────────────── CASE STUDIES DATA ───────────────── */
 const caseStudies = [
@@ -36,6 +37,8 @@ const caseStudies = [
 
 /* ───────────────── CARD ───────────────── */
 function CaseStudyCard({ item, index }) {
+   const navigate= useNavigate()
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 60 }}
@@ -100,6 +103,10 @@ function CaseStudyCard({ item, index }) {
 
           {/* BUTTON */}
           <button
+
+          onClick={()=>{
+            navigate("/portfolioDetail")
+          }}
             style={{
               marginTop: "10px",
               background: "#fff",
@@ -143,6 +150,8 @@ function CaseStudyCard({ item, index }) {
 
 /* ───────────────── MAIN SECTION ───────────────── */
 function CaseStudies() {
+
+ const navigate= useNavigate()
   return (
     <section
       style={{

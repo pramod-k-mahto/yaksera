@@ -1,5 +1,6 @@
 import React, { useState, useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 const projects = [
   {
@@ -58,6 +59,9 @@ function Portfolio() {
   const [active, setActive] = useState("All Projects");
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-100px" });
+
+  const navigate = useNavigate();
+
 
   const filtered =
     active === "All Projects"
@@ -125,6 +129,11 @@ function Portfolio() {
 
         {filtered.map((project) => (
           <motion.div
+
+          onClick={()=>{
+            navigate('portfolioDetail')
+            
+          }}
             key={project.id}
             variants={fadeUp}
             className="group border border-gray-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition duration-300"

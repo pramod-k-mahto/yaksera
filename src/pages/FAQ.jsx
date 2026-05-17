@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const faqs = [
   {
@@ -35,6 +36,7 @@ const avatars = [
 
 export default function FAQ() {
   const [open, setOpen] = useState(0);
+ const navigate= useNavigate()
 
   const toggle = (i) => setOpen(open === i ? null : i);
 
@@ -121,7 +123,14 @@ export default function FAQ() {
           Still have questions?
         </p>
 
-        <button className="bg-[#d0271d] hover:bg-[#b01f17] active:scale-95 text-white text-sm font-semibold px-6 py-2.5 rounded-full transition-all duration-200 shadow-md shadow-red-200">
+        <button 
+        
+        
+          onClick={()=>{
+            navigate("/contact")
+          }}
+
+        className="bg-[#d0271d] hover:bg-[#b01f17] active:scale-95 text-white text-sm font-semibold px-6 py-2.5 rounded-full transition-all duration-200 shadow-md shadow-red-200">
           Let's Talk
         </button>
 

@@ -1,18 +1,16 @@
 import { motion } from "motion/react";
 import OurPreciousClients from "./OurPreciousClients";
 import HeroImage from "../assets/HeroImage.png";
+import { useNavigate } from "react-router-dom";
 
 function Hero() {
+  const navigate = useNavigate();
   return (
     <div>
-
       <section className="relative z-20 max-w-7xl mx-auto px-6 md:px-12 lg:px-20 pt-16 pb-20">
-
         <div className="flex flex-col lg:flex-row items-center gap-14">
-
           {/* LEFT */}
           <div className="flex-1 max-w-2xl">
-
             {/* LABEL */}
             <motion.div
               initial={{ opacity: 0, y: 24 }}
@@ -42,11 +40,9 @@ function Hero() {
               className="text-5xl font-black leading-[1.05] text-[#0d1f4e]"
             >
               Build Scale <br />
-
               <span className="text-[#e8192c] inline-block">
                 Innovate
-              </span>{" "}
-              with <br />
+              </span> with <br />
               Expert Engineers.
             </motion.h1>
 
@@ -58,10 +54,9 @@ function Hero() {
               className="mt-6 text-gray-600 text-lg leading-8 max-w-xl"
             >
               Transform your vision into reality with{" "}
-              <span className="text-[#e8192c] font-semibold">
-                YAKSERA
-              </span>{" "}
-              world-class IT outsourcing solutions that help businesses grow faster and smarter.
+              <span className="text-[#e8192c] font-semibold">YAKSERA</span>{" "}
+              world-class IT outsourcing solutions that help businesses grow
+              faster and smarter.
             </motion.p>
 
             {/* BUTTONS */}
@@ -71,11 +66,21 @@ function Hero() {
               transition={{ duration: 0.7, delay: 0.35 }}
               className="flex flex-wrap gap-4 mt-8"
             >
-              <button className="bg-[#e8192c] hover:bg-[#c8001e] text-white font-semibold text-sm px-8 py-4 rounded-xl transition shadow-md">
+              <button
+                onClick={() => {
+                  navigate("/contact");
+                }}
+                className="bg-[#e8192c] hover:bg-[#c8001e] text-white font-semibold text-sm px-8 py-4 rounded-xl transition shadow-md"
+              >
                 Discuss your ideas
               </button>
 
-              <button className="border-2 border-[#e8192c] text-[#e8192c] hover:bg-red-50 font-semibold text-sm px-8 py-4 rounded-xl transition">
+              <button
+                onClick={() => {
+                  navigate("/caseStudies");
+                }}
+                className="border-2 border-[#e8192c] text-[#e8192c] hover:bg-red-50 font-semibold text-sm px-8 py-4 rounded-xl transition"
+              >
                 Case Studies
               </button>
             </motion.div>
@@ -102,12 +107,10 @@ function Hero() {
                 </div>
               ))}
             </motion.div>
-
           </div>
 
           {/* RIGHT */}
           <div className="flex-1 flex justify-center lg:justify-end">
-
             <motion.div
               className="relative w-full max-w-xl"
               initial={{ x: 500, opacity: 0 }}
@@ -133,16 +136,12 @@ function Hero() {
                   </div>
                 </div>
               </div>
-
             </motion.div>
-
           </div>
-
         </div>
       </section>
 
       <OurPreciousClients />
-
     </div>
   );
 }

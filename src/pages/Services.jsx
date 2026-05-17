@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import UI from "../assets/services/UI/UX.png";
+import { useNavigate } from "react-router-dom";
 
 const services = [
   {
@@ -49,6 +50,7 @@ const fadeUp = {
 };
 
 function Services() {
+  const navigate = useNavigate();
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-100px" });
 
@@ -134,7 +136,14 @@ function Services() {
                 {service.description}
               </p>
 
-              <button className="mt-5 p-7 bg-[#e8192c] text-white text-sm font-semibold px-5 py-2 rounded-lg opacity-0 translate-y-3 group-hover:opacity-100 group-hover:translate-y-0 transition duration-500">
+              <button
+
+              
+          onClick={()=>{
+            navigate("/portfolioDetail")
+          }}
+              
+              className="mt-5 p-7 bg-[#e8192c] text-white text-sm font-semibold px-5 py-2 rounded-lg opacity-0 translate-y-3 group-hover:opacity-100 group-hover:translate-y-0 transition duration-500">
                 Learn More
               </button>
 
