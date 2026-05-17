@@ -8,8 +8,8 @@ function ProtectedRoutes({ comp }) {
 
   useEffect(() => {
     if (
-      user.email !== "suman987@gmail.com" ||
-      user.password !== "suman12345678"
+      user?.email !== "suman987@gmail.com" ||
+      user?.password !== "suman12345678"
     ) {
       navigate("/login", { replace: true });
     }
