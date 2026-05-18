@@ -93,8 +93,8 @@ function Hero() {
               className="border-t border-gray-300 mt-10 pt-8 flex flex-wrap gap-10"
             >
               {[
-                { num: "12+", label: "Years of Excellence" },
-                { num: "200+", label: "Projects Delivered" },
+                { num: "5+", label: "Years of Excellence" },
+                { num: "100+", label: "Projects Delivered" },
                 { num: "40+", label: "Expert Engineers" },
               ].map((s) => (
                 <div key={s.label}>

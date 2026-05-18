@@ -76,15 +76,15 @@ function WhyYaksera() {
                 className="flex gap-3 items-start"
               >
                 {/* ICON BOX */}
-                <div className="w-10 h-10 flex items-center justify-center rounded-lg bg-[#e8192c]/10 border border-[#e8192c]/20 text-sm shrink-0">
+                <div className="w-10 h-10 flex items-center justify-center rounded-lg bg-[#e8192c]/10 border  border-[#e8192c]/20 text-sm shrink-0">
                   {f.icon}
                 </div>
 
                 {/* TEXT */}
-                <div>
-                  <p className="text-sm font-semibold text-[#e8192c]">
+                <div className="font-semibold"  >
+                  <h6 className="text-md font-semibold text-[#e8192c]">
                     {f.title}
-                  </p>
+                  </h6>
                   <p className="text-sm text-gray-500 leading-snug">
                     {f.desc}
                   </p>
