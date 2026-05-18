@@ -95,17 +95,17 @@ export default function OurPreciousClients() {
       </div>
 
       {/* CONTROLS */}
-      <div className="flex justify-center gap-4 mt-8">
+      <div className="flex text-black justify-center gap-4 mt-8">
         <button
           onClick={() => moveSlider("left")}
-          className="w-10 h-10 rounded-full bg-white shadow hover:bg-blue-900 hover:text-white transition"
+          className="w-10 h-10 rounded-full bg-gray-100 shadow-2xl hover:bg-blue-900 hover:text-white transition"
         >
           ‹
         </button>
 
         <button
           onClick={() => moveSlider("right")}
-          className="w-10 h-10 rounded-full bg-white shadow hover:bg-blue-900 hover:text-white transition"
+          className="w-10 h-10 rounded-full bg-gray-100 shadow-2xl hover:bg-blue-900 hover:text-white transition"
         >
           ›
         </button>
