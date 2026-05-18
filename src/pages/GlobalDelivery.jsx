@@ -52,7 +52,7 @@ export default function GlobalDelivery() {
         </div>
 
         {/* Country name row — bottom right */}
-        <div className="relative bg-[#121e3f] z-10 px-8 md:px-12 pb-5 flex justify-end">
+        <div className="relative bg-[#121e3f] z-10 px-8 md:px-12 pb-3 flex justify-end">
           <p className="text-[11px] tracking-widest text-blue-300/50 font-medium">
             {countries.map((c, i) => (
               <span key={c}>
