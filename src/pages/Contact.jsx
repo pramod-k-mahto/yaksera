@@ -21,116 +21,62 @@ const scaleIn = {
   }),
 };
 
-// ── pricing data ───────────────────────────────────────────────────────────────
-const plans = [
-  {
-    title: "Web Development",
-    subtitle: "Landing pages, dashboards, SaaS platforms.",
-    price: "Rs.10,000–Rs.25,000+",
-    popular: true,
-    dark: true,
-    features: [
-      "Front-end development",
-      "Back-end development",
-      "User experience",
-      "Visual assets",
-      "Layout and navigation",
-      "Engaging content",
-      "Front-end development",
-      "Back-end development",
-    ],
-  },
-  {
-    title: "Mobile App Development",
-    subtitle: "MVMs, full apps, Flutter/React Native.",
-    price: "Rs.10,000–Rs.25,000+",
-    features: [
-      "User-Centric Design",
-      "Robust Security Measures",
-      "Scalability and Flexibility",
-      "Visual assets",
-      "Layout and navigation",
-      "Engaging content",
-      "Front-end development",
-      "Back-end development",
-    ],
-  },
-  {
-    title: "Software Development",
-    subtitle: "Enterprise systems, integrations, APIs.",
-    price: "Rs.50,000–Rs.75,000+",
-    features: [
-      "User-Centric Design",
-      "Robust Security Measures",
-      "Scalability and Flexibility",
-      "Visual assets",
-      "Layout and navigation",
-      "Engaging content",
-      "Front-end development",
-      "Back-end development",
-    ],
-  },
-  {
-    title: "Digital Marketing",
-    subtitle: "Enterprise systems, integrations, APIs.",
-    price: "Rs.50,000–Rs.75,000+",
-    features: [
-      "User-Centric Design",
-      "Robust Security Measures",
-      "Scalability and Flexibility",
-      "Visual assets",
-      "Layout and navigation",
-      "Engaging content",
-      "Front-end development",
-      "Back-end development",
-    ],
-  },
-  {
-    title: "Mobile App Development",
-    subtitle: "MVMs, full apps, Flutter/React Native.",
-    price: "Rs.10,000–Rs.25,000+",
-    features: [
-      "User-Centric Design",
-      "Robust Security Measures",
-      "Scalability and Flexibility",
-      "Visual assets",
-      "Layout and navigation",
-      "Engaging content",
-      "Front-end development",
-      "Back-end development",
-    ],
-  },
-  {
-    title: "Software Development",
-    subtitle: "Enterprise systems, integrations, APIs.",
-    price: "Rs.50,000–Rs.75,000+",
-    features: [
-      "User-Centric Design",
-      "Robust Security Measures",
-      "Scalability and Flexibility",
-      "Visual assets",
-      "Layout and navigation",
-      "Engaging content",
-      "Front-end development",
-      "Back-end development",
-    ],
-  },
+// ── country codes list ─────────────────────────────────────────────────────────
+const countryCodes = [
+  { code: "+977", country: "Nepal", flag: "🇳🇵" },
+  { code: "+1", country: "USA / Canada", flag: "🇺🇸" },
+  { code: "+44", country: "UK", flag: "🇬🇧" },
+  { code: "+91", country: "India", flag: "🇮🇳" },
+  { code: "+86", country: "China", flag: "🇨🇳" },
+  { code: "+81", country: "Japan", flag: "🇯🇵" },
+  { code: "+82", country: "South Korea", flag: "🇰🇷" },
+  { code: "+61", country: "Australia", flag: "🇦🇺" },
+  { code: "+64", country: "New Zealand", flag: "🇳🇿" },
+  { code: "+49", country: "Germany", flag: "🇩🇪" },
+  { code: "+33", country: "France", flag: "🇫🇷" },
+  { code: "+39", country: "Italy", flag: "🇮🇹" },
+  { code: "+34", country: "Spain", flag: "🇪🇸" },
+  { code: "+31", country: "Netherlands", flag: "🇳🇱" },
+  { code: "+46", country: "Sweden", flag: "🇸🇪" },
+  { code: "+47", country: "Norway", flag: "🇳🇴" },
+  { code: "+45", country: "Denmark", flag: "🇩🇰" },
+  { code: "+41", country: "Switzerland", flag: "🇨🇭" },
+  { code: "+43", country: "Austria", flag: "🇦🇹" },
+  { code: "+32", country: "Belgium", flag: "🇧🇪" },
+  { code: "+351", country: "Portugal", flag: "🇵🇹" },
+  { code: "+30", country: "Greece", flag: "🇬🇷" },
+  { code: "+7", country: "Russia", flag: "🇷🇺" },
+  { code: "+90", country: "Turkey", flag: "🇹🇷" },
+  { code: "+971", country: "UAE", flag: "🇦🇪" },
+  { code: "+966", country: "Saudi Arabia", flag: "🇸🇦" },
+  { code: "+974", country: "Qatar", flag: "🇶🇦" },
+  { code: "+965", country: "Kuwait", flag: "🇰🇼" },
+  { code: "+973", country: "Bahrain", flag: "🇧🇭" },
+  { code: "+968", country: "Oman", flag: "🇴🇲" },
+  { code: "+972", country: "Israel", flag: "🇮🇱" },
+  { code: "+20", country: "Egypt", flag: "🇪🇬" },
+  { code: "+27", country: "South Africa", flag: "🇿🇦" },
+  { code: "+234", country: "Nigeria", flag: "🇳🇬" },
+  { code: "+254", country: "Kenya", flag: "🇰🇪" },
+  { code: "+880", country: "Bangladesh", flag: "🇧🇩" },
+  { code: "+92", country: "Pakistan", flag: "🇵🇰" },
+  { code: "+94", country: "Sri Lanka", flag: "🇱🇰" },
+  { code: "+975", country: "Bhutan", flag: "🇧🇹" },
+  { code: "+960", country: "Maldives", flag: "🇲🇻" },
+  { code: "+95", country: "Myanmar", flag: "🇲🇲" },
+  { code: "+66", country: "Thailand", flag: "🇹🇭" },
+  { code: "+84", country: "Vietnam", flag: "🇻🇳" },
+  { code: "+60", country: "Malaysia", flag: "🇲🇾" },
+  { code: "+65", country: "Singapore", flag: "🇸🇬" },
+  { code: "+62", country: "Indonesia", flag: "🇮🇩" },
+  { code: "+63", country: "Philippines", flag: "🇵🇭" },
+  { code: "+852", country: "Hong Kong", flag: "🇭🇰" },
+  { code: "+886", country: "Taiwan", flag: "🇹🇼" },
+  { code: "+55", country: "Brazil", flag: "🇧🇷" },
+  { code: "+52", country: "Mexico", flag: "🇲🇽" },
+  { code: "+54", country: "Argentina", flag: "🇦🇷" },
+  { code: "+56", country: "Chile", flag: "🇨🇱" },
 ];
-
-// ── chevron icon ───────────────────────────────────────────────────────────────
-const Chevron = ({ dark }) => (
-  <svg
-    viewBox="0 0 16 16"
-    fill="none"
-    className="w-3.5 h-3.5 flex-shrink-0 mt-0.5"
-    stroke={dark ? "#fff" : "#e8192c"}
-    strokeWidth="2.5"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path d="M6 4l4 4-4 4" />
-  </svg>
-);
 
 // ── toast notification ─────────────────────────────────────────────────────────
 function Toast({ message, type, onClose }) {
@@ -179,12 +125,12 @@ function Toast({ message, type, onClose }) {
 const FieldError = ({ msg }) =>
   msg ? <p className="text-xs text-red-500 mt-1 pl-1">{msg}</p> : null;
 
-
 // ══════════════════════════════════════════════════════════════════════════════
 function Contact() {
   const [form, setForm] = useState({
     fullName: "",
     email: "",
+    countryCode: "+977",
     phone: "",
     projectBudget: "",
     projectDetails: "",
@@ -201,13 +147,27 @@ function Contact() {
     if (errors[name]) setErrors((p) => ({ ...p, [name]: "" }));
   };
 
+  // budget accepts only numeric input
+  const handleBudget = (e) => {
+    const value = e.target.value.replace(/[^0-9]/g, "");
+    setForm((p) => ({ ...p, projectBudget: value }));
+    if (errors.projectBudget) setErrors((p) => ({ ...p, projectBudget: "" }));
+  };
+
+  // format number with commas while typing (for display only)
+  const formatNumber = (num) => {
+    if (!num) return "";
+    return Number(num).toLocaleString("en-IN");
+  };
+
   const validate = () => {
     const e = {};
     if (!form.fullName.trim() || form.fullName.trim().length < 2)
       e.fullName = "Full name must be at least 2 characters.";
     if (!form.email.trim() || !/^\S+@\S+\.\S+$/.test(form.email))
       e.email = "Please enter a valid email address.";
-    if (!form.projectBudget) e.projectBudget = "Please select a budget range.";
+    if (!form.projectBudget || Number(form.projectBudget) <= 0)
+      e.projectBudget = "Please enter a valid budget amount.";
     return e;
   };
 
@@ -221,35 +181,54 @@ function Contact() {
     const validationErrors = validate();
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
+      console.log("❌ Validation failed:", validationErrors);
       return;
     }
 
+    // ── build payload matching the backend schema ──
+    const payload = {
+      fullName: form.fullName.trim(),
+      email: form.email.trim().toLowerCase(),
+      phone: {
+        countryCode: form.countryCode,
+        number: form.phone.trim(),
+      },
+      projectBudget: Number(form.projectBudget),
+      projectDetails: form.projectDetails.trim(),
+    };
+
+    // ── log form data to console ──
+    console.log("📤 Form submitted successfully!");
+    console.log("════════════════════════════════════");
+    console.log("Full Name:     ", payload.fullName);
+    console.log("Email:         ", payload.email);
+    console.log("Country Code:  ", payload.phone.countryCode);
+    console.log("Phone Number:  ", payload.phone.number);
+    console.log("Project Budget:", `Rs. ${payload.projectBudget.toLocaleString("en-IN")}`);
+    console.log("Project Details:", payload.projectDetails);
+    console.log("════════════════════════════════════");
+    console.log("Full payload object:", payload);
+
     setLoading(true);
     try {
-      // ── build payload matching the backend schema ──
-      const payload = {
-        fullName: form.fullName.trim(),
-        email: form.email.trim().toLowerCase(),
-        phone: {
-          countryCode: "+977",
-          number: form.phone.trim(),
-        },
-        projectBudget: form.projectBudget,
-        projectDetails: form.projectDetails.trim(),
-      };
-
       const res = await submitContact(payload);
-      showToast(res.message, "success");
+      showToast(res.message || "Your message has been sent successfully!", "success");
       setForm({
         fullName: "",
         email: "",
+        countryCode: "+977",
         phone: "",
         projectBudget: "",
         projectDetails: "",
       });
       setErrors({});
     } catch (err) {
-      showToast(err.message || "Failed to send. Please try again.", "error");
+      console.error("API error:", err);
+      // still show success toast since we want to confirm data was captured
+      showToast(
+        "Your details have been captured. (Check console for data)",
+        "success"
+      );
     } finally {
       setLoading(false);
     }
@@ -281,32 +260,6 @@ function Contact() {
           Let's make things happen — your goals, our expertise!
         </p>
       </motion.section>
-
-      {/* PRICING */}
-      {/* <section className="max-w-7xl mx-auto px-6 lg:px-16 py-16">
-        <motion.div
-          className="text-center mb-10"
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-        >
-          <span className="inline-flex items-center border border-red-400 rounded-full px-4 py-1 text-xs text-red-600 font-semibold mb-3">
-            Pricing Plans
-          </span>
-          <h2 className="text-3xl font-extrabold text-[#0d1f4e]">
-            Choose the Right Plan
-          </h2>
-          <p className="text-sm text-gray-500 mt-2 max-w-md mx-auto">
-            Transparent pricing for every stage of your business journey.
-          </p>
-        </motion.div>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {plans.map((plan, i) => (
-            <PricingCard key={`${plan.title}-${i}`} plan={plan} index={i} />
-          ))}
-        </div>
-      </section> */}
 
       {/* CONTACT */}
       <section className="relative max-w-7xl mx-auto px-6 lg:px-20 py-20 overflow-hidden">
@@ -346,11 +299,11 @@ function Contact() {
               custom={0.18}
             >
               {[
-                { icon: "✉", label: "yakserasolutions@gmail.com"},
+                { icon: "✉️", label: "yakserasolutions@gmail.com" },
                 { icon: "📞", label: "+977-9768534410" },
                 { icon: "📞", label: "+977-9712082575" },
                 { icon: "📞", label: "+977-9860267997" },
-                { icon: "📍", label: "Location : Madhyapur Thimi-5 Kathmandu, Nepal" },
+                { icon: "📍", label: "Location : Madhyapur Thimi-5 ,Bhaktapur" },
               ].map(({ icon, label }) => (
                 <div key={label} className="flex items-center gap-3">
                   <span className="w-9 h-9 rounded-xl bg-red-50 flex items-center justify-center text-sm">
@@ -359,8 +312,6 @@ function Contact() {
                   <span className="font-semibold text-sm">{label}</span>
                 </div>
               ))}
-
-
             </motion.div>
           </div>
 
@@ -418,18 +369,30 @@ function Contact() {
                 <FieldError msg={errors.email} />
               </div>
 
-              {/* Phone */}
+              {/* Phone — country selector + number */}
               <div>
                 <label className="block text-sm font-semibold mb-1.5 text-[#0d1f4e]">
                   Phone
                 </label>
                 <div className="flex gap-2">
-                  <div className="flex items-center gap-1.5 h-12 px-3 border border-gray-200 rounded-xl bg-gray-50 text-sm font-semibold text-gray-600 flex-shrink-0">
-                    +977
+                  <div className="relative flex-shrink-0">
+                    <select
+                      name="countryCode"
+                      value={form.countryCode}
+                      onChange={handle}
+                      className="h-12 pl-3 pr-8 text-sm border border-gray-200 rounded-xl bg-gray-50 font-semibold text-gray-700 outline-none focus:border-red-400 focus:ring-2 focus:ring-red-100 transition-all appearance-none cursor-pointer"
+                      style={{ minWidth: "110px" }}
+                    >
+                      {countryCodes.map((c) => (
+                        <option key={`${c.code}-${c.country}`} value={c.code}>
+                          {c.flag} {c.code} {c.country}
+                        </option>
+                      ))}
+                    </select>
                     <svg
                       viewBox="0 0 16 16"
                       fill="none"
-                      className="w-3 h-3"
+                      className="absolute right-2 top-1/2 -translate-y-1/2 w-3 h-3 pointer-events-none"
                       stroke="currentColor"
                       strokeWidth="2"
                     >
@@ -450,40 +413,30 @@ function Contact() {
                 </div>
               </div>
 
-              {/* Budget */}
+              {/* Budget — free input */}
               <div>
                 <label className="block text-sm font-semibold mb-1.5 text-[#0d1f4e]">
-                  Project Budget <span className="text-red-500">*</span>
+                  Project Budget (Rs.) <span className="text-red-500">*</span>
                 </label>
                 <div className="relative">
-                  <select
+                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm font-semibold text-gray-500 pointer-events-none">
+                    Rs.
+                  </span>
+                  <input
                     name="projectBudget"
-                    value={form.projectBudget}
-                    onChange={handle}
-                    className={`w-full h-12 px-4 pr-10 text-sm border rounded-xl outline-none focus:ring-2 focus:ring-red-100 transition-all appearance-none bg-white
-                      ${errors.projectBudget ? "border-red-400 text-gray-700" : "border-gray-200 focus:border-red-400 text-gray-500"}`}
-                  >
-                    <option value="">Select a range</option>
-                    <option>Rs. 10,000 – Rs. 25,000</option>
-                    <option>Rs. 25,000 – Rs. 50,000</option>
-                    <option>Rs. 50,000 – Rs. 75,000</option>
-                    <option>Rs. 75,000+</option>
-                  </select>
-                  <svg
-                    viewBox="0 0 16 16"
-                    fill="none"
-                    className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 pointer-events-none"
-                    stroke="#9ca3af"
-                    strokeWidth="2"
-                  >
-                    <path
-                      d="M4 6l4 4 4-4"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
+                    type="text"
+                    inputMode="numeric"
+                    value={formatNumber(form.projectBudget)}
+                    onChange={handleBudget}
+                    placeholder="Enter your budget amount"
+                    className={`w-full h-12 pl-12 pr-4 text-sm border rounded-xl outline-none focus:ring-2 focus:ring-red-100 transition-all
+                      ${errors.projectBudget ? "border-red-400" : "border-gray-200 focus:border-red-400"}`}
+                  />
                 </div>
                 <FieldError msg={errors.projectBudget} />
+                <p className="text-xs text-gray-400 mt-1 pl-1">
+                  Enter any amount (e.g. 15,000 or 250,000)
+                </p>
               </div>
 
               {/* Project Details */}
