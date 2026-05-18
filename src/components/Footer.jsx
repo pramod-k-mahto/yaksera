@@ -115,9 +115,7 @@ function Footer() {
             </p>
 
             <div className="text-slate-300 text-sm mb-4 space-y-1">
-              <p>Phone: 9768534410</p>
-              <p>Phone: 9712082575</p>
-              <p>Phone: 9860267997</p>
+              <p>Phone: 9768534410 | 9860267997 | 9712082575</p>
             </div>
 
             <div className="flex gap-3">

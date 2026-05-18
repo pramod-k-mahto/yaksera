@@ -153,7 +153,8 @@ export default function Careers() {
 
         <div className="max-w-4xl">
           <h1 className="text-5xl sm:text-7xl font-bold tracking-tight leading-none text-slate-900 mb-8">
-            Build products
+            <span  className="text-red-600" >            Build products</span>
+  
             <br />
             people remember.
           </h1>
