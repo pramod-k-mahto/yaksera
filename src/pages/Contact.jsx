@@ -78,6 +78,30 @@ const countryCodes = [
   { code: "+56", country: "Chile", flag: "🇨🇱" },
 ];
 
+// ── currencies list ────────────────────────────────────────────────────────────
+const currencies = [
+  { code: "NPR", symbol: "Rs.", label: "Nepali Rupee", locale: "en-IN" },
+  { code: "USD", symbol: "$", label: "US Dollar", locale: "en-US" },
+  { code: "EUR", symbol: "€", label: "Euro", locale: "de-DE" },
+  { code: "GBP", symbol: "£", label: "British Pound", locale: "en-GB" },
+  { code: "INR", symbol: "₹", label: "Indian Rupee", locale: "en-IN" },
+  { code: "AUD", symbol: "A$", label: "Australian Dollar", locale: "en-AU" },
+  { code: "CAD", symbol: "C$", label: "Canadian Dollar", locale: "en-CA" },
+  { code: "JPY", symbol: "¥", label: "Japanese Yen", locale: "ja-JP" },
+  { code: "CNY", symbol: "¥", label: "Chinese Yuan", locale: "zh-CN" },
+  { code: "AED", symbol: "د.إ", label: "UAE Dirham", locale: "en-AE" },
+  { code: "SAR", symbol: "﷼", label: "Saudi Riyal", locale: "en-SA" },
+  { code: "SGD", symbol: "S$", label: "Singapore Dollar", locale: "en-SG" },
+  { code: "MYR", symbol: "RM", label: "Malaysian Ringgit", locale: "en-MY" },
+  { code: "KRW", symbol: "₩", label: "Korean Won", locale: "ko-KR" },
+  { code: "CHF", symbol: "CHF", label: "Swiss Franc", locale: "de-CH" },
+  { code: "HKD", symbol: "HK$", label: "Hong Kong Dollar", locale: "en-HK" },
+  { code: "NZD", symbol: "NZ$", label: "New Zealand Dollar", locale: "en-NZ" },
+  { code: "BDT", symbol: "৳", label: "Bangladeshi Taka", locale: "en-BD" },
+  { code: "PKR", symbol: "Rs", label: "Pakistani Rupee", locale: "en-PK" },
+  { code: "LKR", symbol: "Rs", label: "Sri Lankan Rupee", locale: "en-LK" },
+];
+
 // ── toast notification ─────────────────────────────────────────────────────────
 function Toast({ message, type, onClose }) {
   return (
@@ -132,6 +156,7 @@ function Contact() {
     email: "",
     countryCode: "+977",
     phone: "",
+    currency: "NPR",
     projectBudget: "",
     projectDetails: "",
   });
@@ -139,6 +164,10 @@ function Contact() {
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const [toast, setToast] = useState({ message: "", type: "" });
+
+  // currently-selected currency object
+  const selectedCurrency =
+    currencies.find((c) => c.code === form.currency) || currencies[0];
 
   // ── handlers ───────────────────────────────────────────────────────────────
   const handle = (e) => {
@@ -154,10 +183,14 @@ function Contact() {
     if (errors.projectBudget) setErrors((p) => ({ ...p, projectBudget: "" }));
   };
 
-  // format number with commas while typing (for display only)
+  // format number with commas based on selected currency's locale
   const formatNumber = (num) => {
     if (!num) return "";
-    return Number(num).toLocaleString("en-IN");
+    try {
+      return Number(num).toLocaleString(selectedCurrency.locale);
+    } catch {
+      return Number(num).toLocaleString("en-US");
+    }
   };
 
   const validate = () => {
@@ -193,7 +226,13 @@ function Contact() {
         countryCode: form.countryCode,
         number: form.phone.trim(),
       },
-      projectBudget: Number(form.projectBudget),
+      projectBudget: {
+        currency: form.currency,
+        amount: Number(form.projectBudget),
+        formatted: `${selectedCurrency.symbol} ${Number(
+          form.projectBudget
+        ).toLocaleString(selectedCurrency.locale)}`,
+      },
       projectDetails: form.projectDetails.trim(),
     };
 
@@ -204,7 +243,9 @@ function Contact() {
     console.log("Email:         ", payload.email);
     console.log("Country Code:  ", payload.phone.countryCode);
     console.log("Phone Number:  ", payload.phone.number);
-    console.log("Project Budget:", `Rs. ${payload.projectBudget.toLocaleString("en-IN")}`);
+    console.log("Currency:      ", payload.projectBudget.currency);
+    console.log("Budget Amount: ", payload.projectBudget.amount);
+    console.log("Budget Display:", payload.projectBudget.formatted);
     console.log("Project Details:", payload.projectDetails);
     console.log("════════════════════════════════════");
     console.log("Full payload object:", payload);
@@ -212,19 +253,22 @@ function Contact() {
     setLoading(true);
     try {
       const res = await submitContact(payload);
-      showToast(res.message || "Your message has been sent successfully!", "success");
+      showToast(
+        res.message || "Your message has been sent successfully!",
+        "success"
+      );
       setForm({
         fullName: "",
         email: "",
         countryCode: "+977",
         phone: "",
+        currency: "NPR",
         projectBudget: "",
         projectDetails: "",
       });
       setErrors({});
     } catch (err) {
       console.error("API error:", err);
-      // still show success toast since we want to confirm data was captured
       showToast(
         "Your details have been captured. (Check console for data)",
         "success"
@@ -329,7 +373,7 @@ function Contact() {
               boxShadow: "0 12px 40px rgba(0,0,0,0.09)",
             }}
           >
-            <h2 className="text-2xl font-black text-[#0d1f4e]">Contact Form</h2>
+            <h2 className="text-2xl font-black text-red-500" >Contact Form</h2>
             <p className="text-sm text-gray-500 mt-1.5 leading-relaxed">
               Fill out the form below, and our team will get back to you
               promptly. Let's connect and create solutions together.
@@ -413,29 +457,61 @@ function Contact() {
                 </div>
               </div>
 
-              {/* Budget — free input */}
+              {/* Budget — currency selector + free input */}
               <div>
                 <label className="block text-sm font-semibold mb-1.5 text-[#0d1f4e]">
-                  Project Budget (Rs.) <span className="text-red-500">*</span>
+                  Project Budget <span className="text-red-500">*</span>
                 </label>
-                <div className="relative">
-                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm font-semibold text-gray-500 pointer-events-none">
-                    Rs.
-                  </span>
+                <div className="flex gap-2">
+                  {/* Currency selector */}
+                  <div className="relative flex-shrink-0">
+                    <select
+                      name="currency"
+                      value={form.currency}
+                      onChange={handle}
+                      className="h-12 pl-3 pr-8 text-sm border border-gray-200 rounded-xl bg-gray-50 font-semibold text-gray-700 outline-none focus:border-red-400 focus:ring-2 focus:ring-red-100 transition-all appearance-none cursor-pointer"
+                      style={{ minWidth: "110px" }}
+                    >
+                      {currencies.map((c) => (
+                        <option key={c.code} value={c.code}>
+                          {c.symbol} {c.code}
+                        </option>
+                      ))}
+                    </select>
+                    <svg
+                      viewBox="0 0 16 16"
+                      fill="none"
+                      className="absolute right-2 top-1/2 -translate-y-1/2 w-3 h-3 pointer-events-none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                    >
+                      <path
+                        d="M4 6l4 4 4-4"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </div>
+
+                  {/* Amount input */}
                   <input
                     name="projectBudget"
                     type="text"
                     inputMode="numeric"
                     value={formatNumber(form.projectBudget)}
                     onChange={handleBudget}
-                    placeholder="Enter your budget amount"
-                    className={`w-full h-12 pl-12 pr-4 text-sm border rounded-xl outline-none focus:ring-2 focus:ring-red-100 transition-all
+                    placeholder={`Enter amount in ${selectedCurrency.code}`}
+                    className={`flex-1 h-12 px-4 text-sm border rounded-xl outline-none focus:ring-2 focus:ring-red-100 transition-all
                       ${errors.projectBudget ? "border-red-400" : "border-gray-200 focus:border-red-400"}`}
                   />
                 </div>
                 <FieldError msg={errors.projectBudget} />
                 <p className="text-xs text-gray-400 mt-1 pl-1">
-                  Enter any amount (e.g. 15,000 or 250,000)
+                  {form.projectBudget
+                    ? `You entered: ${selectedCurrency.symbol} ${formatNumber(
+                        form.projectBudget
+                      )} (${selectedCurrency.code} — ${selectedCurrency.label})`
+                    : `Select a currency and enter any amount (e.g. ${selectedCurrency.symbol} 15,000)`}
                 </p>
               </div>
 
