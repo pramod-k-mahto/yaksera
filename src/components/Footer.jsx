@@ -1,14 +1,10 @@
-import React from "react";
 import logo from "../assets/logo.png";
 import { useNavigate, useLocation, NavLink } from "react-router-dom";
 import { scroller } from "react-scroll";
-
-/* Icons */
-const LinkedInIcon = () => (
-  <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
-    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286z" />
-  </svg>
-);
+import { FaLinkedin } from "react-icons/fa6";
+import { AiFillTikTok } from "react-icons/ai";
+import { FaFacebookF } from "react-icons/fa";
+import { GrInstagram } from "react-icons/gr";
 
 const services = [
   "Web Development",
@@ -27,7 +23,6 @@ const quickLinks = [
 function Footer() {
   const navigate = useNavigate();
   const location = useLocation();
-  
 
   // ✅ ONLY SCROLL FUNCTION (for services)
   const scrollToSection = (section) => {
@@ -126,9 +121,18 @@ function Footer() {
             </div>
 
             <div className="flex gap-3">
-              <a href="#" className="p-2 border border-slate-600 rounded">
-                <LinkedInIcon />
-              </a>
+              <NavLink   target="_blank"  to='https://www.facebook.com/share/16qwURL1if/?mibextid=wwXIfr' >
+                <FaFacebookF size={20} />
+              </NavLink>
+              <NavLink  target="_blank" to='https://www.linkedin.com/in/yaksera' >
+                <FaLinkedin size={20} />
+              </NavLink>
+              <NavLink  target="_blank"  to="https://www.tiktok.com/@yaksera?_r=1&_t=ZS-96T4DlBHdzT"  >
+                <AiFillTikTok size={20} />
+              </NavLink>
+              <NavLink  target="_blank" to='https://www.instagram.com/yakserasolutions?igsh=b254M3NsdHpvcm5r&utm_source=qr'  >
+                <GrInstagram size={20} />
+              </NavLink>
             </div>
           </div>
         </div>

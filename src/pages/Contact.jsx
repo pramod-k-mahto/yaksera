@@ -179,92 +179,6 @@ function Toast({ message, type, onClose }) {
 const FieldError = ({ msg }) =>
   msg ? <p className="text-xs text-red-500 mt-1 pl-1">{msg}</p> : null;
 
-// ── pricing card ───────────────────────────────────────────────────────────────
-function PricingCard({ plan, index }) {
-  return (
-    <motion.div
-      variants={scaleIn}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.2 }}
-      custom={index * 0.08}
-      whileHover={{ y: -6, transition: { duration: 0.25 } }}
-      className="relative rounded-3xl overflow-hidden flex flex-col"
-      style={{
-        background: plan.dark ? "#0d1f4e" : "#fff",
-        border: plan.dark ? "none" : "1.5px solid #e5e7eb",
-        boxShadow: plan.dark
-          ? "0 20px 50px rgba(13,31,78,0.25)"
-          : "0 4px 20px rgba(0,0,0,0.06)",
-      }}
-    >
-      {plan.popular && (
-        <div className="absolute top-0 left-1/2 -translate-x-1/2">
-          <div className="bg-red-600 text-white text-[10px] font-black tracking-widest px-5 py-1 rounded-b-full">
-            Most Popular
-          </div>
-        </div>
-      )}
-      <div className="p-6 pt-10 flex flex-col flex-1">
-        <h3
-          className="text-base font-extrabold text-center"
-          style={{ color: plan.dark ? "#fff" : "#0d1f4e" }}
-        >
-          {plan.title}
-        </h3>
-        <p
-          className="text-xs text-center mt-1 mb-3"
-          style={{ color: plan.dark ? "#94a3b8" : "#6b7280" }}
-        >
-          {plan.subtitle}
-        </p>
-        <p
-          className="text-center font-black text-lg mb-4"
-          style={{ color: plan.dark ? "#fff" : "#0d1f4e" }}
-        >
-          {plan.price}
-        </p>
-        <div className="flex gap-2 mb-5">
-          <button
-            className="flex-1 h-9 rounded-full text-xs font-bold text-white transition-opacity hover:opacity-90"
-            style={{ background: "#e8192c" }}
-          >
-            Get Quote
-          </button>
-          <button
-            className="flex-1 h-9 rounded-full text-xs font-bold border transition-colors hover:bg-red-50"
-            style={{
-              border: plan.dark ? "1.5px solid #fff" : "1.5px solid #e8192c",
-              color: plan.dark ? "#fff" : "#e8192c",
-            }}
-          >
-            Learn More
-          </button>
-        </div>
-        <div
-          className="mb-4"
-          style={{
-            height: "1px",
-            background: plan.dark ? "rgba(255,255,255,0.1)" : "#f3f4f6",
-          }}
-        />
-        <ul className="space-y-2 flex-1">
-          {plan.features.map((f, i) => (
-            <li key={i} className="flex items-start gap-2">
-              <Chevron dark={plan.dark} />
-              <span
-                className="text-xs leading-relaxed"
-                style={{ color: plan.dark ? "#cbd5e1" : "#374151" }}
-              >
-                {f}
-              </span>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </motion.div>
-  );
-}
 
 // ══════════════════════════════════════════════════════════════════════════════
 function Contact() {
@@ -369,7 +283,7 @@ function Contact() {
       </motion.section>
 
       {/* PRICING */}
-      <section className="max-w-7xl mx-auto px-6 lg:px-16 py-16">
+      {/* <section className="max-w-7xl mx-auto px-6 lg:px-16 py-16">
         <motion.div
           className="text-center mb-10"
           variants={fadeUp}
@@ -392,7 +306,7 @@ function Contact() {
             <PricingCard key={`${plan.title}-${i}`} plan={plan} index={i} />
           ))}
         </div>
-      </section>
+      </section> */}
 
       {/* CONTACT */}
       <section className="relative max-w-7xl mx-auto px-6 lg:px-20 py-20 overflow-hidden">
