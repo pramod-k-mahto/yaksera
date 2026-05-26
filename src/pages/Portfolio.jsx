@@ -1,6 +1,7 @@
-import React, { useState, useRef } from "react";
+import  { useState, useRef, useEffect } from "react";
 import { motion, useInView } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import { getPortfolios } from "../services/portfolio";
 
 const projects = [
   {
@@ -61,6 +62,15 @@ function Portfolio() {
   const inView = useInView(ref, { once: true, margin: "-100px" });
 
   const navigate = useNavigate();
+
+  const getData = async () => {
+    const data = await getPortfolios();
+    console.log(data.data);
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
 
 
   const filtered =

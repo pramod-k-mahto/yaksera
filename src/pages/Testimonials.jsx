@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
+import { getTestimonials } from '../services/testimonial'
 
 const testimonials = [
   {
@@ -67,6 +68,15 @@ function Testimonials() {
   const [paused, setPaused] = useState(false)
   const trackRef = useRef(null)
   const intervalRef = useRef(null)
+
+  const getData = async () => {
+    const data = await getTestimonials();
+    console.log(data.data);
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
 
   const visibleCount = 2
   const total = testimonials.length

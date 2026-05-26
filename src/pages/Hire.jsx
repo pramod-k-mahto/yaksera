@@ -1,4 +1,5 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { getJobApplications } from "../services/jobApplication";
 const jobs = [
   {
     id: 1,
@@ -119,6 +120,15 @@ export default function Careers() {
   const [active, setActive] = useState("All");
   const [selected, setSelected] = useState(jobs[0]);
   const [search, setSearch] = useState("");
+
+  const getData = async () => {
+    const data = await getJobApplications();
+    console.log(data.data);
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
 
   const filtered = useMemo(() => {
     return jobs.filter((job) => {

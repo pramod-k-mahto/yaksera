@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { submitContact } from "../api/contact"; // adjust path as needed
+import { getContactsAll, submitContact } from "../services/contact.js"; // adjust path as needed
 
 // ── animation helpers ──────────────────────────────────────────────────────────
 const fadeUp = {
@@ -164,6 +164,16 @@ function Contact() {
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const [toast, setToast] = useState({ message: "", type: "" });
+
+
+  const getData = async () => {
+    const data = await getContactsAll();
+    console.log(data.data);
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
 
   // currently-selected currency object
   const selectedCurrency =

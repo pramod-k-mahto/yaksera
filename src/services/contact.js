@@ -1,8 +1,8 @@
-import { apiClient } from "./client";
+import { apiClient } from "../api/client.js";
 
 // CREATE
 export const submitContact = async (data) => {
-  return apiClient("/api/contact", {
+  return apiClient("/api/v1/contacts", {
     method: "POST",
     body: data,
   });
@@ -10,22 +10,22 @@ export const submitContact = async (data) => {
 
 // READ (LIST) — accepts an optional query string, e.g. "?page=1&status=new"
 export const getContacts = async (query = "") => {
-  return apiClient(`/api/contact${query}`);
+  return apiClient(`/api/v1/contacts${query}`);
 };
 export const getContactsAll = async () => {
-  return apiClient(`/api/contact`);
+  return apiClient(`/api/v1/contacts`);
 };
 
 // DELETE
 export const deleteContact = async (id) => {
-  return apiClient(`/api/contact/${id}`, {
+  return apiClient(`/api/v1/contacts/${id}`, {
     method: "DELETE",
   });
 };
 
 // UPDATE STATUS
 export const updateContactStatus = async (id, status) => {
-  return apiClient(`/api/contact/${id}/status`, {
+  return apiClient(`/api/v1/contacts/${id}/status`, {
     method: "PATCH",
     body: { status },
   });

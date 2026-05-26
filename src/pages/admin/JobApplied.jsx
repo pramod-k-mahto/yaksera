@@ -13,6 +13,8 @@ import {
   Phone,
   CheckCircle2,
 } from "lucide-react";
+import { useEffect } from "react";
+import { getJobApplications } from "../../services/jobApplication";
 
 const applications = [
   {
@@ -60,7 +62,6 @@ const applications = [
     date: "08 May 2026",
   },
 ];
-
 const stats = [
   {
     title: "Total Applications",
@@ -85,6 +86,16 @@ const stats = [
 ];
 
 function JobApplied() {
+  // getJobVacancies
+
+  const getData = async () => {
+    const data = await getJobApplications();
+    console.log(data.data);
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
   return (
     <div className="space-y-8">
       {/* TOP */}
@@ -114,8 +125,8 @@ function JobApplied() {
               text-white/50
             "
           >
-            Manage candidate applications, track hiring progress,
-            review resumes, and organize recruitment workflows.
+            Manage candidate applications, track hiring progress, review
+            resumes, and organize recruitment workflows.
           </motion.p>
         </div>
 
@@ -207,9 +218,7 @@ function JobApplied() {
               </div>
 
               <div className="mt-6">
-                <p className="text-sm text-white/45">
-                  {item.title}
-                </p>
+                <p className="text-sm text-white/45">{item.title}</p>
 
                 <h2
                   className="
@@ -332,9 +341,7 @@ function JobApplied() {
                         {app.name}
                       </h3>
 
-                      <p className="mt-1 text-xs text-white/35">
-                        {app.id}
-                      </p>
+                      <p className="mt-1 text-xs text-white/35">{app.id}</p>
                     </div>
                   </td>
 
@@ -342,10 +349,7 @@ function JobApplied() {
                   <td className="px-6 py-5">
                     <div className="space-y-2">
                       <div className="flex items-center gap-2">
-                        <Mail
-                          size={14}
-                          className="text-white/30"
-                        />
+                        <Mail size={14} className="text-white/30" />
 
                         <span className="text-sm text-white/65">
                           {app.email}
@@ -353,10 +357,7 @@ function JobApplied() {
                       </div>
 
                       <div className="flex items-center gap-2">
-                        <Phone
-                          size={14}
-                          className="text-white/30"
-                        />
+                        <Phone size={14} className="text-white/30" />
 
                         <span className="text-sm text-white/45">
                           {app.phone}
@@ -391,10 +392,7 @@ function JobApplied() {
                   {/* LOCATION */}
                   <td className="px-6 py-5">
                     <div className="flex items-center gap-2">
-                      <MapPin
-                        size={15}
-                        className="text-white/35"
-                      />
+                      <MapPin size={15} className="text-white/35" />
 
                       <span className="text-sm text-white/60">
                         {app.location}
@@ -412,10 +410,10 @@ function JobApplied() {
                           app.status === "Reviewed"
                             ? "bg-blue-500/10 text-blue-300"
                             : app.status === "Interview"
-                            ? "bg-purple-500/10 text-purple-300"
-                            : app.status === "Selected"
-                            ? "bg-emerald-500/10 text-emerald-300"
-                            : "bg-yellow-500/10 text-yellow-300"
+                              ? "bg-purple-500/10 text-purple-300"
+                              : app.status === "Selected"
+                                ? "bg-emerald-500/10 text-emerald-300"
+                                : "bg-yellow-500/10 text-yellow-300"
                         }
                       `}
                     >

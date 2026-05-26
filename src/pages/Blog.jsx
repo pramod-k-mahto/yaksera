@@ -1,5 +1,7 @@
+import { useEffect } from "react";
 import Demo from "./Demo";
 import { useNavigate } from "react-router-dom";
+import { getBlogsAll } from "../services/blog";
 
 const blogs = [
   {
@@ -81,6 +83,14 @@ function ArrowIcon() {
 
 function Blog() {
   const navigate = useNavigate();
+  const getData = async () => {
+    const data = await getBlogsAll();
+    console.log(data.data);
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
 
   return (
     <div className="min-h-screen py-20 px-6 md:px-12 lg:px-20 bg-white font-sans">

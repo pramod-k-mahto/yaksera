@@ -1,5 +1,7 @@
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { getAllCaseStudies } from "../services/caseStudies";
 
 /* ───────────────── CASE STUDIES DATA ───────────────── */
 const caseStudies = [
@@ -152,6 +154,15 @@ function CaseStudyCard({ item, index }) {
 function CaseStudies() {
 
  const navigate= useNavigate()
+
+ const getData = async () => {
+    const data = await getAllCaseStudies();
+    console.log(data.data);
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
   return (
     <section
       style={{

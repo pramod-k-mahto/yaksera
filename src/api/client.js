@@ -1,7 +1,9 @@
 const BASE_URL = import.meta.env.VITE_API_URL || "https://yaksera.onrender.com";
 
-
-export const apiClient = async (endpoint,{ method = "GET", body, headers = {} } = {}) => {
+export const apiClient = async (
+  endpoint,
+  { method = "GET", body, headers = {} } = {},
+) => {
   try {
     // const token = localStorage.getItem("token");
     // console.log(`${BASE_URL}${endpoint}`)
@@ -22,7 +24,6 @@ export const apiClient = async (endpoint,{ method = "GET", body, headers = {} } 
     }
 
     return data;
-
   } catch (error) {
     console.error("API Error:", error.message);
 

@@ -1,8 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 function PortfolioDetail() {
   const { id } = useParams();
+
+  const getData = async () => {
+    const data = await getAllUsers();
+    console.log(data.data);
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
 
   // Example static data (later you can replace with API)
   const project = {

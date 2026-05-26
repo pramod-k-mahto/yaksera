@@ -5,7 +5,7 @@ import {
   Search, Eye, Trash2, Download, Filter, X, RefreshCw,
 } from "lucide-react";
 // ✅ Import the correct named functions instead of a single fetchContacts
-import { getContacts, deleteContact, updateContactStatus } from "../../api/contact.js";
+import { getContacts, deleteContact, updateContactStatus } from "../../services/contact";
 
 // ── status config ──────────────────────────────────────────────────────────────
 const STATUS_STYLES = {
