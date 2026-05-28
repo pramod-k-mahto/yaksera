@@ -2,7 +2,8 @@ import { apiClient } from "../api/client.js";
 
 // CREATE
 export const submitContact = async (data) => {
-  return apiClient("/api/v1/contacts", {
+  console.log(data)
+  return apiClient("/api/v1/contacts/create", {
     method: "POST",
     body: data,
   });

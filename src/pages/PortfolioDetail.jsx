@@ -1,29 +1,21 @@
-import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 
 function PortfolioDetail() {
-  const { id } = useParams();
+  const location = useLocation();
+  console.log(location?.state)
 
-  const getData = async () => {
-    const data = await getAllUsers();
-    console.log(data.data);
-  };
-
-  useEffect(() => {
-    getData();
-  }, []);
-
+  const{title,description,tags,image,projectUrl,github}=location.state
   // Example static data (later you can replace with API)
-  const project = {
-    title: "ERP System",
-    description:
-      "A full-stack ERP system built with React, Node.js, and PostgreSQL. It includes authentication, role management, and analytics dashboard.",
-    tech: ["React", "Node.js", "PostgreSQL", "Tailwind CSS"],
-    image:
-      "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200",
-    live: "#",
-    github: "#",
-  };
+  // const project = {
+  //   title: "ERP System",
+  //   description:
+  //     "A full-stack ERP system built with React, Node.js, and PostgreSQL. It includes authentication, role management, and analytics dashboard.",
+  //   tech: ["React", "Node.js", "PostgreSQL", "Tailwind CSS"],
+  //   image:
+  //     "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200",
+  //   live: "#",
+  //   github: "#",
+  // };
 
   return (
     <div className="min-h-screen bg-slate-950 text-white px-6 py-12">
@@ -31,7 +23,7 @@ function PortfolioDetail() {
         
         {/* Title */}
         <h1 className="text-3xl md:text-4xl font-bold mb-4">
-          {project.title}
+          {title}
         </h1>
 
         {/* <p className="text-slate-400 mb-8">
@@ -41,7 +33,7 @@ function PortfolioDetail() {
         {/* Image */}
         <div className="rounded-xl overflow-hidden mb-8 border border-slate-800">
           <img
-            src={project.image}
+            src={image}
             alt="project"
             className="w-full h-[400px] object-cover"
           />
@@ -51,7 +43,7 @@ function PortfolioDetail() {
         <div className="mb-8">
           <h2 className="text-xl font-semibold mb-2">Overview</h2>
           <p className="text-slate-300 leading-relaxed">
-            {project.description}
+            {description}
           </p>
         </div>
 
@@ -59,7 +51,7 @@ function PortfolioDetail() {
         <div className="mb-8">
           <h2 className="text-xl font-semibold mb-3">Tech Stack</h2>
           <div className="flex flex-wrap gap-2">
-            {project.tech.map((tech, i) => (
+            {tags?.map((tech, i) => (
               <span
                 key={i}
                 className="px-3 py-1 text-sm bg-slate-800 border border-slate-700 rounded-full"
@@ -72,19 +64,13 @@ function PortfolioDetail() {
 
         {/* Buttons */}
         <div className="flex gap-4">
-          <a
-            href={project.live}
+          <NavLink
+            to={projectUrl}
+            target="_blank"
             className="px-5 py-2 bg-red-500 hover:bg-red-600 rounded-lg font-medium"
           >
             Live Demo
-          </a>
-
-          <a
-            href={project.github}
-            className="px-5 py-2 border border-slate-600 rounded-lg hover:bg-slate-800"
-          >
-            GitHub
-          </a>
+          </NavLink>
         </div>
       </div>
     </div>

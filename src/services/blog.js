@@ -3,3 +3,6 @@ import { apiClient } from "../api/client.js";
 export const getBlogsAll = async () => {
   return await apiClient("/api/v1/blogs");
 };
+export const getBlogById = async (id) => {
+  return await apiClient(`/api/v1/blogs/${id}`);
+};

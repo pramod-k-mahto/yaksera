@@ -1,37 +1,30 @@
-import React from "react";
 import { motion } from "framer-motion";
-
+import { NavLink } from "react-router-dom";
+import { getJobVacancies } from "../../services/jobVacancy";
+import { useEffect, useState } from "react";
 function VacancyManagement() {
-  const jobs = [
-    {
-      title: "Frontend Developer",
-      type: "Full Time",
-      location: "Remote",
-      experience: "2+ Years",
-      status: "Open",
-    },
-    {
-      title: "Backend Developer",
-      type: "Full Time",
-      location: "Kathmandu",
-      experience: "3+ Years",
-      status: "Open",
-    },
-    {
-      title: "UI/UX Designer",
-      type: "Contract",
-      location: "Remote",
-      experience: "1+ Year",
-      status: "Closed",
-    },
-    {
-      title: "Project Manager",
-      type: "Full Time",
-      location: "Kathmandu",
-      experience: "4+ Years",
-      status: "Open",
-    },
-  ];
+  const [jobs, setJobs] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const getAllVacancy = async () => {
+    try {
+      setLoading(true);
+
+      const response = await getJobVacancies();
+
+      console.log(response.data);
+
+      setJobs(response.data || []);
+    } catch (error) {
+      console.log(error);
+      setJobs([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getAllVacancy();
+  }, []);
 
   return (
     <motion.div
@@ -46,14 +39,18 @@ function VacancyManagement() {
           Vacancy Management
         </h1>
 
-        <button className="px-4 py-2 text-sm font-medium text-white bg-[#e8132f] rounded-lg hover:bg-[#c40d24] transition">
+        <NavLink
+          to="/admin/addVacancy"
+          className="px-4 py-2 text-sm font-medium text-white bg-[#e8132f] rounded-lg hover:bg-[#c40d24] transition"
+        >
           + Add Vacancy
-        </button>
+        </NavLink>
       </div>
 
       {/* DESCRIPTION */}
       <p className="text-sm text-white/60 max-w-2xl">
-        Manage job openings, hiring positions, and recruitment status for your company.
+        Manage job openings, hiring positions, and recruitment status for your
+        company.
       </p>
 
       {/* TABLE */}
@@ -67,28 +64,39 @@ function VacancyManagement() {
           <span>Status</span>
         </div>
 
-        {/* ROWS */}
-        {jobs.map((job, i) => (
-          <div
-            key={i}
-            className="grid grid-cols-5 px-4 py-4 text-sm text-white/80 border-t border-white/10 hover:bg-white/5 transition"
-          >
-            <span className="font-medium text-white">{job.title}</span>
-            <span>{job.type}</span>
-            <span>{job.location}</span>
-            <span>{job.experience}</span>
-
-            <span
-              className={`text-xs font-semibold ${
-                job.status === "Open"
-                  ? "text-green-400"
-                  : "text-red-400"
-              }`}
-            >
-              {job.status}
-            </span>
+        {/* LOADING */}
+        {loading ? (
+          <div className="py-10 text-center text-white/50 text-sm">
+            Loading vacancies...
           </div>
-        ))}
+        ) : jobs.length > 0 ? (
+          jobs.map((job) => (
+            <div
+              key={job._id}
+              className="grid grid-cols-5 px-4 py-4 text-sm text-white/80 border-t border-white/10 hover:bg-white/5 transition"
+            >
+              <span className="font-medium text-white">{job.title}</span>
+
+              <span>{job.type}</span>
+
+              <span>{job.location}</span>
+
+              <span>{job.experience}</span>
+
+              <span
+                className={`text-xs font-semibold ${
+                  job.status === "Open" ? "text-green-400" : "text-red-400"
+                }`}
+              >
+                {job.status}
+              </span>
+            </div>
+          ))
+        ) : (
+          <div className="py-10 text-center text-white/50 text-sm">
+            No vacancies found
+          </div>
+        )}
       </div>
     </motion.div>
   );

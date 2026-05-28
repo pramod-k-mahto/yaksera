@@ -1,101 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
-import { getJobApplications } from "../services/jobApplication";
-const jobs = [
-  {
-    id: 1,
-    title: "Senior AI Engineer",
-    dept: "Engineering",
-    type: "Full Time",
-    location: "On Site",
-    exp: "1+ years",
-    tags: ["Python", "FastAPI", "AWS", "PostgreSQL"],
-    description:
-      "Build scalable AI systems, backend APIs, and production-grade machine learning infrastructure.",
-    do: [
-      "Design and deploy ML models to production",
-      "Build robust REST and GraphQL APIs with FastAPI",
-      "Architect scalable data pipelines on AWS",
-      "Collaborate with product to define AI-driven features",
-    ],
-    req: [
-      "1+ year in Python and ML engineering",
-      "Experience with AWS (EC2, S3, Lambda)",
-      "Familiarity with PostgreSQL or similar",
-      "Strong debugging and code review skills",
-    ],
-  },
-  {
-    id: 2,
-    title: "Full Stack Developer",
-    dept: "Engineering",
-    type: "Full Time",
-    location: "Hybrid",
-    exp: "2+ years",
-    tags: ["React", "Node.js", "TypeScript"],
-    description:
-      "Create modern applications with clean architecture and excellent user experience.",
-    do: [
-      "Build responsive UIs in React and TypeScript",
-      "Develop and maintain Node.js backend services",
-      "Write clean, tested, and documented code",
-      "Participate in architecture and design reviews",
-    ],
-    req: [
-      "2+ years with React and Node.js",
-      "Strong TypeScript skills",
-      "Experience with REST APIs",
-      "Good eye for UI detail and performance",
-    ],
-  },
-  {
-    id: 3,
-    title: "UI/UX Designer",
-    dept: "Design",
-    type: "Remote",
-    location: "Worldwide",
-    exp: "2+ years",
-    tags: ["Figma", "Design Systems", "Research"],
-    description:
-      "Design clean and conversion-focused interfaces for modern startups.",
-    do: [
-      "Own end-to-end design from research to handoff",
-      "Build and maintain a scalable design system",
-      "Run user interviews and usability tests",
-      "Work closely with engineers to ensure pixel-perfect output",
-    ],
-    req: [
-      "2+ years of product design experience",
-      "Expert-level Figma skills",
-      "Portfolio showing shipped products",
-      "Ability to communicate design decisions clearly",
-    ],
-  },
-  {
-    id: 4,
-    title: "DevOps Intern",
-    dept: "Internship",
-    type: "Internship",
-    location: "Hybrid",
-    exp: "0+ years",
-    tags: ["Docker", "CI/CD", "AWS"],
-    description:
-      "Learn cloud infrastructure, deployment pipelines, and automation workflows.",
-    do: [
-      "Assist with building and maintaining CI/CD pipelines",
-      "Learn container orchestration with Docker",
-      "Monitor cloud infrastructure and flag issues",
-      "Help automate repetitive deployment tasks",
-    ],
-    req: [
-      "Currently studying CS, Engineering, or similar",
-      "Basic understanding of Linux and shell scripting",
-      "Curiosity and willingness to learn",
-      "Good communication in a remote-first team",
-    ],
-  },
-];
+import { getJobVacancies } from "../services/jobVacancy";
+import { useNavigate } from "react-router-dom";
 
-const tabs = ["All", "Engineering", "Design", "Internship"];
+const tabs = ["All", "Engineering", "Design", "Internship", "Infrastructure"];
 
 function BulletItem({ text }) {
   return (
@@ -117,18 +24,38 @@ function MetaPill({ text }) {
 }
 
 export default function Careers() {
+  const [jobs, setJobs] = useState([]);
   const [active, setActive] = useState("All");
-  const [selected, setSelected] = useState(jobs[0]);
+  const [selected, setSelected] = useState(null); // ✅ null initially, not jobs[0]
   const [search, setSearch] = useState("");
 
+  const navigate = useNavigate();
+
   const getData = async () => {
-    const data = await getJobApplications();
-    console.log(data.data);
+    try {
+      const response = await getJobVacancies();
+      // ✅ API returns { data: { data: [...] } } or { data: [...] } — handle both
+      const list = Array.isArray(response.data)
+        ? response.data
+        : Array.isArray(response.data?.data)
+          ? response.data.data
+          : [];
+      setJobs(list);
+    } catch (err) {
+      console.error("Failed to fetch jobs:", err);
+    }
   };
 
   useEffect(() => {
     getData();
   }, []);
+
+  // ✅ Auto-select first job once jobs load
+  useEffect(() => {
+    if (jobs.length > 0 && !selected) {
+      setSelected(jobs[0]);
+    }
+  }, [jobs]);
 
   const filtered = useMemo(() => {
     return jobs.filter((job) => {
@@ -136,19 +63,20 @@ export default function Careers() {
       const q = search.toLowerCase();
       const matchSearch =
         !q ||
-        job.title.toLowerCase().includes(q) ||
-        job.tags.join(" ").toLowerCase().includes(q) ||
-        job.dept.toLowerCase().includes(q);
+        job.title?.toLowerCase().includes(q) ||
+        (job.tags ?? []).join(" ").toLowerCase().includes(q) ||
+        job.dept?.toLowerCase().includes(q);
       return matchTab && matchSearch;
     });
-  }, [active, search]);
+  }, [jobs, active, search]); // ✅ added `jobs` to deps (was missing!)
+
+  // ✅ Use _id (MongoDB), not id
+  const displaySelected =
+    filtered.find((j) => j._id === selected?._id) || filtered[0] || selected;
 
   function handleSelect(job) {
     setSelected(job);
   }
-
-  const displaySelected =
-    filtered.find((j) => j.id === selected.id) || filtered[0] || selected;
 
   return (
     <section className="w-full bg-[#f8fafc]">
@@ -163,8 +91,7 @@ export default function Careers() {
 
         <div className="max-w-4xl">
           <h1 className="text-5xl sm:text-7xl font-bold tracking-tight leading-none text-slate-900 mb-8">
-            <span  className="text-red-600" >            Build products</span>
-  
+            <span className="text-red-600"> Build products</span>
             <br />
             people remember.
           </h1>
@@ -216,10 +143,10 @@ export default function Careers() {
               </div>
             )}
             {filtered.map((job) => {
-              const isActive = displaySelected?.id === job.id;
+              const isActive = displaySelected?._id === job._id; // ✅ _id
               return (
                 <div
-                  key={job.id}
+                  key={job._id} // ✅ _id
                   onClick={() => handleSelect(job)}
                   className={`group cursor-pointer rounded-3xl p-6 transition-all duration-300 ${
                     isActive
@@ -230,13 +157,11 @@ export default function Careers() {
                   <div className="flex items-start justify-between gap-4 mb-5">
                     <div>
                       <p
-                        className={`text-xs uppercase tracking-[0.18em] font-semibold mb-3 ${
-                          isActive ? "text-white/50" : "text-slate-400"
-                        }`}
+                        className={`text-xs uppercase tracking-[0.18em] font-semibold mb-3 ${isActive ? "text-white/50" : "text-slate-400"}`}
                       >
                         {job.dept}
                       </p>
-                      <h3 className="text-xl font-bold tracking-tight">
+                      <h3 className="text-xl text-red-500 font-bold tracking-tight">
                         {job.title}
                       </h3>
                     </div>
@@ -252,28 +177,31 @@ export default function Careers() {
                   </div>
 
                   <div className="flex flex-wrap gap-3 mb-5 text-sm">
-                    {[job.location, job.exp, job.type].map((item, i, arr) => (
-                      <>
-                        <span
-                          key={item}
-                          className={isActive ? "text-white/70" : "text-slate-500"}
-                        >
-                          {item}
-                        </span>
-                        {i < arr.length - 1 && (
+                    {/* ✅ API uses `experience`, not `exp` */}
+                    {[job.location, job.experience, job.type].map(
+                      (item, i, arr) => (
+                        <span key={i}>
                           <span
-                            key={`sep-${i}`}
-                            className={isActive ? "text-white/30" : "text-slate-300"}
+                            className={
+                              isActive ? "text-white/70" : "text-slate-500"
+                            }
                           >
-                            •
+                            {item}
                           </span>
-                        )}
-                      </>
-                    ))}
+                          {i < arr.length - 1 && (
+                            <span
+                              className={`ml-3 ${isActive ? "text-white/30" : "text-slate-300"}`}
+                            >
+                              •
+                            </span>
+                          )}
+                        </span>
+                      ),
+                    )}
                   </div>
 
                   <div className="flex flex-wrap gap-2">
-                    {job.tags.map((tag) => (
+                    {(job.tags ?? []).map((tag) => (
                       <span
                         key={tag}
                         className={`px-3 py-1 rounded-full text-xs font-medium ${
@@ -306,12 +234,12 @@ export default function Careers() {
                         {displaySelected.title}
                       </h2>
                     </div>
-                    <button className="bg-slate-900 hover:bg-black text-white px-5 py-3 rounded-2xl text-sm font-semibold transition-all duration-200">
+                    {/* <button className="bg-slate-900 hover:bg-black text-white px-5 py-3 rounded-2xl text-sm font-semibold transition-all duration-200">
                       Apply
-                    </button>
+                    </button> */}
                   </div>
                   <div className="flex flex-wrap gap-3">
-                    {displaySelected.tags.map((tag) => (
+                    {(displaySelected.tags ?? []).map((tag) => (
                       <span
                         key={tag}
                         className="px-4 py-2 rounded-full bg-slate-100 text-slate-600 text-sm font-medium"
@@ -329,27 +257,47 @@ export default function Careers() {
                   </p>
 
                   <div className="space-y-8">
-                    <div>
-                      <p className="text-xs uppercase tracking-[0.18em] text-slate-400 font-semibold mb-4">
-                        What you'll do
-                      </p>
-                      <div className="space-y-4">
-                        {displaySelected.do.map((item) => (
-                          <BulletItem key={item} text={item} />
-                        ))}
+                    {/* ✅ API uses `responsibilities`, not `do` */}
+                    {(displaySelected.responsibilities ?? []).length > 0 && (
+                      <div>
+                        <p className="text-xs uppercase tracking-[0.18em] text-slate-400 font-semibold mb-4">
+                          What you'll do
+                        </p>
+                        <div className="space-y-4">
+                          {displaySelected.responsibilities.map((item) => (
+                            <BulletItem key={item} text={item} />
+                          ))}
+                        </div>
                       </div>
-                    </div>
+                    )}
 
-                    <div>
-                      <p className="text-xs uppercase tracking-[0.18em] text-slate-400 font-semibold mb-4">
-                        Requirements
-                      </p>
-                      <div className="space-y-4">
-                        {displaySelected.req.map((item) => (
-                          <BulletItem key={item} text={item} />
-                        ))}
+                    {/* ✅ API uses `requirements`, not `req` */}
+                    {(displaySelected.requirements ?? []).length > 0 && (
+                      <div>
+                        <p className="text-xs uppercase tracking-[0.18em] text-slate-400 font-semibold mb-4">
+                          Requirements
+                        </p>
+                        <div className="space-y-4">
+                          {displaySelected.requirements.map((item) => (
+                            <BulletItem key={item} text={item} />
+                          ))}
+                        </div>
                       </div>
-                    </div>
+                    )}
+
+                    {/* ✅ Bonus: show benefits if present */}
+                    {(displaySelected.benefits ?? []).length > 0 && (
+                      <div>
+                        <p className="text-xs uppercase tracking-[0.18em] text-slate-400 font-semibold mb-4">
+                          Benefits
+                        </p>
+                        <div className="space-y-4">
+                          {displaySelected.benefits.map((item) => (
+                            <BulletItem key={item} text={item} />
+                          ))}
+                        </div>
+                      </div>
+                    )}
 
                     <div>
                       <p className="text-xs uppercase tracking-[0.18em] text-slate-400 font-semibold mb-4">
@@ -357,7 +305,8 @@ export default function Careers() {
                       </p>
                       <div className="flex flex-wrap gap-3">
                         <MetaPill text={displaySelected.location} />
-                        <MetaPill text={displaySelected.exp} />
+                        <MetaPill text={displaySelected.experience} />{" "}
+                        {/* ✅ experience */}
                         <MetaPill text={displaySelected.type} />
                       </div>
                     </div>
@@ -366,7 +315,12 @@ export default function Careers() {
 
                 {/* Footer */}
                 <div className="p-8 border-t border-slate-100 bg-slate-50">
-                  <button className="w-full bg-red-500 hover:bg-red-600 active:scale-[0.99] text-white font-semibold py-4 rounded-2xl transition-all duration-200 shadow-lg shadow-red-200">
+                  <button
+                    onClick={() => {
+                      navigate("/jobApplicationForm",{state:{vacancyId:displaySelected._id,title:displaySelected.title}});
+                    }}
+                    className="w-full bg-red-500 hover:bg-red-600 active:scale-[0.99] text-white font-semibold py-4 rounded-2xl transition-all duration-200 shadow-lg shadow-red-200"
+                  >
                     Apply for this Role
                   </button>
                 </div>

@@ -1,182 +1,150 @@
-import React from "react";
 import { motion } from "framer-motion";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { getBlogById } from "../services/blog";
+import ContactForm from "../components/ContactForm";
+
+// Safe date formatter — avoids crash on undefined/invalid dates
+const formatDate = (dateStr) => {
+  if (!dateStr) return "Unknown date";
+  const d = new Date(dateStr);
+  return isNaN(d.getTime()) ? "Invalid date" : d.toDateString();
+};
 
 function BlogDetail() {
-  return (
-    <section
-      style={{
-        background: "var(--page-bg)",
-        fontFamily: "var(--font-primary)",
-      }}
-      className="px-6 md:px-12 lg:px-20 py-16"
-    >
-      <div className="mx-auto max-w-7xl grid gap-14 lg:grid-cols-[1.4fr_0.8fr]">
+  const { id } = useParams();
 
-        {/* LEFT CONTENT */}
+  const [blog, setBlog] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null); // ✅ added error state
+
+  useEffect(() => {
+    const fetchBlog = async () => {
+      try {
+        const res = await getBlogById(id);
+        const data = res?.data?.data || res?.data;
+        setBlog(data);
+      } catch (err) {
+        console.error(err);
+        setError("Failed to load blog. Please try again."); // ✅ capture error
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchBlog();
+  }, [id]);
+
+  if (loading) {
+    return <div className="py-20 text-center">Loading blog...</div>;
+  }
+
+  // ✅ show error before the generic "not found" fallback
+  if (error) {
+    return <div className="py-20 text-center text-red-500">{error}</div>;
+  }
+
+  if (!blog) {
+    return <div className="py-20 text-center text-red-500">Blog not found</div>;
+  }
+
+  return (
+    <section className="px-6 md:px-12 lg:px-20 py-16 bg-white">
+      <div className="grid lg:grid-cols-[1.4fr_0.6fr] gap-12 max-w-7xl mx-auto">
+
+        {/* LEFT */}
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
-          className="space-y-12"
+          transition={{ duration: 0.5, ease: "easeOut" }} // ✅ added transition
+          className="space-y-8"
         >
 
           {/* CATEGORY */}
-          <div className="flex items-center gap-3">
-            <svg width="50" height="14" viewBox="0 0 60 16">
-              <path
-                d="M0 8 Q10 2 20 8 Q30 14 40 8 Q50 2 60 8"
-                fill="none"
-                stroke="#0d1f4e"
-                strokeWidth="2"
-              />
-            </svg>
+          {blog.category && (
+            <p className="text-sm font-bold text-[#e8192c] uppercase tracking-widest">
+              {blog.category}
+            </p>
+          )}
 
-            <span
-              style={{
-                fontSize: "12px",
-                fontWeight: 700,
-                letterSpacing: "0.25em",
-                color: "#0d1f4e",
-                textTransform: "uppercase",
-              }}
-            >
-              Vue.js Development
-            </span>
-          </div>
-
-          {/* TITLE (Hero Style) */}
-          <h1
-            style={{
-              fontSize: "52px",
-              fontWeight: 900,
-              lineHeight: 1.05,
-              color: "#0d1f4e",
-            }}
-          >
-            How Vue.js Development is{" "}
-            <span style={{ color: "#e8192c" }}>beneficial</span> for businesses?
+          {/* TITLE */}
+          <h1 className="text-4xl md:text-5xl font-black text-[#0d1f4e]">
+            {blog.title}
           </h1>
 
-          {/* IMAGE */}
-          <motion.div
-            whileHover={{ scale: 1.01 }}
-            className="rounded-xl overflow-hidden"
-            style={{
-              boxShadow: "var(--shadow-md)",
-            }}
-          >
-            <img
-              src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1400&auto=format&fit=crop"
-              className="w-full h-[420px] object-cover"
-              alt="Vue"
-            />
-          </motion.div>
-
-          {/* INTRO */}
-          <p style={{ fontSize: "18px", color: "#4b5563", lineHeight: 1.8 }}>
-            Vue.js is a modern JavaScript framework that helps developers build
-            fast, scalable and interactive web applications with clean structure.
-          </p>
-
-          {/* SECTION 1 */}
-          <div className="space-y-4">
-            <h2 style={{ fontSize: "36px", fontWeight: 900, color: "#0d1f4e" }}>
-              Why businesses choose Vue.js
-            </h2>
-
-            <p style={{ fontSize: "18px", color: "#4b5563", lineHeight: 1.8 }}>
-              Vue.js reduces development complexity and allows faster delivery of
-              scalable applications using reusable components.
-            </p>
-
-            <p style={{ fontSize: "18px", color: "#4b5563", lineHeight: 1.8 }}>
-              It is widely used in startups and enterprise systems due to its
-              flexibility and performance.
-            </p>
+          {/* META INFO */}
+          <div className="flex flex-wrap gap-4 text-sm text-gray-500">
+            {blog.author   && <span>👤 {blog.author}</span>}
+            {blog.views    && <span>👁 {blog.views} views</span>}
+            <span>📅 {formatDate(blog.createdAt)}</span> {/* ✅ safe formatter */}
+            {blog.status   && <span>📌 {blog.status}</span>}
           </div>
 
-          {/* SECTION 2 */}
-          <div className="space-y-4">
-            <h2 style={{ fontSize: "36px", fontWeight: 900, color: "#0d1f4e" }}>
-              Use cases of Vue.js
-            </h2>
-
-            <p style={{ fontSize: "18px", color: "#4b5563", lineHeight: 1.8 }}>
-              Used in dashboards, SaaS platforms, admin panels and enterprise
-              web systems.
-            </p>
-
-            <p style={{ fontSize: "18px", color: "#4b5563", lineHeight: 1.8 }}>
-              Supports fast API integration and real-time application features.
-            </p>
-          </div>
-
-          {/* CONCLUSION */}
-          <div className="space-y-4">
-            <h2 style={{ fontSize: "36px", fontWeight: 900, color: "#0d1f4e" }}>
-              Conclusion
-            </h2>
-
-            <p style={{ fontSize: "18px", color: "#4b5563", lineHeight: 1.8 }}>
-              Vue.js is one of the most powerful frameworks for building modern,
-              scalable and high-performance applications.
-            </p>
-          </div>
-
-        </motion.div>
-
-        {/* RIGHT SIDEBAR */}
-        <motion.div
-          initial={{ opacity: 0, x: 60 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.7 }}
-          className="sticky  text-black top-10 h-fit"
-        >
-          <div
-            style={{
-              background: "#fff",
-              borderRadius: "24px",
-              padding: "40px",
-              boxShadow: "var(--shadow-lg)",
-            }}
-          >
-
-            <div className="space-y-5">
-
-              <input
-                placeholder="Full Name"
-                className="w-full h-14 px-4 rounded-xl border"
-              />
-
-              <input
-                placeholder="Email"
-                className="w-full h-14 px-4 rounded-xl border"
-              />
-
-              <select className="w-full h-14 px-4 rounded-xl border">
-                <option>Select Service</option>
-                <option>Web Development</option>
-                <option>Mobile App Development</option>
-                <option>UI/UX Design</option>
-              </select>
-
-              <textarea
-                rows={6}
-                placeholder="Tell us about your project..."
-                className="w-full p-4 rounded-xl border"
-              />
-
-              <motion.button
-                whileHover={{ scale: 1.02 }}
-                className="w-full h-14 rounded-xl font-bold text-white"
-                style={{ background: "#e8192c" }}
-              >
-                Send Inquiry
-              </motion.button>
-
+          {/* TAGS */}
+          {blog.tags?.length > 0 && (
+            <div className="flex gap-2 flex-wrap">
+              {blog.tags.map((tag) => (
+                <span
+                  key={tag} // ✅ use value as key when unique
+                  className="px-3 py-1 text-xs bg-gray-100 rounded-full"
+                >
+                  #{tag}
+                </span>
+              ))}
             </div>
-          </div>
+          )}
+
+          {/* IMAGE */}
+          {blog.coverImage && (
+            <img
+              src={blog.coverImage}
+              alt={blog.title}
+              className="w-full h-[400px] object-cover rounded-xl"
+            />
+          )}
+
+          {/* EXCERPT */}
+          {blog.excerpt && (
+            <p className="text-gray-600 text-lg leading-8">{blog.excerpt}</p>
+          )}
+
+          {/* CONTENT */}
+          {blog.content && (
+            <div className="text-gray-700 leading-8 whitespace-pre-line">
+              {blog.content}
+            </div>
+          )}
+
+          {/* SEO SECTION — ✅ only renders when seo data exists */}
+          {blog.seo && (
+            <div className="mt-10 p-5 border rounded-xl text-black">
+              {/* <h3 className="font-bold text-[#0d1f4e] mb-3">SEO Info</h3> */}
+
+              {blog.seo.metaTitle && (
+                <p><b>Meta Title:</b> {blog.seo.metaTitle}</p>
+              )}
+              {blog.seo.metaDescription && (
+                <p><b>Description:</b> {blog.seo.metaDescription}</p>
+              )}
+
+              {blog.seo.keywords?.length > 0 && (
+                <div className="flex gap-2 flex-wrap mt-2">
+                  {blog.seo.keywords.map((k) => (
+                    <span key={k} className="text-xs bg-white border px-2 py-1 rounded"> {/* ✅ use value as key */}
+                      {k}
+                    </span>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+
         </motion.div>
+
+        {/* RIGHT */}
+        <div>
+          <ContactForm />
+        </div>
 
       </div>
     </section>

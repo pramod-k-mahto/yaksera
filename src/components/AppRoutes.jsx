@@ -23,28 +23,27 @@ import CaseStudiesManagement from "../pages/admin/CaseStudiesManagement";
 import Login from "../pages/Login";
 import ProtectedRoutes from "./ProtectedRoutes";
 import PortfolioDetail from "../pages/PortfolioDetail";
-
+import AddPortfolio from "../pages/admin/AddPortfolio.jsx";
+import JobApplicationForm from "../components/JobApplicationForm.jsx";
+import AddVacancy from "./AddVacancy.jsx";
 function AppRoutes() {
   return (
     <Routes>
       {/* HOME */}
       <Route path="/" element={<Home />} />
-
       {/* REAL PAGES */}
       <Route path="/about" element={<About />} />
       <Route path="/hire" element={<Hire />} />
+      <Route path="/jobApplicationForm" element={<JobApplicationForm />} />
       <Route path="/contact" element={<Contact />} />
       <Route path="/caseStudies" element={<CaseStudies />} />
-      <Route path="/blogDetail" element={<BlogDetail />} />
+      <Route path="/blogDetail/:id" element={<BlogDetail />} />
       <Route path="/portfolioDetail" element={<PortfolioDetail />} />
       <Route path="/login" element={<Login />} />
 
       {/* Admin */}
 
-      <Route
-        path="/admin/"
-        element={<ProtectedRoutes comp={<Dashboard />} />}
-      >
+      <Route path="/admin/" element={<ProtectedRoutes comp={<Dashboard />} />}>
         <Route path="logoManagement" element={<LogoManagement />} />
         <Route index element={<LogoManagement />} />
 
@@ -58,9 +57,11 @@ function AppRoutes() {
           path="contactFormManagement"
           element={<ContactFormManagement />}
         />
+        <Route path="addVacancy" element={<AddVacancy />} />
         <Route path="jobApplied" element={<JobApplied />} />
         <Route path="portfolioManagement" element={<PortfolioManagement />} />
         <Route path="projectsManagement" element={<ProjectsManagement />} />
+        <Route path="addPortfolio" element={<AddPortfolio />} />
         <Route path="qAManagement" element={<QAManagement />} />
         <Route path="serviceManagement" element={<ServiceManagement />} />
         <Route path="staffManagement" element={<StaffManagement />} />

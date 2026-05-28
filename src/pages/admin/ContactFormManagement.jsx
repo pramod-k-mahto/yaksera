@@ -4,29 +4,36 @@ import {
   Mail, Phone, Building2, CalendarDays, CircleAlert,
   Search, Eye, Trash2, Download, Filter, X, RefreshCw,
 } from "lucide-react";
-// ✅ Import the correct named functions instead of a single fetchContacts
 import { getContacts, deleteContact, updateContactStatus } from "../../services/contact";
 
 // ── status config ──────────────────────────────────────────────────────────────
 const STATUS_STYLES = {
-  new:        "bg-blue-500/10 text-blue-300 border-blue-500/20",
-  "in-review":"bg-purple-500/10 text-purple-300 border-purple-500/20",
-  contacted:  "bg-yellow-500/10 text-yellow-300 border-yellow-500/20",
-  closed:     "bg-emerald-500/10 text-emerald-300 border-emerald-500/20",
+  new:         "bg-blue-500/10 text-blue-300 border-blue-500/20",
+  "in-review": "bg-purple-500/10 text-purple-300 border-purple-500/20",
+  contacted:   "bg-yellow-500/10 text-yellow-300 border-yellow-500/20",
+  closed:      "bg-emerald-500/10 text-emerald-300 border-emerald-500/20",
 };
 
 const STATUS_LABEL = {
   new: "New", "in-review": "In Review", contacted: "Contacted", closed: "Closed",
 };
 
-// ── format date ────────────────────────────────────────────────────────────────
+// ── helpers ────────────────────────────────────────────────────────────────────
 const fmt = (iso) =>
   new Date(iso).toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
+
+// FIX: projectBudget is an object { currency, amount, formatted }
+// Always use .formatted for display, falling back gracefully.
+const fmtBudget = (budget) => {
+  if (!budget) return "—";
+  if (typeof budget === "string") return budget;           // legacy string
+  return budget.formatted ?? `${budget.currency} ${Number(budget.amount).toLocaleString("en-US")}`;
+};
 
 // ── skeleton row ───────────────────────────────────────────────────────────────
 const SkeletonRow = () => (
   <tr className="border-b border-white/5 animate-pulse">
-    {[160, 100, 200, 100, 90, 80, 80].map((w, i) => (
+    {[160, 200, 120, 100, 90, 80, 80].map((w, i) => (
       <td key={i} className="px-6 py-5">
         <div className="h-4 rounded-full bg-white/10" style={{ width: w }} />
       </td>
@@ -38,7 +45,6 @@ const SkeletonRow = () => (
 function DetailModal({ contact, onClose, onStatusChange }) {
   const [saving, setSaving] = useState(false);
 
-  // ✅ Use the correct updateContactStatus function
   const handleStatusUpdate = async (status) => {
     setSaving(true);
     try {
@@ -71,9 +77,10 @@ function DetailModal({ contact, onClose, onStatusChange }) {
 
           <div className="space-y-3 text-sm">
             {[
-              { label: "Email", value: contact.email },
-              { label: "Phone", value: `${contact.phone?.countryCode ?? ""} ${contact.phone?.number ?? "—"}`.trim() },
-              { label: "Budget", value: contact.projectBudget },
+              { label: "Email",     value: contact.email },
+              { label: "Phone",     value: `${contact.phone?.countryCode ?? ""} ${contact.phone?.number ?? "—"}`.trim() },
+              // FIX: render budget object correctly
+              { label: "Budget",    value: fmtBudget(contact.projectBudget) },
               { label: "Submitted", value: fmt(contact.createdAt) },
             ].map(({ label, value }) => (
               <div key={label} className="flex gap-3">
@@ -98,7 +105,7 @@ function DetailModal({ contact, onClose, onStatusChange }) {
                 <button
                   key={key}
                   disabled={saving || contact.status === key}
-                  onClick={() => handleStatusUpdate(key)}  // ✅ renamed to avoid confusion
+                  onClick={() => handleStatusUpdate(key)}
                   className={`px-4 py-2 rounded-full text-xs font-bold border transition-all
                     ${contact.status === key
                       ? STATUS_STYLES[key] + " opacity-100 cursor-default"
@@ -127,11 +134,8 @@ function ContactFormManagement() {
   const [deleting, setDeleting]     = useState(null);
   const [pagination, setPagination] = useState({ total: 0, page: 1, totalPages: 1 });
 
-  // ── fetch ──────────────────────────────────────────────────────────────────
-  // ✅ Renamed from fetchContacts to loadContacts to avoid collision with the
-  //    imported getContacts (previously imported as fetchContacts, which shadowed
-  //    the useCallback variable of the same name — causing an infinite loop /
-  //    "fetchContacts is not a function" runtime error).
+  // FIX: Accept page param and update pagination.page from the API response,
+  //      so the active page highlight in the pagination bar is always correct.
   const loadContacts = useCallback(async (page = 1) => {
     setLoading(true);
     setError(null);
@@ -140,10 +144,13 @@ function ContactFormManagement() {
       if (statusFilter) params.append("status", statusFilter);
       if (search)       params.append("search", search);
 
-      // ✅ Use getContacts with a query string instead of raw fetchContacts(url)
       const res = await getContacts(`?${params.toString()}`);
-      setContacts(res.data);
-      setPagination(res.pagination);
+
+      console.log(res.data.inquiries)
+      setContacts(res.data.inquiries);
+      // FIX: spread API pagination but force `page` from our request arg,
+      //      in case the backend omits or mismatches the current page field.
+      setPagination({ ...res.pagination, page });
     } catch (e) {
       setError(e.message || "Failed to load contacts.");
     } finally {
@@ -152,6 +159,7 @@ function ContactFormManagement() {
   }, [statusFilter, search]);
 
   useEffect(() => {
+    // Reset to page 1 whenever filter or search changes
     const t = setTimeout(() => loadContacts(1), search ? 400 : 0);
     return () => clearTimeout(t);
   }, [loadContacts, search]);
@@ -161,10 +169,9 @@ function ContactFormManagement() {
     if (!window.confirm("Delete this contact?")) return;
     setDeleting(id);
     try {
-      // ✅ Use the correct deleteContact function
       await deleteContact(id);
       setContacts((p) => p.filter((c) => c._id !== id));
-      setPagination((p) => ({ ...p, total: p.total - 1 }));
+      setPagination((p) => ({ ...p, total: Math.max(0, p.total - 1) }));
     } catch (e) {
       alert(e.message || "Delete failed.");
     } finally {
@@ -178,23 +185,29 @@ function ContactFormManagement() {
     setSelected((p) => (p?._id === id ? { ...p, status } : p));
   };
 
-  // ── stats derived from pagination ──────────────────────────────────────────
+  // FIX: Stats — total comes from pagination (full dataset).
+  //      Per-status counts are page-scoped but labeled clearly.
+  //      "New Leads" / "In Review" / "Closed" count from the current page only.
   const stats = [
-    { title: "Total Requests", value: pagination.total.toLocaleString(), icon: Mail },
-    { title: "New Leads",      value: contacts.filter((c) => c.status === "new").length,        icon: CircleAlert },
-    { title: "In Review",      value: contacts.filter((c) => c.status === "in-review").length,  icon: CalendarDays },
-    { title: "Closed",         value: contacts.filter((c) => c.status === "closed").length,     icon: Building2 },
+    { title: "Total Requests", value: pagination.total?.toLocaleString(), icon: Mail },
+    { title: "New (this page)",      value: contacts.filter((c) => c.status === "new").length,        icon: CircleAlert },
+    { title: "In Review (this page)", value: contacts.filter((c) => c.status === "in-review").length, icon: CalendarDays },
+    { title: "Closed (this page)",   value: contacts.filter((c) => c.status === "closed").length,     icon: Building2 },
   ];
 
   // ── export CSV ─────────────────────────────────────────────────────────────
   const exportCSV = () => {
-    const header = ["Name","Email","Phone","Budget","Status","Date"];
+    const header = ["Name", "Email", "Phone", "Budget", "Status", "Date"];
     const rows = contacts.map((c) => [
-      c.fullName, c.email,
+      c.fullName,
+      c.email,
       `${c.phone?.countryCode ?? ""} ${c.phone?.number ?? ""}`.trim(),
-      c.projectBudget, c.status, fmt(c.createdAt),
+      // FIX: export the formatted budget string, not [object Object]
+      fmtBudget(c.projectBudget),
+      c.status,
+      fmt(c.createdAt),
     ]);
-    const csv = [header, ...rows].map((r) => r.join(",")).join("\n");
+    const csv = [header, ...rows].map((r) => r.map((v) => `"${String(v).replace(/"/g, '""')}"`).join(",")).join("\n");
     const a = document.createElement("a");
     a.href = URL.createObjectURL(new Blob([csv], { type: "text/csv" }));
     a.download = "contacts.csv";
@@ -231,7 +244,6 @@ function ContactFormManagement() {
 
         <motion.div initial={{ opacity: 0, x: 18 }} animate={{ opacity: 1, x: 0 }}
           className="flex flex-wrap gap-3">
-          {/* ✅ loadContacts instead of fetchContacts */}
           <button onClick={() => loadContacts(1)}
             className="flex items-center gap-2 rounded-2xl border border-white/10 bg-white/[0.03] px-5 py-3 text-sm font-semibold text-white/80 transition-all hover:border-white/20 hover:bg-white/[0.05] hover:text-white">
             <RefreshCw size={16} className={loading ? "animate-spin" : ""} />
@@ -313,7 +325,6 @@ function ContactFormManagement() {
         {error && (
           <div className="mx-6 my-4 rounded-2xl border border-red-500/20 bg-red-500/10 px-5 py-4 text-sm text-red-300">
             ⚠ {error} —{" "}
-            {/* ✅ loadContacts instead of fetchContacts */}
             <button className="underline hover:text-red-200" onClick={() => loadContacts(1)}>retry</button>
           </div>
         )}
@@ -323,7 +334,7 @@ function ContactFormManagement() {
           <table className="min-w-full">
             <thead className="border-b border-white/10">
               <tr className="text-left">
-                {["Client", "Contact", "Phone", "Budget", "Date", "Status", "Actions"].map((h) => (
+                {["Client", "Email", "Phone", "Budget", "Date", "Status", "Actions"].map((h) => (
                   <th key={h} className="px-6 py-4 text-xs font-bold uppercase tracking-[0.18em] text-white/40">
                     {h}
                   </th>
@@ -370,10 +381,10 @@ function ContactFormManagement() {
                       </div>
                     </td>
 
-                    {/* BUDGET */}
+                    {/* BUDGET — FIX: use fmtBudget() to handle object shape */}
                     <td className="px-6 py-5">
                       <span className="rounded-full border border-[#e8192c]/20 bg-[#e8192c]/10 px-3 py-1.5 text-xs font-semibold text-[#ff7585]">
-                        {contact.projectBudget || "—"}
+                        {fmtBudget(contact.projectBudget)}
                       </span>
                     </td>
 
@@ -420,7 +431,6 @@ function ContactFormManagement() {
             </p>
             <div className="flex gap-2">
               {Array.from({ length: pagination.totalPages }, (_, i) => i + 1).map((p) => (
-                // ✅ loadContacts instead of fetchContacts
                 <button key={p} onClick={() => loadContacts(p)}
                   className={`h-9 w-9 rounded-xl text-sm font-semibold transition-all
                     ${p === pagination.page
