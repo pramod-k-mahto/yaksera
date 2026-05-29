@@ -13,7 +13,6 @@ const formatDate = (dateStr) => {
 
 function BlogDetail() {
   const { id } = useParams();
-
   const [blog, setBlog] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null); // ✅ added error state

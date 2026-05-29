@@ -1,4 +1,6 @@
 import { motion } from "framer-motion";
+
+import { useNavigate } from "react-router-dom";
 import {
   Search,
   Plus,
@@ -46,11 +48,11 @@ const blogs = [
 ];
 
 function BlogManagement() {
+  const navigate = useNavigate();
   return (
     <div className="min-h-screen bg-[#050816] text-white">
       {/* HEADER */}
       <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-        
         {/* LEFT */}
         <div>
           <span
@@ -77,14 +79,13 @@ function BlogManagement() {
           </h1>
 
           <p className="mt-3 max-w-2xl text-sm leading-7 text-white/45">
-            Create, manage, edit and publish company blogs,
-            articles and SEO content from one professional dashboard.
+            Create, manage, edit and publish company blogs, articles and SEO
+            content from one professional dashboard.
           </p>
         </div>
 
         {/* ACTIONS */}
         <div className="flex flex-wrap items-center gap-4">
-          
           {/* SEARCH */}
           <div
             className="
@@ -109,6 +110,9 @@ function BlogManagement() {
 
           {/* BUTTON */}
           <motion.button
+            onClick={() => {
+              navigate("/admin/addNewBlog");
+            }}
             whileHover={{ y: -2 }}
             whileTap={{ scale: 0.98 }}
             className="
@@ -130,7 +134,6 @@ function BlogManagement() {
 
       {/* STATS */}
       <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-3">
-        
         {/* CARD */}
         <motion.div
           whileHover={{ y: -4 }}
@@ -141,17 +144,11 @@ function BlogManagement() {
             p-6
           "
         >
-          <p className="text-sm text-white/45">
-            Total Blogs
-          </p>
+          <p className="text-sm text-white/45">Total Blogs</p>
 
-          <h2 className="mt-4 text-5xl font-black">
-            96
-          </h2>
+          <h2 className="mt-4 text-5xl font-black">96</h2>
 
-          <p className="mt-3 text-sm text-green-400">
-            +12% this month
-          </p>
+          <p className="mt-3 text-sm text-green-400">+12% this month</p>
         </motion.div>
 
         {/* CARD */}
@@ -164,17 +161,11 @@ function BlogManagement() {
             p-6
           "
         >
-          <p className="text-sm text-white/45">
-            Published Articles
-          </p>
+          <p className="text-sm text-white/45">Published Articles</p>
 
-          <h2 className="mt-4 text-5xl font-black">
-            72
-          </h2>
+          <h2 className="mt-4 text-5xl font-black">72</h2>
 
-          <p className="mt-3 text-sm text-blue-400">
-            Active SEO Content
-          </p>
+          <p className="mt-3 text-sm text-blue-400">Active SEO Content</p>
         </motion.div>
 
         {/* CARD */}
@@ -187,17 +178,11 @@ function BlogManagement() {
             p-6
           "
         >
-          <p className="text-sm text-white/45">
-            Total Views
-          </p>
+          <p className="text-sm text-white/45">Total Views</p>
 
-          <h2 className="mt-4 text-5xl font-black">
-            240K
-          </h2>
+          <h2 className="mt-4 text-5xl font-black">240K</h2>
 
-          <p className="mt-3 text-sm text-[#ff4d67]">
-            Blog traffic growing
-          </p>
+          <p className="mt-3 text-sm text-[#ff4d67]">Blog traffic growing</p>
         </motion.div>
       </div>
 
@@ -219,9 +204,7 @@ function BlogManagement() {
           "
         >
           <div>
-            <h2 className="text-xl font-bold">
-              Blog Articles
-            </h2>
+            <h2 className="text-xl font-bold">Blog Articles</h2>
 
             <p className="mt-1 text-sm text-white/40">
               Manage all published and draft blogs
@@ -293,7 +276,6 @@ function BlogManagement() {
                   {/* BLOG */}
                   <td className="px-6 py-5">
                     <div className="flex items-start gap-4">
-                      
                       {/* IMAGE */}
                       <div
                         className="
@@ -348,8 +330,8 @@ function BlogManagement() {
                           blog.status === "Published"
                             ? "bg-green-500/10 text-green-400"
                             : blog.status === "Draft"
-                            ? "bg-yellow-500/10 text-yellow-400"
-                            : "bg-blue-500/10 text-blue-400"
+                              ? "bg-yellow-500/10 text-yellow-400"
+                              : "bg-blue-500/10 text-blue-400"
                         }
                       `}
                     >
@@ -376,7 +358,6 @@ function BlogManagement() {
                   {/* ACTIONS */}
                   <td className="px-6 py-5">
                     <div className="flex items-center justify-end gap-2">
-                      
                       <button
                         className="
                           flex h-10 w-10 items-center justify-center

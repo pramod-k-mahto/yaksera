@@ -26,6 +26,7 @@ import PortfolioDetail from "../pages/PortfolioDetail";
 import AddPortfolio from "../pages/admin/AddPortfolio.jsx";
 import JobApplicationForm from "../components/JobApplicationForm.jsx";
 import AddVacancy from "./AddVacancy.jsx";
+import AddNewBlog from "../pages/admin/AddNewBlog.jsx";
 function AppRoutes() {
   return (
     <Routes>
@@ -48,6 +49,8 @@ function AppRoutes() {
         <Route index element={<LogoManagement />} />
 
         <Route path="blogManagement" element={<BlogManagement />} />
+        <Route path="addNewBlog" element={<AddNewBlog />} />
+
         <Route
           path="caseStudiesManagement"
           element={<CaseStudiesManagement />}
