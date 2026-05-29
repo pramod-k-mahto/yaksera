@@ -90,8 +90,8 @@ const inputCls =
 export default function JobApplicationForm() {
   const { state } = useLocation();
   console.log(state);
-  const vacancyId = state.vacancyId;
-  const jobTitle = state.title;
+  const vacancyId = state?.vacancyId;
+  const jobTitle = state?.title;
 
   const [step, setStep] = useState(0);
 

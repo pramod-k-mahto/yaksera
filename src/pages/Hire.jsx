@@ -317,7 +317,12 @@ export default function Careers() {
                 <div className="p-8 border-t border-slate-100 bg-slate-50">
                   <button
                     onClick={() => {
-                      navigate("/jobApplicationForm",{state:{vacancyId:displaySelected._id,title:displaySelected.title}});
+                      navigate("/jobApplicationForm", {
+                        state: {
+                          vacancyId: displaySelected._id,
+                          title: displaySelected.title,
+                        },
+                      });
                     }}
                     className="w-full bg-red-500 hover:bg-red-600 active:scale-[0.99] text-white font-semibold py-4 rounded-2xl transition-all duration-200 shadow-lg shadow-red-200"
                   >
@@ -366,9 +371,15 @@ export default function Careers() {
                 Tell us what you're passionate about and what kind of work
                 excites you.
               </p>
-              <button className="w-full bg-red-500 hover:bg-red-600 active:scale-[0.99] text-white font-semibold py-4 rounded-2xl transition-all duration-200 shadow-xl shadow-red-500/20">
+              <h1  className="bg-red-500 hover:bg-red-600 active:scale-[0.99] p-3 rounded-2xl text-2xl" > contact@yaksera.com</h1>
+              {/* <button
+                onClick={() => {
+                  navigate("/jobApplicationForm");
+                }}
+                className="w-full bg-red-500 hover:bg-red-600 active:scale-[0.99] text-white font-semibold py-4 rounded-2xl transition-all duration-200 shadow-xl shadow-red-500/20"
+              >
                 Submit Application
-              </button>
+              </button> */}
             </div>
           </div>
         </div>
