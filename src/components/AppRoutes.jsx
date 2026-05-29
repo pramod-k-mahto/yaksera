@@ -27,6 +27,9 @@ import AddPortfolio from "../pages/admin/AddPortfolio.jsx";
 import JobApplicationForm from "../components/JobApplicationForm.jsx";
 import AddVacancy from "./AddVacancy.jsx";
 import AddNewBlog from "../pages/admin/AddNewBlog.jsx";
+import EditBlog from "../pages/admin/EditBlog.jsx";
+import EditPortfolio from "../pages/admin/EditPortfolio.jsx";
+import EditVacancyManagement from "../pages/admin/EditVacancyManagement.jsx";
 function AppRoutes() {
   return (
     <Routes>
@@ -50,6 +53,7 @@ function AppRoutes() {
 
         <Route path="blogManagement" element={<BlogManagement />} />
         <Route path="addNewBlog" element={<AddNewBlog />} />
+        <Route path="editBlog/:id" element={<EditBlog />} />
 
         <Route
           path="caseStudiesManagement"
@@ -61,10 +65,18 @@ function AppRoutes() {
           element={<ContactFormManagement />}
         />
         <Route path="addVacancy" element={<AddVacancy />} />
+        <Route path="editVacancy/:id" element={<EditVacancyManagement />} />
+
+
+
         <Route path="jobApplied" element={<JobApplied />} />
+
         <Route path="portfolioManagement" element={<PortfolioManagement />} />
-        <Route path="projectsManagement" element={<ProjectsManagement />} />
+        <Route path="editPortfolio/:id" element={<EditPortfolio />} />
         <Route path="addPortfolio" element={<AddPortfolio />} />
+
+
+        <Route path="projectsManagement" element={<ProjectsManagement />} />
         <Route path="qAManagement" element={<QAManagement />} />
         <Route path="serviceManagement" element={<ServiceManagement />} />
         <Route path="staffManagement" element={<StaffManagement />} />

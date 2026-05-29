@@ -5,10 +5,21 @@ export const getPortfolios = async () => {
 };
 
 export const createPortfolio = async (formData) => {
-  // formData is a FormData instance — apiClient detects this and
-  // skips Content-Type so the browser sets the multipart boundary
   return await apiClient("/api/v1/portfolios/create", {
     method: "POST",
     body: formData,
+  });
+};
+
+export const updatePortfolio = async (id, formData) => {
+  return await apiClient(`/api/v1/portfolios/${id}`, {
+    method: "PATCH",
+    body: formData,
+  });
+};
+
+export const deletePortfolio = async (id) => {
+  return await apiClient(`/api/v1/portfolios/${id}`, {
+    method: "DELETE",
   });
 };
