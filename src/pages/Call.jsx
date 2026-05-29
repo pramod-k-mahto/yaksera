@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 export default function Call() {
   const navigate = useNavigate();
@@ -63,14 +63,15 @@ export default function Call() {
           </p>
 
           {/* CTA */}
-          <button
-            onClick={() => {
-              navigate("/contact");
-            }}
-            className="w-full bg-[#d0271d] hover:bg-[#b01f17] active:scale-[0.98] text-white font-bold text-sm py-3.5 rounded-xl transition-all duration-200 shadow-md shadow-red-200"
+          <NavLink 
+           target="_blank"
+          to="https://calendar.app.google/PwmeVrwpLHT6CnbRA"
+
+          
+            className="w-full p-9 bg-[#d0271d] hover:bg-[#b01f17] active:scale-[0.98] text-white font-bold text-sm py-3.5 rounded-xl transition-all duration-200 shadow-md shadow-red-200"
           >
             Book a free call
-          </button>
+          </NavLink>
         </div>
       </div>
     </section>
