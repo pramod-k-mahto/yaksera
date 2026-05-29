@@ -224,7 +224,7 @@ export default function JobApplicationForm() {
             <span className="font-semibold text-slate-700">{jobTitle}</span>.
             We'll review your application and get back to you soon.
           </p>
-          <button
+          {/* <button
             onClick={() => {
               setSubmitted(false);
               setStep(0);
@@ -234,7 +234,7 @@ export default function JobApplicationForm() {
             className="px-6 py-3 rounded-2xl bg-slate-900 text-white text-sm font-semibold hover:bg-black transition-colors"
           >
             Submit another application
-          </button>
+          </button> */}
         </div>
       </div>
     );
