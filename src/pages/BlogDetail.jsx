@@ -141,7 +141,7 @@ function BlogDetail() {
         </motion.div>
 
         {/* RIGHT */}
-        <div>
+        <div  className="bg-white text-black" >
           <ContactForm />
         </div>
 
