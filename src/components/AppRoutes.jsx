@@ -30,6 +30,10 @@ import AddNewBlog from "../pages/admin/AddNewBlog.jsx";
 import EditBlog from "../pages/admin/EditBlog.jsx";
 import EditPortfolio from "../pages/admin/EditPortfolio.jsx";
 import EditVacancyManagement from "../pages/admin/EditVacancyManagement.jsx";
+import AddCaseStudy from "../pages/admin/AddCaseStudy.jsx";
+import CaseStudiesDetail from "../pages/CaseStudiesDetail.jsx";
+import ServicesDetail from "../pages/ServicesDetail.jsx";
+import AddService from "../pages/admin/AddService.jsx";
 function AppRoutes() {
   return (
     <Routes>
@@ -41,9 +45,11 @@ function AppRoutes() {
       <Route path="/jobApplicationForm" element={<JobApplicationForm />} />
       <Route path="/contact" element={<Contact />} />
       <Route path="/caseStudies" element={<CaseStudies />} />
+      <Route path="/caseStudiesDetail/:id" element={<CaseStudiesDetail />} />
       <Route path="/blogDetail/:id" element={<BlogDetail />} />
       <Route path="/portfolioDetail" element={<PortfolioDetail />} />
       <Route path="/login" element={<Login />} />
+      <Route path="/servicesDetail/:id" element={<ServicesDetail />} />
 
       {/* Admin */}
 
@@ -59,6 +65,8 @@ function AppRoutes() {
           path="caseStudiesManagement"
           element={<CaseStudiesManagement />}
         />
+
+        <Route path="addCaseStudy" element={<AddCaseStudy />} />
         <Route path="clientsManagement" element={<ClientsManagement />} />
         <Route
           path="contactFormManagement"
@@ -67,18 +75,16 @@ function AppRoutes() {
         <Route path="addVacancy" element={<AddVacancy />} />
         <Route path="editVacancy/:id" element={<EditVacancyManagement />} />
 
-
-
         <Route path="jobApplied" element={<JobApplied />} />
 
         <Route path="portfolioManagement" element={<PortfolioManagement />} />
         <Route path="editPortfolio/:id" element={<EditPortfolio />} />
         <Route path="addPortfolio" element={<AddPortfolio />} />
 
-
         <Route path="projectsManagement" element={<ProjectsManagement />} />
         <Route path="qAManagement" element={<QAManagement />} />
         <Route path="serviceManagement" element={<ServiceManagement />} />
+        <Route path="addService" element={<AddService />} />
         <Route path="staffManagement" element={<StaffManagement />} />
         <Route
           path="testimonialManagement"

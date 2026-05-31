@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { submitContact } from "../services/contact.js";
+import { NavLink } from "react-router-dom";
 
 // ── country codes ──────────────────────────────────────────────────────────────
 const countryCodes = [
@@ -65,8 +66,8 @@ const countryCodes = [
 //      This matches what the server schema expects in the `formatted` field.
 const currencies = [
   { code: "NPR", symbol: "Rs.", label: "Nepali Rupee", locale: "en-US" },
-  { code: "USD", symbol: "$",   label: "US Dollar",    locale: "en-US" },
-  { code: "INR", symbol: "₹",  label: "Indian Rupee", locale: "en-US" },
+  { code: "USD", symbol: "$", label: "US Dollar", locale: "en-US" },
+  { code: "INR", symbol: "₹", label: "Indian Rupee", locale: "en-US" },
 ];
 
 const INITIAL_FORM = {
@@ -184,8 +185,7 @@ function ContactForm() {
 
     // FIX: Sanitize phone — digits only, min 7 digits
     const digitsOnly = form.phone.trim().replace(/\D/g, "");
-    if (!digitsOnly)
-      e.phone = "Phone number is required.";
+    if (!digitsOnly) e.phone = "Phone number is required.";
     else if (digitsOnly.length < 7)
       e.phone = "Please enter a valid phone number.";
 
@@ -193,8 +193,7 @@ function ContactForm() {
       e.projectBudget = "Please enter a valid budget amount.";
 
     const trimmedDetails = form.projectDetails.trim();
-    if (!trimmedDetails)
-      e.projectDetails = "Project details are required.";
+    if (!trimmedDetails) e.projectDetails = "Project details are required.";
     else if (trimmedDetails.length < 10)
       e.projectDetails = "Project details must be at least 10 characters.";
 
@@ -229,12 +228,12 @@ function ContactForm() {
       email: form.email.trim().toLowerCase(),
       phone: {
         countryCode: form.countryCode,
-        number: phoneDigits,           // ← digits only, matches Postman
+        number: phoneDigits, // ← digits only, matches Postman
       },
       projectBudget: {
         currency: form.currency,
         amount,
-        formatted,                      // ← "Rs. 150,000" not "Rs. 1,50,000"
+        formatted, // ← "Rs. 150,000" not "Rs. 1,50,000"
       },
       projectDetails: form.projectDetails.trim(),
     };
@@ -244,16 +243,13 @@ function ContactForm() {
       const res = await submitContact(payload);
       showToast(
         res.message || "Your message has been sent successfully!",
-        "success"
+        "success",
       );
       setForm(INITIAL_FORM);
       setErrors({});
     } catch (err) {
       console.error("API error:", err);
-      showToast(
-        err.message || "Failed to send. Please try again.",
-        "error"
-      );
+      showToast(err.message || "Failed to send. Please try again.", "error");
     } finally {
       setLoading(false);
     }
@@ -268,11 +264,13 @@ function ContactForm() {
       />
 
       <motion.div
+      className="w-[500px]"
         initial={{ opacity: 0, scale: 0.92 }}
         whileInView={{ opacity: 1, scale: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.05 }}
         style={{
+          
           background: "#fff",
           borderRadius: "28px",
           padding: "36px 40px",
@@ -464,7 +462,12 @@ function ContactForm() {
               whileTap={{ scale: 0.97 }}
               className="flex-1 h-12 rounded-full border-2 border-[#e8192c] text-[#e8192c] font-bold text-sm hover:bg-red-50 transition-colors"
             >
-              Book a Call
+              <NavLink
+                target="_blank"
+                to="https://calendar.app.google/PwmeVrwpLHT6CnbRA"
+              >
+                Book a call
+              </NavLink>
             </motion.button>
           </div>
 

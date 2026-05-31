@@ -1,91 +1,61 @@
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getAllCaseStudies } from "../services/caseStudies";
-
-/* ───────────────── CASE STUDIES DATA ───────────────── */
-const caseStudies = [
-  {
-    title: "Digital Products",
-    tags: ["UI/UX Design", "Web Development"],
-    image:
-      "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1600&auto=format&fit=crop",
-  },
-  {
-    title: "Modern Real Estate",
-    tags: ["Web Application", "Brand Identity"],
-    image:
-      "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=1600&auto=format&fit=crop",
-  },
-  {
-    title: "Healthcare Platform",
-    tags: ["Healthcare", "Dashboard UI"],
-    image:
-      "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=1600&auto=format&fit=crop",
-  },
-  {
-    title: "Finance Management",
-    tags: ["Fintech", "Mobile App"],
-    image:
-      "https://images.unsplash.com/photo-1556740749-887f6717d7e4?q=80&w=1600&auto=format&fit=crop",
-  },
-  {
-    title: "Creative Agency",
-    tags: ["Branding", "UI/UX"],
-    image:
-      "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1600&auto=format&fit=crop",
-  },
-];
+import { Loader2, AlertCircle } from "lucide-react";
 
 /* ───────────────── CARD ───────────────── */
 function CaseStudyCard({ item, index }) {
-   const navigate= useNavigate()
+  const navigate = useNavigate();
 
   return (
     <motion.div
       initial={{ opacity: 0, y: 60 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{
-        duration: 0.7,
-        delay: index * 0.12,
-      }}
+      transition={{ duration: 0.7, delay: index * 0.12 }}
       whileHover={{ y: -10 }}
       className="relative overflow-hidden rounded-2xl"
-      style={{
-        boxShadow: "var(--shadow-lg)",
-      }}
+      style={{ boxShadow: "var(--shadow-lg)" }}
     >
-      {/* IMAGE */}
       <div className="relative h-[500px] overflow-hidden">
         <motion.img
           whileHover={{ scale: 1.06 }}
           transition={{ duration: 0.8 }}
-          src={item.image}
+          src={item.thumbnail}
           alt={item.title}
           className="h-full w-full object-cover"
+          onError={(e) => {
+            e.target.src =
+              "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1600&auto=format&fit=crop";
+          }}
         />
 
         {/* OVERLAY */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
 
         {/* CONTENT */}
-        <div className="absolute bottom-0 left-0 w-full p-8 space-y-4">
-
-          <h2
-            style={{
-              color: "#fff",
-              fontSize: "40px",
-              fontWeight: 900,
-              lineHeight: 1.1,
-            }}
-          >
+        <div className="absolute bottom-0 left-0 w-full space-y-4 p-8">
+          <h2 style={{ color: "#fff", fontSize: "40px", fontWeight: 900, lineHeight: 1.1 }}>
             {item.title}
           </h2>
 
-          {/* TAGS */}
+          {/* TAGS — category + first 2 techStack items */}
           <div className="flex flex-wrap gap-3">
-            {item.tags.map((tag) => (
+            <span
+              style={{
+                border: "1px solid rgba(255,255,255,0.2)",
+                background: "rgba(232,25,44,0.2)",
+                color: "#fff",
+                padding: "6px 14px",
+                borderRadius: "999px",
+                fontSize: "12px",
+                backdropFilter: "blur(10px)",
+              }}
+            >
+              {item.category}
+            </span>
+            {item.techStack?.slice(0, 2).map((tag) => (
               <span
                 key={tag}
                 style={{
@@ -103,12 +73,26 @@ function CaseStudyCard({ item, index }) {
             ))}
           </div>
 
-          {/* BUTTON */}
-          <button
+          {/* SHORT DESC */}
+          {item.shortDescription && (
+            <p
+              style={{
+                color: "rgba(255,255,255,0.65)",
+                fontSize: "14px",
+                lineHeight: 1.7,
+                maxWidth: "420px",
+              }}
+            >
+              {item.shortDescription.length > 100
+                ? item.shortDescription.slice(0, 100) + "…"
+                : item.shortDescription}
+            </p>
+          )}
 
-          onClick={()=>{
-            navigate("/portfolioDetail")
-          }}
+          {/* BUTTON */}
+          
+          <button
+            onClick={() => navigate(`/caseStudiesDetail/${item._id}`)}
             style={{
               marginTop: "10px",
               background: "#fff",
@@ -122,47 +106,65 @@ function CaseStudyCard({ item, index }) {
           >
             View Project ↗
           </button>
-
         </div>
 
-        {/* BADGE */}
-        <div
-          style={{
-            position: "absolute",
-            top: "20px",
-            right: "20px",
-            background: "rgba(255,255,255,0.1)",
-            color: "#fff",
-            padding: "8px 14px",
-            borderRadius: "999px",
-            fontSize: "11px",
-            letterSpacing: "0.25em",
-            textTransform: "uppercase",
-            border: "1px solid rgba(255,255,255,0.2)",
-            backdropFilter: "blur(10px)",
-          }}
-        >
-          Featured
-        </div>
-
+        {/* FEATURED BADGE */}
+        {item.featured && (
+          <div
+            style={{
+              position: "absolute",
+              top: "20px",
+              right: "20px",
+              background: "rgba(232,25,44,0.15)",
+              color: "#fff",
+              padding: "8px 14px",
+              borderRadius: "999px",
+              fontSize: "11px",
+              letterSpacing: "0.25em",
+              textTransform: "uppercase",
+              border: "1px solid rgba(232,25,44,0.4)",
+              backdropFilter: "blur(10px)",
+            }}
+          >
+            Featured
+          </div>
+        )}
       </div>
     </motion.div>
   );
 }
 
+/* ───────────────── SKELETON ───────────────── */
+function SkeletonCard() {
+  return (
+    <div className="relative overflow-hidden rounded-2xl bg-gray-100">
+      <div className="h-[500px] animate-pulse bg-gray-200" />
+    </div>
+  );
+}
+
 /* ───────────────── MAIN SECTION ───────────────── */
 function CaseStudies() {
-
- const navigate= useNavigate()
-
- const getData = async () => {
-    const data = await getAllCaseStudies();
-    console.log(data.data);
-  };
+  const [studies, setStudies] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError]     = useState("");
 
   useEffect(() => {
+    const getData = async () => {
+      try {
+        setLoading(true);
+        const res = await getAllCaseStudies();
+        console.log(res)
+        setStudies(res?.data ?? []);
+      } catch {
+        setError("Failed to load case studies. Please try again later.");
+      } finally {
+        setLoading(false);
+      }
+    };
     getData();
   }, []);
+
   return (
     <section
       style={{
@@ -187,7 +189,6 @@ function CaseStudies() {
           transition={{ duration: 0.7 }}
           className="mb-14 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between"
         >
-
           <div>
             <span
               style={{
@@ -200,7 +201,6 @@ function CaseStudies() {
             >
               Portfolio
             </span>
-
             <h1
               style={{
                 fontSize: "52px",
@@ -226,15 +226,44 @@ function CaseStudies() {
             Explore premium digital solutions crafted with modern UI/UX,
             scalable architecture, and high-performance development.
           </p>
-
         </motion.div>
 
+        {/* ERROR */}
+        <AnimatePresence>
+          {error && (
+            <motion.div
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              className="mb-10 flex items-center gap-3 rounded-2xl border border-red-200 bg-red-50 px-5 py-4 text-sm text-red-600"
+            >
+              <AlertCircle size={16} className="shrink-0" />
+              {error}
+            </motion.div>
+          )}
+        </AnimatePresence>
+
         {/* GRID */}
-        <div className="grid gap-8 lg:grid-cols-2">
-          {caseStudies.map((item, index) => (
-            <CaseStudyCard key={item.title} item={item} index={index} />
-          ))}
-        </div>
+        {loading ? (
+          <div className="grid gap-8 lg:grid-cols-2">
+            {[...Array(4)].map((_, i) => <SkeletonCard key={i} />)}
+          </div>
+        ) : studies.length === 0 && !error ? (
+          <div className="flex flex-col items-center gap-4 py-24 text-center text-gray-400">
+            <p style={{ fontSize: "18px", fontWeight: 600, color: "#0d1f4e" }}>
+              No case studies published yet.
+            </p>
+            <p style={{ fontSize: "14px", color: "var(--text-secondary-default)" }}>
+              Check back soon for our latest work.
+            </p>
+          </div>
+        ) : (
+          <div className="grid gap-8 lg:grid-cols-2">
+            {studies.map((item, index) => (
+              <CaseStudyCard key={item._id} item={item} index={index} />
+            ))}
+          </div>
+        )}
 
       </div>
     </section>

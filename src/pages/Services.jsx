@@ -1,40 +1,7 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
-import UI from "../assets/services/UI/UX.png";
 import { useNavigate } from "react-router-dom";
 import { getServicesAll } from "../services/service";
-
-const services = [
-  {
-    title: "Web Development",
-    description:
-      "Custom websites and applications built to perform with scalability and modern UX.",
-    image:
-      "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=80",
-    wide: true,
-    tall: true,
-  },
-  {
-    title: "SaaS Development",
-    description:
-      "End-to-end SaaS platforms designed for scalability and performance.",
-    image:
-      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80",
-  },
-  {
-    title: "AI & Automation",
-    description:
-      "Smart automation systems to improve efficiency and reduce manual work.",
-    image:
-      "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=800&q=80",
-  },
-  {
-    title: "UI/UX Design",
-    description: "Human-centered design focused on usability and conversion.",
-    image: UI,
-    wide: true,
-  },
-];
 
 const container = {
   hidden: { opacity: 0 },
@@ -54,12 +21,17 @@ function Services() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-100px" });
 
-  const getData = async () => {
-    const data = await getServicesAll();
-    console.log(data.data);
-  };
+  const [services, setServices] = useState([]);
 
   useEffect(() => {
+    const getData = async () => {
+      try {
+        const res = await getServicesAll();
+        setServices(res.data || []);
+      } catch (err) {
+        console.error(err);
+      }
+    };
     getData();
   }, []);
 
@@ -104,7 +76,7 @@ function Services() {
       >
         {services.map((service) => (
           <motion.div
-            key={service.title}
+            key={service._id}
             variants={fadeUp}
             className={`relative overflow-hidden rounded-2xl group cursor-pointer shadow-lg
               ${service.wide ? "lg:col-span-2" : ""}
@@ -134,9 +106,7 @@ function Services() {
               </p>
 
               <button
-                onClick={() => {
-                  navigate("/portfolioDetail");
-                }}
+                onClick={() => navigate(`/servicesDetail/${service._id}`)}
                 className="mt-5 p-7 bg-[#e8192c] text-white text-sm font-semibold px-5 py-2 rounded-lg opacity-0 translate-y-3 group-hover:opacity-100 group-hover:translate-y-0 transition duration-500"
               >
                 Learn More
