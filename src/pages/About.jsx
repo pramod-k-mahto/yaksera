@@ -172,7 +172,7 @@ export default function About() {
 
           {/* circular photo */}
           <motion.div
-            className="relative z-10 w-72 h-72 rounded-full overflow-hidden border-4 border-white shadow-2xl"
+            className="relative z-10 w-80 h-80 border-white rounded-full overflow-hidden border-4 shadow-2xl"
             variants={scaleIn}
             initial="hidden"
             animate="visible"
@@ -188,11 +188,11 @@ export default function About() {
       </section>
 
       {/* ── SAY YES ──────────────────────────────────────────────────────────── */}
-      <section className="flex flex-col md:flex-row items-center gap-12 px-10 md:px-20 py-20 bg-white">
+      <section className="flex   justify-between flex-col md:flex-row items-center gap-12 px-10 md:px-20 py-20 bg-white">
 
         {/* circular image with blue half-circle backdrop */}
         <motion.div
-          className="relative flex-shrink-0 w-64 h-64"
+          className="relative flex-shrink-0 "
           variants={scaleIn}
           initial="hidden"
           whileInView="visible"
@@ -204,7 +204,7 @@ export default function About() {
             className="absolute bottom-0 left-0 w-full h-1/2 bg-[#5b8fa8] rounded-b-full"
           />
           {/* full circle photo */}
-          <div className="relative z-10 w-64 h-64 rounded-full overflow-hidden shadow-xl">
+          <div className="relative z-10 w-97 h-97 border-8  rounded-full overflow-hidden shadow-xl">
             <img
               src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=500&q=80"
               alt="Happy professional"
@@ -214,7 +214,7 @@ export default function About() {
         </motion.div>
 
         {/* text */}
-        <div className="max-w-md">
+        <div className="max-w-md   ">
           <motion.h2
             className="text-3xl md:text-4xl font-extrabold text-[#0d1b4b] leading-tight mb-4"
             variants={fadeUp}
