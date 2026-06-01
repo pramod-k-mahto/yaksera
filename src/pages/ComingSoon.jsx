@@ -1,15 +1,17 @@
-import React from "react";
 import { motion } from "framer-motion";
-
+import logo from '../assets/yaksera.jpg.jpeg'
 export default function ComingSoon() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-white text-gray-800 px-6">
+    <div className="min-h-screen flex  items-center justify-center bg-blue-950 text-gray-800 px-6">
 
       {/* background glow */}
       <div className="absolute w-[400px] h-[400px] bg-red-100 rounded-full blur-3xl opacity-40" />
 
       <div className="relative text-center max-w-md">
 
+        <div  className="flex justify-center items-center m-auto  " >
+          <img className="w-60 " src={logo} alt="logo" />
+        </div>
         {/* animated badge */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
@@ -19,6 +21,7 @@ export default function ComingSoon() {
         >
           🚧 Under Construction
         </motion.div>
+
 
         {/* title */}
         <motion.h1
@@ -35,7 +38,7 @@ export default function ComingSoon() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.7 }}
-          className="mt-4 text-sm text-gray-500 leading-relaxed"
+          className="mt-4 text-sm text-white leading-relaxed"
         >
           We’re building something powerful behind the scenes.  
           Stay tuned — this page will be live very soon.
