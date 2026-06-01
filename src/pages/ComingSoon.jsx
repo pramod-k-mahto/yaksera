@@ -27,7 +27,7 @@ export default function ComingSoon() {
           transition={{ delay: 0.1, duration: 0.7 }}
           className="text-4xl md:text-5xl font-extrabold text-[#0d1b4b]"
         >
-          Coming Soon
+          Coming Soon...
         </motion.h1>
 
         {/* subtitle */}
