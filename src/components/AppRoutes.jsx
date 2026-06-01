@@ -36,10 +36,12 @@ import ServicesDetail from "../pages/ServicesDetail.jsx";
 import AddService from "../pages/admin/AddService.jsx";
 import VerifyEmail from "../pages/VerifyEmail.jsx";
 import Profile from "../pages/admin/Profile.jsx";
+import ComingSoon from "../pages/ComingSoon.jsx";
 function AppRoutes() {
   return (
     <Routes>
       {/* HOME */}
+      {/* <Route path="/" element={<ComingSoon />} /> */}
       <Route path="/" element={<Home />} />
       {/* REAL PAGES */}
       <Route path="/about" element={<About />} />
