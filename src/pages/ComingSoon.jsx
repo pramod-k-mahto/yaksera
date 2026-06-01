@@ -1,16 +1,15 @@
 import { motion } from "framer-motion";
-import logo from '../assets/yaksera.jpg.jpeg'
+
+import l from "../assets/abc.png";
 export default function ComingSoon() {
   return (
     <div className="min-h-screen flex  items-center justify-center bg-blue-950 text-gray-800 px-6">
-
       {/* background glow */}
       <div className="absolute w-[400px] h-[400px] bg-red-100 rounded-full blur-3xl opacity-40" />
 
       <div className="relative text-center max-w-md">
-
-        <div  className="flex justify-center items-center m-auto  " >
-          <img className="w-60 " src={logo} alt="logo" />
+        <div className="flex justify-center items-center m-auto  ">
+          <img className="w-60 " src={l} alt="logo" />
         </div>
         {/* animated badge */}
         <motion.div
@@ -21,7 +20,6 @@ export default function ComingSoon() {
         >
           🚧 Under Construction
         </motion.div>
-
 
         {/* title */}
         <motion.h1
@@ -40,8 +38,8 @@ export default function ComingSoon() {
           transition={{ delay: 0.2, duration: 0.7 }}
           className="mt-4 text-sm text-white leading-relaxed"
         >
-          We’re building something powerful behind the scenes.  
-          Stay tuned — this page will be live very soon.
+          We’re building something powerful behind the scenes. Stay tuned — this
+          page will be live very soon.
         </motion.p>
 
         {/* loader animation */}
@@ -69,7 +67,6 @@ export default function ComingSoon() {
             Notify Me
           </button> */}
         </motion.div>
-
       </div>
     </div>
   );
