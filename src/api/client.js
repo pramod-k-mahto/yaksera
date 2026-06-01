@@ -17,6 +17,8 @@ export const apiClient = async (
         ...(isFormData ? {} : { "Content-Type": "application/json" }),
         ...headers,
       },
+          credentials: "include",
+
       body: isFormData ? body : body ? JSON.stringify(body) : undefined,
     });
 

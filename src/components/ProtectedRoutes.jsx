@@ -1,29 +1,26 @@
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { UserContext } from "../context/UserProvider";
 function ProtectedRoutes({ comp }) {
   const navigate = useNavigate();
-  let user = localStorage.getItem("user");
-  user = JSON.parse(user);
-
+  const info = useContext(UserContext);
+  // console.log(info.user?.data);
+  const role = info.user?.data?.role;
   useEffect(() => {
-    if (
-      user?.email !== "suman987@gmail.com" ||
-      user?.password !== "suman12345678"
-    ) {
+    if (!info.loading && role !== "admin") {
       navigate("/login", { replace: true });
     }
-  }, [user, navigate]);
+  }, [info?.loading, role, navigate]);
 
-  if (!user) {
-    return null; // or loading spinner
+  if (info.loading) {
+    return (
+      <div className="text-white   bg-black font-bold  text-4xl p-10">
+        Loading...
+      </div>
+    );
+  } else {
+    return comp;
   }
-
-  return comp;
 }
 
 export default ProtectedRoutes;
-
-
-// suman987@gmail.com
-// suman12345678

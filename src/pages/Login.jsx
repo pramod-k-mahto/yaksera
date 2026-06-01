@@ -2,6 +2,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Mail, Lock, Eye, EyeOff, LogIn } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { login } from "../services/users";
 
 function Login() {
   const [formData, setFormData] = useState({ email: "", password: "" });
@@ -15,16 +16,15 @@ function Login() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    // Simulate async — replace with your real API call
-    localStorage.setItem("user", JSON.stringify(formData)); // --- IGNORE ---
-    setTimeout(() => {
-      //   console.log("Login Data:", formData);
-      setLoading(false);
+    let data = await login(formData);
+    console.log(data);
+    setLoading(false);
+    if (data) {
       navigate("/admin"); // Redirect to admin dashboard after successful login
-    }, 500);
+    }
   };
 
   return (

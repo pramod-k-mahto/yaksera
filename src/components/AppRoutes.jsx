@@ -34,6 +34,8 @@ import AddCaseStudy from "../pages/admin/AddCaseStudy.jsx";
 import CaseStudiesDetail from "../pages/CaseStudiesDetail.jsx";
 import ServicesDetail from "../pages/ServicesDetail.jsx";
 import AddService from "../pages/admin/AddService.jsx";
+import VerifyEmail from "../pages/VerifyEmail.jsx";
+import Profile from "../pages/admin/Profile.jsx";
 function AppRoutes() {
   return (
     <Routes>
@@ -41,6 +43,7 @@ function AppRoutes() {
       <Route path="/" element={<Home />} />
       {/* REAL PAGES */}
       <Route path="/about" element={<About />} />
+      <Route path="/login" element={<Login />} />
       <Route path="/hire" element={<Hire />} />
       <Route path="/jobApplicationForm" element={<JobApplicationForm />} />
       <Route path="/contact" element={<Contact />} />
@@ -48,14 +51,15 @@ function AppRoutes() {
       <Route path="/caseStudiesDetail/:id" element={<CaseStudiesDetail />} />
       <Route path="/blogDetail/:id" element={<BlogDetail />} />
       <Route path="/portfolioDetail" element={<PortfolioDetail />} />
-      <Route path="/login" element={<Login />} />
       <Route path="/servicesDetail/:id" element={<ServicesDetail />} />
+      <Route path="/verifyEmail/:token" element={<VerifyEmail />} />
 
       {/* Admin */}
 
       <Route path="/admin/" element={<ProtectedRoutes comp={<Dashboard />} />}>
         <Route path="logoManagement" element={<LogoManagement />} />
         <Route index element={<LogoManagement />} />
+        <Route path="profile" element={<Profile />} />
 
         <Route path="blogManagement" element={<BlogManagement />} />
         <Route path="addNewBlog" element={<AddNewBlog />} />
