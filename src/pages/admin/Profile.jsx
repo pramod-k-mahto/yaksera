@@ -9,7 +9,7 @@ function Profile() {
  
   const logoutUser = async () => {
     let data = await logout();
-    console.log(data);
+    // console.log(data);
     // console.log(data);
     if (data?.status == 200) {
       return navigate("/login"); // Redirect to admin dashboard after successful login

@@ -3,7 +3,7 @@ import Footer from "./components/Footer";
 import AppRoutes from "./components/AppRoutes";
 import ComingSoon from "./pages/ComingSoon";
 function App() {
-  let isTrue = true;
+  let isTrue = false;
   return (
     <div className="bg-white">
       {isTrue ? (

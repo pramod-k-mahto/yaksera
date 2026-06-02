@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { login } from "../services/users";
 import { useContext } from "react";
 import { UserContext } from "../context/UserProvider";
+import { useEffect } from "react";
 
 function Login() {
   const [formData, setFormData] = useState({ email: "", password: "" });
@@ -12,6 +13,7 @@ function Login() {
   // const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const { loading, user, setUser, setLoading } = useContext(UserContext);
+
   const navigate = useNavigate();
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -22,20 +24,26 @@ function Login() {
     try {
       setLoading(true);
       let data = await login(formData);
-      console.log(data.data?.user);
-      alert(data?.message)
-      setUser(data.data?.user);
+      // console.log(data.data?.user);
+      alert(data?.message);
+      setUser(data?.data?.user);
+
+      if (data?.data?.user) {
+        return navigate("/admin"); // Redirect to admin dashboard after successful login
+      }
       setLoading(false);
     } catch (error) {
       console.log(error);
       setError(error);
       setLoading(false);
     }
-
-    if (user && !loading) {
-      return navigate("/admin"); // Redirect to admin dashboard after successful login
-    }
   };
+
+  useEffect(() => {
+    if (!user) {
+      return navigate("/");
+    }
+  }, [navigate]);
 
   return (
     <div className="min-h-screen bg-[#080c10] flex items-center justify-center p-4 relative overflow-hidden">

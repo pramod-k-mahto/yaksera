@@ -4,7 +4,7 @@ import { UserContext } from "../context/UserProvider";
 function ProtectedRoutes({ comp }) {
   const navigate = useNavigate();
   const { loading, user } = useContext(UserContext);
-  console.log(user);
+  // console.log(user);
   const role = user?.role;
   useEffect(() => {
     if (!loading && role !== "admin") {

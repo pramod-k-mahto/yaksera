@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react";
-import { Outlet, NavLink, useLocation } from "react-router-dom";
+import { Outlet, NavLink, useLocation, data } from "react-router-dom";
 import { motion } from "framer-motion";
 
 import {
@@ -57,7 +57,7 @@ function Dashboard() {
 
   const { user } = useContext(UserContext);
 
-  const data = user?.data?.loggedInUser || user?.data;
+  // console.log(user)
 
   const min = 80;
   const max = 320;
@@ -180,8 +180,8 @@ function Dashboard() {
           <div className="text-xs text-white/40">
             <NavLink to="/admin/profile">
               <img
-                className="w-10 h-10 rounded-full border-4 border-white object-cover"
-                src={data?.profile || "/default-avatar.png"}
+                className="w-10 h-10 rounded-full border border-white object-cover"
+                src={user?.profile || "/default-avatar.png"}
                 alt="profile"
               />
             </NavLink>
