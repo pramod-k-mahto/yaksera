@@ -3,16 +3,16 @@ import { useNavigate } from "react-router-dom";
 import { UserContext } from "../context/UserProvider";
 function ProtectedRoutes({ comp }) {
   const navigate = useNavigate();
-  const info = useContext(UserContext);
-  // console.log(info.user?.data);
-  const role = info.user?.data?.role;
+  const { loading, user } = useContext(UserContext);
+  console.log(user);
+  const role = user?.role;
   useEffect(() => {
-    if (!info.loading && role !== "admin") {
+    if (!loading && role !== "admin") {
       navigate("/login", { replace: true });
     }
-  }, [info?.loading, role, navigate]);
+  }, [loading, navigate]);
 
-  if (info.loading) {
+  if (user == null && loading) {
     return (
       <div className="text-white   bg-black font-bold  text-4xl p-10">
         Loading...

@@ -3,27 +3,37 @@ import { motion } from "framer-motion";
 import { Mail, Lock, Eye, EyeOff, LogIn } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { login } from "../services/users";
+import { useContext } from "react";
+import { UserContext } from "../context/UserProvider";
 
 function Login() {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
-  const [loading, setLoading] = useState(false);
-
+  // const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const { loading, user, setUser, setLoading } = useContext(UserContext);
   const navigate = useNavigate();
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
-    let data = await login(formData);
-    console.log(data);
-    setLoading(false);
-    if (data) {
-      navigate("/admin"); // Redirect to admin dashboard after successful login
+    try {
+      setLoading(true);
+      let data = await login(formData);
+      console.log(data.data?.user);
+      alert(data?.message)
+      setUser(data.data?.user);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+      setError(error);
+      setLoading(false);
+    }
+
+    if (user && !loading) {
+      return navigate("/admin"); // Redirect to admin dashboard after successful login
     }
   };
 

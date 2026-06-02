@@ -3,6 +3,12 @@ import { apiClient } from "../api/client.js";
 export const getAllUsers = async () => {
   return await apiClient("/api/v1/users");
 };
+export const registerUser = async (formData) => {
+  return await apiClient("/api/v1/users/register", {
+    method: "POST",
+    body: formData,
+  });
+};
 export const login = async (user) => {
   return await apiClient("/api/v1/users/login", {
     method: "POST",
@@ -10,7 +16,14 @@ export const login = async (user) => {
       "Content-Type": "application/json",
     },
     body: user,
-    credentials: "include",
+  });
+};
+export const logout = async () => {
+  return await apiClient("/api/v1/users/logout", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
   });
 };
 export const verifyEmail = async (token) => {

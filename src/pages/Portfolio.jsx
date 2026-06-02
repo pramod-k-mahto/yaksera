@@ -51,11 +51,8 @@ function Portfolio() {
     const fetchProjects = async () => {
       try {
         setLoading(true);
-
         const response = await getPortfolios();
-
         // console.log("RAW API RESPONSE:", response);
-
         // SAFE EXTRACTION (prevents crash)
         const data = response?.data?.data || response?.data || [];
 
@@ -65,7 +62,6 @@ function Portfolio() {
           setProjects([]);
           return;
         }
-
         setProjects(data);
       } catch (err) {
         console.error("API ERROR:", err);

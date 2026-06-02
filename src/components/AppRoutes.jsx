@@ -37,6 +37,7 @@ import AddService from "../pages/admin/AddService.jsx";
 import VerifyEmail from "../pages/VerifyEmail.jsx";
 import Profile from "../pages/admin/Profile.jsx";
 import ComingSoon from "../pages/ComingSoon.jsx";
+import Register from "../auth/Register.jsx";
 function AppRoutes() {
   return (
     <Routes>
@@ -46,6 +47,7 @@ function AppRoutes() {
       {/* REAL PAGES */}
       <Route path="/about" element={<About />} />
       <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
       <Route path="/hire" element={<Hire />} />
       <Route path="/jobApplicationForm" element={<JobApplicationForm />} />
       <Route path="/contact" element={<Contact />} />
